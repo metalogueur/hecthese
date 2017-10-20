@@ -6,12 +6,12 @@ University.
 
 LICENCE
 
-LaTeX Project Public License, version 1.3 or (at your option) any
+LaTeX Project Public License, version 1.3c or (at your option) any
 later version.
 
 VERSION
 
-1.0
+1.1
 
 *** The rest of this file is in French ***
 
