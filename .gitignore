@@ -1,0 +1,12 @@
+# file extensions to ignore in the commits
+*.log
+*.aux
+*.bbl
+*.blg
+*.glo
+*.gls
+*.idx
+*.ilg
+*.ind
+*.out
+*.zip
