@@ -25,9 +25,9 @@
 \ProvidesFile{hecthese.dtx}
 %</dtx>
 %<class>\NeedsTeXFormat{LaTeX2e}
-%<class>\ProvidesClass{hecthese}[2017/11/29 v1.3 Classe pour les theses et memoires de HEC Montreal]
+%<class>\ProvidesClass{hecthese}[2017/11/29 v1.3 Class for dissertations and theses at HEC Montreal]
 %<*driver>
-\documentclass[10pt,english,frenchb]{ltxdoc}
+\documentclass[10pt,english]{ltxdoc}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{babel}
@@ -42,8 +42,6 @@
 \DisableCrossrefs
 \CodelineIndex
 \RecordChanges
-\GlossaryPrologue{\section*{Historique des versions}%
-	\addcontentsline{toc}{section}{Historique des versions}}
 
 \definecolor{liens}{rgb}{0,0.35,0.65}
 \definecolor{shadecolor}{rgb}{0.93,0.97,0.99}
@@ -53,16 +51,8 @@
 \hypersetup{
 	colorlinks=true,
 	allcolors=liens,
-	pdftitle={Guide d'utilisation de la classe hecthese},
+	pdftitle={hecthese Document Class User Guide},
 	pdfauthor={Benoit Hamel, HEC Montréal}
-}
-
-\frenchbsetup{
-	og=«, fg=»
-}
-
-\addto\captionsfrench{%
-	\renewcommand{\tablename}{Tableau}
 }
 
 \MakeShortVerb{\+}
@@ -75,7 +65,7 @@
 \setlist[HECcompilation]{label=\faCog}
 
 \begin{document}
-	\DocInput{hecthese.dtx}
+	\DocInput{hecthese-en.dtx}
 \end{document}
 %</driver>
 % \fi
@@ -85,143 +75,121 @@
 % \DoNotIndex{\emph,\cite,\LaTeX,\hecthese,\textbf,\item,\footnote}
 % \DoNotIndex{\label,\ref,\caption,\hline,\multicolumn,\oui,\non,\cmd}
 % \DoNotIndex{\dots,\url,\clearpage,\bibitem}
-% \changes{1.3}{2018-04-17}{Première version anglaise de la classe}
-% \changes{1.2}{2017-11-29}{Mise à jour des liens vers les capsules vidéos dans
-%	la documentation.}
-% \changes{1.1}{2017-10-20}{Uniformisation de la licence lppl dans tous les fichiers.
-%	Ajout de liens vers des capsules vidéos dans la documentation.}
-% \changes{1.0}{2017-10-06}{Première version de production lancée publiquement.
-%	Ajout du préfixe HEC à toutes les commandes publiques. Révision,
-%	correction et augmentation de la documentation. Ajout des sections non numérotées
-%	"mots clés" et "méthodes de recherche" dans le résumé et l'abstract. Prise en charge
-%	de l'anglais pour les intitulés de chapitres et sections. Correction du bogue d'affichage
-%	des citations "hors articles" dans les thèses et mémoires par articles.}
-% \changes{0.4.1}{2017-06-08}{Ajout d'une condition pour vérifier la présence du sous-titre
-%	dans la mise en forme de la page d'identification du jury.}
-% \changes{0.4}{2017-06-01}{Retrait de la section «Mise en garde» de la documentation et
-%	ajout de l'encadré «Phase de tests de la version bêta. Lancement du package pour fins
-%	de tests.}
-% \changes{0.3}{2017-05-29}{Retrait du package +mathptmx+ des packages requis par la classe.
-% 	Ajout du choix de polices entre +mathptmx+ et +mathpazo+ dans les gabarits. Ajout des
-%	sections «Rédaction» et «Compilation» dans la documentation.}
-% \changes{0.2}{2017-05-18}{Première version bêta lancée pour les tests usagers}
-% \title{{\hecthese} : la classe {\LaTeX} pour les thèses et mémoires de HEC Montréal}
-% \author{Benoit Hamel, Bibliothèque, HEC Montréal}
+% \changes{1.3}{2018-04-17}{First english version of the class}
+% \title{{\hecthese} : a {\LaTeX} document class for dissertations and theses at HEC Montréal}
+% \author{Benoit Hamel, Library, HEC Montréal}
 % \date{\today}
 % \maketitle
 %
 % \begin{abstract}
-%	La classe {\LaTeX} {\hecthese} a été conçue pour permettre aux étudiants de HEC Montréal
-% 	de rédiger leur thèse ou leur mémoire à l'aide du système de préparation de documents tout
-%	en se conformant aux règles de présentation en vigueur à l'École. À ce titre, la classe
-%	répond en tous points aux normes de présentation énoncées dans le 
-%	\emph{Guide pour la rédaction d'un travail universitaire de 1er, 2e et 3e cycles}\cite{guideRedaction}, ci-après
-%	nommé le \emph{Guide de rédaction}.
+%	The \hecthese\ \LaTeX\ document class has been created to allow graduate students at HEC Montréal
+%	to write their dissertation or thesis with the document preparation system while complying to all
+%	presentation standards required by the University. As such, the class complies entirely with the
+%	\emph{Guidelines for Writing an Academic Work at a Graduate Level}\cite{guideRedaction},
+%	hereafter called the \emph{Guidelines}.
 % \end{abstract}
 %
-% \section{Installation de la classe}
+% \section{Installing the class}
 %
-% \subsection{Prérequis}
+% \subsection{Prerequisites}
 %
-%	L'utilisation de cette classe suppose que vous avez déjà installé une distribution TeX et
-% 	un éditeur de code intégré. Pour la conception de {\hecthese}, la distribution TeXLive 2016\cite{texlive}
-% 	et l'éditeur de code TeXStudio\cite{texstudio} ont été utilisés et ses fonctionnalités ont 
-%	été testées avec les compilateurs +latex+, +pdflatex+, +bibtex+ et +makeindex+. La classe
-%	a également été testée avec la distribution MiK\TeX\footnote{Un immense merci à Franck Jeannot pour avoir effectué ces tests!}.
-% 	Nous vous invitons à la tester avec vos propres distributions TeX et
-%	éditeurs de codes et à l'utiliser de la même manière dont vous vous servez de vos outils pour vos
-%	autres travaux en {\LaTeX}.
+%	Use of this document class presumes that you have already installed a \TeX\ distribution and
+% 	a code editor. For the development of \hecthese, the \TeX Live 2016 distribution\cite{texlive}
+%	and the \TeX Studio code editor\cite{textstudio} were used. Its features were tested with the
+%	+latex+, +pdflatex+, +bibtex+ and +makeindex+ compilers. The class has also been tested with the
+%	MiK\TeX\ distribution\footnote{A big ``thank you!'' goes to Franck Jeannot for making the tests.}.
+%	We invite you to test the class with your own distribution and code editor and to use it like
+%	you would with any other work you do with \LaTeX.
 %
 % \subsection{Installation}
 %
-% 	L'archive +.zip+ que vous avez téléchargée contient les cinq fichiers et répertoire suivants :
+%	The +.zip+ archive you downloaded contains the following files and directory:
 %
 %	\begin{enumerate}
-%		\item \textbf{hecthese.ins} : le fichier d'installation de la classe;
-%		\item \textbf{hecthese.dtx} : le code source documenté de la classe;
-%		\item \textbf{hecthese.pdf} : la documentation de la classe;
-%		\item \textbf{README.md} : le fichier nécessaire à l'affichage de la
-%			description de la classe sur le site ctan.org.
-%		\item \textbf{<english/>} : le répertoire contenant la version anglaise
-%			de la classe.
+%		\item \textbf{hecthese.ins} : the french class installation file;
+%		\item \textbf{hecthese.dtx} : the french documented source code;
+%		\item \textbf{hecthese.pdf} : the french class documentation;
+%		\item \textbf{README.md} : the file required to show the class description on
+%			the ctan.org Website;
+%		\item \textbf{<english/>} : directory containing the english translation on the class.
 % 	\end{enumerate}
 %
-%	Suivez les étapes suivantes pour installer la classe
-%	\footnote{Une vidéo d'installation est aussi disponible au \url{https://www.youtube.com/watch?v=nfTEgcJbufs}.} :
+%	Follow these steps to install the class
+%	\footnote{An installation tutorial is available at \url{https://www.youtube.com/watch?v=nfTEgcJbufs} (in french with english subtitles).}:
 %
 %	\begin{enumerate}
-%		\item Créez-vous un répertoire de travail.
-%		\item Décompressez l'archive +.zip+ dans votre répertoire de travail.
-%		\item Ouvrez un éditeur de ligne de commande.
-%		\item Changez de répertoire pour atteindre votre répertoire de travail.
-%		\item Saisissez la commande suivante dans l'éditeur : \\
+%		\item Create a working directory on your computer.
+%		\item Extract the +.zip+ archive in that directory.
+%		\item Open a command-line editor.
+%		\item Change directories until you reach your working directory.
+%		\item Type the following command in the editor:\\
 %			\begin{shaded*}
-%				+latex hecthese.ins+
+%				+latex hecthese-en.ins+
 %			\end{shaded*}
 % 	\end{enumerate}
 %
-%	La commande créera une série de fichiers qui composeront votre travail, et la liste des
-% 	fichiers que vous aurez à utiliser dépendra du type de travail que vous composerez.
+%	The command will create a bunch of files that will become your document. The list of files
+%	needed will depend on the type of document you'll be writing.
 %
-% 	\subsection{\label{liste-fichiers}Liste des fichiers constitutifs d'un travail}
+% 	\subsection{\label{liste-fichiers}List of a document's required files}
 %
-% 	Le Tableau \ref{tableau:fichiers} montre la liste des fichiers composant chaque type de document. En fonction
-% 	du type de votre travail, vous devrez choisir l'un des quatre gabarits suivants :
+%	Table \ref{tableau:fichiers} shows a list of all required files for each type of document.
+%	Depending on the type of work you'll be doing, you'll have to choose between one of these four
+%	templates:
 %	
 %	\begin{itemize}
-%		\item \textbf{gabarit-these-classique.tex} : gabarit pour une thèse rédigée de manière classique;
-%		\item \textbf{gabarit-these-articles.tex} : gabarit pour une thèse rédigée par articles;
-%		\item \textbf{gabarit-memoire-classique.tex} : gabarit pour un mémoire rédigé de manière classique;
-%		\item \textbf{gabarit-memoire-articles.tex} : gabarit pour un mémoire rédigé par articles.
+%		\item \textbf{template-phd-classic.tex} : template for writing a dissertation in a classic manner;
+%		\item \textbf{template-phd-articles.tex} : template for writing a dissertation with articles;
+%		\item \textbf{template-msc-classic.tex} : template for writing a thesis in a classic manner;
+%		\item \textbf{template-msc-articles.tex} : template for writing a thesis with articles.
 %	\end{itemize}
 %
 %	\begin{table}[tb]
-%		\caption{\label{tableau:fichiers} Liste des fichiers constitutifs d'un travail}
+%		\caption{\label{tableau:fichiers} List of a document's required files}
 %		\begin{center}
 %			\begin{tabular}{l|cc|cc}
 %				\hline\hline
-%				& \multicolumn{2}{c|}{Thèses} & \multicolumn{2}{c}{Mémoires} \\
-%				\textbf{Fichier} & Classiques & Par articles & Classiques & Par articles \\
+%				& \multicolumn{2}{c|}{Dissertations} & \multicolumn{2}{c}{Theses} \\
+%				\textbf{Fichier} & Classic & With articles & Classic & With articles \\
 %				\hline
-%				gabarit-these-*.tex & \oui & \oui & \non & \non \\
-%				gabarit-memoire-*.tex & \non & \non & \oui & \oui \\
-%				resume-francais.tex & \oui & \oui & \oui & \oui \\
-%				resume-anglais.tex & \oui & \oui & \oui & \oui \\
-%				liste-abreviations.tex & \oui & \oui & \oui & \oui \\
-%				dedicace.tex & \oui & \oui & \non & \non \\
-%				remerciements.tex & \oui & \oui & \oui & \oui \\
-%				avant-propos.tex & \oui & \oui & \oui & \oui \\
+%				template-phd-*.tex & \oui & \oui & \non & \non \\
+%				template-msc-*.tex & \non & \non & \oui & \oui \\
+%				abstract-french.tex & \oui & \oui & \oui & \oui \\
+%				abstract-english.tex & \oui & \oui & \oui & \oui \\
+%				acronym-list.tex & \oui & \oui & \oui & \oui \\
+%				dedication.tex & \oui & \oui & \non & \non \\
+%				acknowledgements.tex & \oui & \oui & \oui & \oui \\
+%				preface.tex & \oui & \oui & \oui & \oui \\
 %				introduction.tex & \oui & \oui & \oui & \oui \\
-%				cadre-theorique.tex & \non & \oui & \non & \non \\
-%				revue-litterature.tex & \non & \non & \oui & \oui \\
-%				chapitre-1.tex & \oui & \non & \oui & \non \\
-%				chapitre-2.tex & \oui & \non & \oui & \non \\
-%				chapitre-3.tex & \oui & \non & \oui & \non \\
+%				theoretical-framework.tex & \non & \oui & \non & \non \\
+%				literature-revue.tex & \non & \non & \oui & \oui \\
+%				chapter-1.tex & \oui & \non & \oui & \non \\
+%				chapter-2.tex & \oui & \non & \oui & \non \\
+%				chapter-3.tex & \oui & \non & \oui & \non \\
 %				article-1.tex & \non & \oui & \non & \oui \\
 %				article-2.tex & \non & \oui & \non & \non \\
 %				article-3.tex & \non & \oui & \non & \non \\
 %				conclusion.tex & \oui & \oui & \oui & \oui \\
-%				annexe.tex & \oui & \oui & \oui & \oui \\
+%				appendix.tex & \oui & \oui & \oui & \oui \\
 %				\hline\hline
 %			\end{tabular}
 %		\end{center}
 %	\end{table}
 %
-%	Une fois que vous aurez choisi un gabarit, supprimez les trois fichiers gabarits dont vous
-%	n'aurez pas besoin. Ce fichier constitue le fichier maître à partir duquel vous lancerez les
-% 	diverses compilations nécessaires à la génération de votre document final. C'est également dans le
-%	gabarit que vous saisirez les métadonnées relatives à votre travail (auteur, titre, etc.) et que
-%	vous ajouterez les +packages+, commandes et environnements nécessaires à votre rédaction.
+%	Once you have chosen a template file, delete the three remaining ones as you won't need them.
+%	The template file is your document's master file, the one on which you will have to run all
+%	compilers needed to generate your final document. It is also in this file that you will write
+% 	all the metadata related to your work (title, author, etc.) and add all packages, user-defined 
+%	commands and environments you will need to complete your work.
 %
-%	La rédaction en tant que telle se fera dans les autres fichiers. Chaque fichier représente une
-% 	section de votre travail. Leur nom est donc, comme on le dit en chinois, \emph{self-explanatory}.
-%	Vous pourrez en ajouter ou en supprimer à votre guise. Assurez-vous seulement
-%	d'inclure les fichiers ajoutés dans le gabarit avec la commande \cmd{\include}, de supprimer les
-%	\cmd{\include} relatifs aux fichiers supprimés, mais surtout, de respecter les règles du
-%	\emph{Guide de rédaction} en ce qui concerne les sections obligatoires et
-% 	l'ordre de présentation des sections.
+%	Your work will be written in the other files. Each file represents a section of your work. Their
+%	name is, as such, self-explanatory. You can add and delete as many files as you wish. Just make
+%	sure to include the added files to your template file with \cmd{\include} commands, to erase the
+%	\cmd{\include} commands related to the deleted files and, most of all, to comply with all the
+%	\emph{Guidelines}' rules related to the mandatory sections of your work and their presentation
+% 	order.
 %
-%	\section{Utilisation de la classe}
+%	\section{Using the class}
 %
 %	La classe {\hecthese} a été conçue pour être la plus simple et la plus flexible possible. Le but premier
 %	de la classe étant la mise en forme de votre thèse ou mémoire selon les normes du 
@@ -593,60 +561,60 @@
 %	\clearpage
 %	\begin{thebibliography}{99}%	
 %	\bibitem{guideRedaction}
-%		Centre d'aide en français et en rédaction universitaire (2015).
-%		\emph{Guide pour la rédaction d'un travail universitaire de 1er, 2e et 3e cycles},
-%		HEC Montréal. Consulté le 18 mai 2017 à 
-%		\url{http://www.hec.ca/qualitecomm/caf/guide-redaction-travail-cycles.pdf}
+%		Centre de formation en langues des affaires (2014).
+%		\emph{Guidelines for Writing an Academic Work at a Graduate Level},
+%		HEC Montréal. Viewed on April 17, 2018 at
+%		\url{http://www.hec.ca/qualitecomm/anglais/ressources/guide-redaction-depot-memoire-anglais.pdf}
 %	\bibitem{texlive}
-%		\emph{TeX Live}, TeX Users Group. Consulté le 18 mai 2017 à
+%		\emph{TeX Live}, TeX Users Group. Viewed on May 18, 2017 at
 %		\url{https://www.tug.org/texlive/}
 %	\bibitem{texstudio}
-%		van der Zander, Benito, Jan Sundermeyer, Daniel Braun et Tim Hoffmann (2017).
-%		\emph{TeXstudio : LaTeX made comfortable}, TeXstudio. Consulté le 18 mai 2017 à
+%		van der Zander, Benito, Jan Sundermeyer, Daniel Braun and Tim Hoffmann (2017).
+%		\emph{TeXstudio : LaTeX made comfortable}, TeXstudio. Viewed on May 18, 2017 at
 %		\url{http://www.texstudio.org/}
 %	\bibitem{memoir}
 %		Wilson, Peter R., Lars Madsen (2016).
-%		\emph{Package memoir}, Comprehensive TeX Archive Network. Consulté le 19 mai 2017
-%		à \url{https://www.ctan.org/pkg/memoir}
+%		\emph{Package memoir}, Comprehensive TeX Archive Network. Viewed on May 19, 2017
+%		at \url{https://www.ctan.org/pkg/memoir}
 %	\bibitem{babel}
 %		Bezos López, Javier, Johannes L. Braams (2017).
-%		\emph{Package babel}, Comprehensive TeX Archive Network. Consulté le 19 mai 2017
-%		à \url{https://www.ctan.org/pkg/babel}
+%		\emph{Package babel}, Comprehensive TeX Archive Network. Viewed on May 19, 2017
+%		at \url{https://www.ctan.org/pkg/babel}
 %	\bibitem{hyperref}
 %		Oberdiek, Heiko, Sebastian Rahtz (2017).
-%		\emph{Package hyperref}, Comprehensive TeX Archive Network. Consulté le 19 mai 2017
-%		à \url{https://www.ctan.org/pkg/hyperref}
+%		\emph{Package hyperref}, Comprehensive TeX Archive Network. Viewed on May 19, 2017
+%		at \url{https://www.ctan.org/pkg/hyperref}
 %	\bibitem{chapterbib}
 %		Arseneau, Donald (2010).
-%		\emph{Package chapterbib}, Comprehensive TeX Archive Network. Consulté le 23 mai 2017
-%		à \url{https://www.ctan.org/pkg/chapterbib}
+%		\emph{Package chapterbib}, Comprehensive TeX Archive Network. Viewed on May 23, 2017
+%		at \url{https://www.ctan.org/pkg/chapterbib}
 %	\bibitem{calc}
-%		Thorup, Kresten Krab, Frank Jensen et The {\LaTeX} Team (2007).
-%		\emph{Package calc}, Comprehensive TeX Archive Network. Consulté le 23 mai 2017 à
+%		Thorup, Kresten Krab, Frank Jensen and The {\LaTeX} Team (2007).
+%		\emph{Package calc}, Comprehensive TeX Archive Network. Viewed on May 23, 2017 at
 %		\url{https://www.ctan.org/pkg/calc}
 %	\bibitem{enumitem}
 %		Bezos López, Javier (2009).
-%		\emph{Package enumitem}, Comprehensive TeX Archive Network. Consulté le 23 mai 2017 à
+%		\emph{Package enumitem}, Comprehensive TeX Archive Network. Viewed on May 23, 2017 at
 %		\url{https://www.ctan.org/pkg/enumitem}
 %	\bibitem{ifthen}
-%		Lamport, Leslie, David Carlisle et The {\LaTeX} Team (2014).
-%		\emph{Package ifthen}, Comprehensive TeX Archive Network. Consulté le 23 mai 2017 à
+%		Lamport, Leslie, David Carlisle and The {\LaTeX} Team (2014).
+%		\emph{Package ifthen}, Comprehensive TeX Archive Network. Viewed on May 23, 2017 at
 %		\url{https://www.ctan.org/pkg/ifthen}
 %	\bibitem{francaisbst}
 %		Goulet, Vincent (2012).
-%		\emph{Package francais-bst}, Comprehensive TeX Archive Network. Consulté le 23 mai 2017 à
+%		\emph{Package francais-bst}, Comprehensive TeX Archive Network. Viewed on May 23, 2017 at
 %		\url{https://www.ctan.org/pkg/francais-bst}
 %	\bibitem{natbib}
 %		Daly, Patrick W., Arthur Ogawa (2009).
-%		\emph{Package natbib}, Comprehensive TeX Archive Network. Consulté le 29 mai 2017 à
+%		\emph{Package natbib}, Comprehensive TeX Archive Network. Viewed on May 29, 2017 at
 %		\url{https://www.ctan.org/pkg/natbib}
 %	\bibitem{iflang}
 %		Oberdiek, Heiko (2007).
-%		\emph{Package iflang}, Comprehensive TeX Archive Network. Consulté le 25 septembre 2017 à
+%		\emph{Package iflang}, Comprehensive TeX Archive Network. Viewed on September 25, 2017 at
 %		\url{https://www.ctan.org/pkg/iflang}
 %	\bibitem{stylehec}
 %		Archambault, Caroline (2017).
-%		\emph{Bibliographie selon le style HEC Montréal}, Bibliothèque HEC Montréal. Consulté le 5 octobre 2017 à
+%		\emph{Bibliographie selon le style HEC Montréal}, HEC Montréal Library. Viewed on October 5, 2017 at
 %		\url{http://libguides.hec.ca/style-hec}
 %	\end{thebibliography}
 %	\clearpage
