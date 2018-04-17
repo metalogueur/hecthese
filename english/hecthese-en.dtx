@@ -243,60 +243,57 @@
 %
 %	\subsection{Class commands}
 %
-%	La classe {\hecthese} comprend quelques commandes qu'on pourrait répartir en trois catégories :
+%	The \hecthese\ document class provides commands that can be separated in three categories:
 %	\begin{enumerate}
-%		\item les métadonnées de votre document (auteur, titre, etc.) servant à générer la (les)
-%			page(s) titre ;
-%		\item les commandes de mise en forme du document ;
-%		\item les commandes liées aux bibliographies des thèses et mémoires par articles.
+%		\item document metadata (author, title, etc.) used to generate the title pages;
+%		\item document layout commands;
+%		\item bibliography-related commands for dissertations and theses written with articles.
 %	\end{enumerate}
 %
-%	\subsubsection{Métadonnées du document}\label{commandes:meta}
+%	\subsubsection{Document metadata}\label{commandes:meta}
 %
-%	Les commandes ci-dessous s'appliquent à tous les types de documents.
+%	The following commands are used in all document types.
 %	
 %	\begin{DescribeMacro}{\HECtitre}
-%		Il s'agit du titre de votre thèse ou mémoire. N'utilisez pas la commande {\LaTeX}
-%		\cmd{\title}, car la classe n'en tiendra pas compte. Si votre titre est très long,
-%		séparez-le en plusieurs lignes avec la commande \cmd{\\}.
+%		This is the title of your dissertation or thesis. Do not use the \LaTeX\ \cmd{\title}
+%		command as the class will not take it into account. If your title is very long, separate it
+%		in more than one line with the \cmd{\\} command.
 %	\end{DescribeMacro}
 %
 %	\begin{DescribeMacro}{\HECsoustitre}
-%		Il s'agit du sous-titre de votre thèse ou mémoire, s'il y a lieu. Si votre travail
-%		comporte un sous-titre, un : séparera automatiquement le titre du sous-titre et ce
-%		dernier s'affichera sous le titre sans qu'il soit nécessaire d'insérer la commande
-%		\cmd{\\} dans le titre.
+%		This is the subtitle of your dissertation or thesis. If there is a subtitle, a colon (:)
+%		will automatically separate the title from the subtitle, and the latter will be laid out below
+%		the title without you having to add the \cmd{\\} command after the title.
 %	\end{DescribeMacro}
 %
 %	\begin{DescribeMacro}{\HECauteur}
-%		L'auteur de la thèse ou du mémoire, c'est vous, à moins que vous n'ayez plagié votre
-%		travail\dots Écrivez votre nom sous la forme \emph{Prénom Nom}. N'utilisez pas la commande
-%		{\LaTeX} \cmd{\author}, car la classe n'en tiendra pas compte.
+%		This is the author of the dissertation or thesis, meaning you, unless you have plagiarized
+%		your work\ldots Write your name in the \emph{FirstName LastName} format. Do not use the
+%		\LaTeX\ \cmd{\author} command as the class will not take it into account.
 %	\end{DescribeMacro}
 %
 %	\begin{DescribeMacro}{\HECoption}
-%		La commande \cmd{\HECoption} détermine l'option de votre grade de maîtrise ou de doctorat.
+%		The \cmd{\HECoption} determines your dissertation or thesis' option.
 %	\end{DescribeMacro}
 %
 %	\begin{DescribeMacro}{\HECmoisDepot}
 %	\end{DescribeMacro}
 %	\begin{DescribeMacro}{\HECanneeDepot}
-%		Les commandes \cmd{\HECmoisDepot} et \cmd{\HECanneeDepot} représentent le mois et l'année du
-%		\textbf{dépôt final} de votre travail. Inscrivez le mois en toutes lettres et l'année 
-%		au format AAAA.
+%		\cmd{\HECmoisDepot} and \cmd{\HECanneeDepot} represent the month and year of the final submission
+%		of your work. Write down the month in full and the year in the \emph{YYYY} format.
 %	\end{DescribeMacro}
 %
 %	\begin{DescribeMacro}{\HECpdfauteur}
 %	\end{DescribeMacro}
 %	\begin{DescribeMacro}{\HECpdftitre}
-%		Ces deux commandes sont des variantes de \cmd{\HECauteur} et \cmd{\HECtitre} et servent
-%		exclusivement à l'inclusion de métadonnées dans le document pdf généré. Pour ce
-%		faire, elle sont utilisées avec les options +pdftitle+ et +pdfauthor+ de la commande
-%		\cmd{\hypersetup} du +package+ +hyperref+\cite{hyperref}.
+%		These are variants of the \cmd{\HECauteur} and \cmd{\HECtitre} commands and they are used for
+%		inserting metadata in the final .pdf document. They are included in the \cmd{\hypersetup}
+%		command's +pdftitle+ and +pdfauthor+ options provided by the +hyperref+
+%		package\cite{hyperref}.
 %	\end{DescribeMacro}	
 %
-%	Les commandes qui suivent ne s'appliquent qu'aux thèses. Si votre travail est un
-%	mémoire, vous pouvez passez à la Section \ref{commandes:layout}.
+%	The following commands are used in dissertations only. If you are writing a thesis, you can
+%	skip to Section \ref{commandes:layout}.
 %
 %	\begin{DescribeMacro}{\HECpresidentRapporteur}
 %	\end{DescribeMacro}
@@ -307,20 +304,16 @@
 %	\begin{DescribeMacro}{\HECexaminateurExterne}
 %	\end{DescribeMacro}
 %	\begin{DescribeMacro}{\HECrepresentantDirecteur}
-%		Chacune de ces commandes représentent un intervenant dans votre travail. Le premier
-%		argument est le nom de l'intervenant au format \emph{Prénom Nom}, tandis que le deuxième est le
-%		genre de l'intervenant, homme (M) ou femme (F). Il est important d'indiquer le genre
-%		de chacun des intervenants, car cela va affecter la manière dont sera affiché leur
-%		titre sur la page d'identification du jury, et la remise d'une thèse n'est pas tout à
-%		fait le bon moment pour heurter les sensibilités de ceux et celles qui vont vous
-%		évaluer\dots
+%		Each of these commands identifies a person involved in your work. The commands take two arguments.
+%		The first argument is the person's name in the \emph{FirstName LastName} format. The second
+%		argument is the person's gender, male (M) or female (F). It is important to type in the person's
+%		gender as it will affect how the person's title is rendered on the title page, and it is not
+%		advisable to hurt your directors' feelings upon submission of your work\ldots
 %	\end{DescribeMacro}
 %
 %	\begin{DescribeMacro}{\HECmembreJury}
-%		Cette commande a la même fonction que les cinq précédentes, c'est-à-dire nommer
-%		explicitement un intervenant dans votre thèse, mais elle ne prend qu'un seul
-%		argument, le nom au format \emph{Prénom Nom}, car le titre de la fonction est
-%		épicène.
+%		This command has the same role as the five preceding ones, but it only takes one argument,
+%		the person's name, as the job title is in this case gender-neutral.
 %	\end{DescribeMacro}
 %
 %	\begin{DescribeMacro}{\HECuniversiteCodirecteur}
@@ -328,20 +321,19 @@
 %	\begin{DescribeMacro}{\HECuniversiteMembreJury}
 %	\end{DescribeMacro}
 %	\begin{DescribeMacro}{\HECuniversiteExaminateur}
-%		Par défaut, la classe {\hecthese} indique que le codirecteur, le membre du jury ainsi
-%		que l'examinateur externe proviennent de HEC Montréal, mais ils pourraient provenir
-%		d'une autre université. Modifiez le nom de l'université dans toutes les commandes
-%		nécessaires, le cas échéant.
+%		By default, your codirector, jury member and external examinator are considered
+%		working at HEC Montréal by the \hecthese\ document class, but they could be working
+%		at another university. You'll then have to modify the university's name is these commands
+%		when necessary.
 %	\end{DescribeMacro}
 %
-%	\subsubsection{Mise en forme}\label{commandes:layout}
+%	\subsubsection{Document layout}\label{commandes:layout}
 %
 %	\begin{DescribeMacro}{\HECpagestitre}
-%		Les pages titre diffèrent en fonction du type de document, tel qu'il est montré dans
-%		les modèles de pages titre du \emph{Guide de rédaction}. De plus, une page d'identification
-%		du jury est insérée à la suite de la page titre dans les thèses. La commande
-%		\cmd{\HECpagestitre} met en forme automatiquement toutes les pages de titre en utilisant
-%		le contenu des commandes de la Section \ref{commandes:meta}.
+%		Title pages differ from one document type to the other as it is shown in the
+%		\emph{Guidelines}' title page templates. A jury identification page is also included after
+%		the title page in dissertations. The \cmd{\HECpagestitre} command automatically
+%		generates all title pages using the contents of the commands listes in Section \ref{commandes:meta}.
 %	\end{DescribeMacro}
 %
 %	\begin{DescribeMacro}{\HECtitreIntroduction}
