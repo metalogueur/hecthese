@@ -191,38 +191,33 @@
 %
 %	\section{Using the class}
 %
-%	La classe {\hecthese} a été conçue pour être la plus simple et la plus flexible possible. Le but premier
-%	de la classe étant la mise en forme de votre thèse ou mémoire selon les normes du 
-%	\emph{Guide de rédaction}, vous aurez tout le loisir d'ajouter toutes les fonctionnalités
-%	que vous désirez.
+%	The \hecthese\ document class has been created to be as simple and as flexible as possible. The main
+%	goal of the class is to layout your dissertation or thesis according to the presentation standards
+%	required by the \emph{Guidelines} and to allow you to add as many features as you see fit.
 %
-%	{\hecthese} est basée sur la classe +memoir+\cite{memoir}, qui fournit déjà de très nombreuses
-%	fonctionnalités. Avant de programmer de nouvelles commandes ou de nouveaux environnements, nous
-% 	vous invitons donc à consulter l'imposante documentation de la classe
-%	\footnote{L'auteur de la présente classe n'a d'ailleurs pas encore lu la documentation de la classe +memoir+ %
-%	au complet. \emph{Mea culpa}...}.
+%	\hecthese\ is based on the +memoir+ document class\cite{memoir} which already provides numerous features.
+%	Before programming any new commands or environments, you should read the class' exhaustive documentation
+%	\footnote{In spite of the fact that the author of the present class did not read it himself entirely. \emph{Mea culpa}\ldots}.
 %
-%	\subsection{Options de la classe}
+%	\subsection{Class options}
 %
-%	La classe comporte très peu d'options de base. Celles-ci ne concernent que la taille de la
-% 	police de caractères, la langue du document ainsi que le type de document que vous rédigez. Elles se retrouvent toutes
-%	à l'intérieur de la commande \cmd{\documentclass}.
+%	The class has very few default options. They only concern font size, document language and type.
+%	They are all enclosed in the \cmd{\documentclass} command.
 %
 %	\begin{DescribeMacro}{10pt,11pt,12pt}
-%		Le \emph{Guide de rédaction} mentionne à la page 15 que «[la] taille des caractères
-% 		varie généralement entre 10 et 12 points pour le texte courant»\cite{guideRedaction}. Vous inscrivez
-%		donc l'une des trois options permises, soit +10pt+, +11pt+ ou +12pt+. Si vous n'inscrivez
-%		aucune taille de police de caractères dans les options, la classe utilisera l'option
-%		+12pt+ par défaut
-%		\footnote{À titre d'exemple, cette documentation a été écrite avec la taille +10pt+}.
+%		The french edition of the \emph{Guidelines} mentions that ``font size usually varies between 10 and
+%		12 points in the text''\cite[p. 15]{guideRedactionfr}. You have to choose between one of these three
+%		options: +10pt+, +11pt+ or +12pt+. If none of the options is chosen, the default +12pt+ option will
+%		be used by the class
+%		\footnote{As an example, this documentation is written with a +10pt+ font size}.
 %	\end{DescribeMacro}
 %
-%	\begin{DescribeMacro}{english,frenchb}
-%		Les options +english+ et +frenchb+ sont propres au +package+ +babel+\cite{babel} et servent à indiquer
-%		au compilateur la ou les langues utilisées dans le document. La dernière langue de la liste
-%		est la langue par défaut du document. Même si ces options sont propres à +babel+, nous
-%		les insérons dans les options de la classe pour qu'elles s'appliquent globalement à
-% 		tous les +packages+ qui pourraient en avoir besoin.
+%	\begin{DescribeMacro}{frenchb,english}
+%		+frenchb+ and +english+ options come from the +babel+ package\cite{babel} and they are used to
+%		indicate to the compiler in which language(s) the document is written. The last language in the
+%		options list is the document's default language. Even if these options come from the +babel+ package,
+%		they are inserted in the \cmd{\documentclass} command so they can be applied globally to all
+%		packages that could use them.
 %	\end{DescribeMacro}
 %
 %	\begin{DescribeMacro}{phdclassique}
@@ -232,23 +227,21 @@
 %	\begin{DescribeMacro}{mscclassique}
 %	\end{DescribeMacro}
 %	\begin{DescribeMacro}{mscarticles}
-%		Vous utilisez l'option +phdclassique+ lorsque vous rédigez une thèse de manière classique,
-%		+phdarticles+, une thèse par articles, +mscclassique+, un mémoire classique et +mscarticles+ %
-%		lorsque vous rédigez un mémoire par articles. Chacune de ces options est inscrite 
-%		automatiquement dans le fichier gabarit approprié au type de
-%		document lorsque vous installez {\hecthese}. La classe considérant par défaut que le travail
-%		que vous rédigez est une thèse classique, vous pourriez à la limite supprimer
-%		l'option +phdclassique+ de la commande \cmd{\documentclass} du fichier 
-%		\textbf{gabarit-these-classique.tex}, mais nous vous conseillons de
-%		la laisser dans la liste afin d'éviter des problèmes.
+%		You use +phdclassique+ when you write a dissertation in a classic manner, +phdarticles+ when
+%		you write a dissertation with articles, +mscclassique+ when you write a thesis in a classic
+%		manner and +mscarticles+ when you write a thesis with articles. Each of these options is
+%		automatically inserted in its corresponding template file when you install the \hecthese\
+%		document class. Since +phdclassique+ is the class' default document type option, you could
+%		erase this option from the \textbf{template-phd-classic.tex} file, but we advise you don't do
+%		that so you don't encounter problems while writing.
 %
-%		En ce qui a trait aux trois autres options de types de document, 
-%		\textbf{ne supprimez pas l'option de la commande \cmd{\documentclass}!}. Ce faisant,
-%		vous aurez des problèmes lors de la compilation de votre document, notamment pour
-%		la génération des bibliographies et des pages titre.
+%		As for the three other document type options,
+%		\textbf{never erase them from the \cmd{\documentclass} command!}. By doing so, you would
+%		encounter errors when compiling your document, especially during the BiB\TeX\ compilations
+%		and during the title page layout.
 %	\end{DescribeMacro}
 %
-%	\subsection{Commandes de la classe}
+%	\subsection{Class commands}
 %
 %	La classe {\hecthese} comprend quelques commandes qu'on pourrait répartir en trois catégories :
 %	\begin{enumerate}
@@ -560,6 +553,11 @@
 % \StopEventually{
 %	\clearpage
 %	\begin{thebibliography}{99}%	
+%	\bibitem{guideRedactionfr}
+%		Centre d'aide en français et en rédaction universitaire (2015).
+%		\emph{Guide pour la rédaction d'un travail universitaire de 1er, 2e et 3e cycles},
+%		HEC Montréal. Consulté le 18 mai 2017 à 
+%		\url{http://www.hec.ca/qualitecomm/caf/guide-redaction-travail-cycles.pdf}
 %	\bibitem{guideRedaction}
 %		Centre de formation en langues des affaires (2014).
 %		\emph{Guidelines for Writing an Academic Work at a Graduate Level},
