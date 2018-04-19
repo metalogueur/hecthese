@@ -27,7 +27,7 @@
 %<class>\NeedsTeXFormat{LaTeX2e}
 %<class>\ProvidesClass{hecthese}[2017/11/29 v1.3 Classe pour les theses et memoires de HEC Montreal]
 %<*driver>
-\documentclass[10pt,english,frenchb]{ltxdoc}
+\documentclass[10pt,frenchb,english]{ltxdoc}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{babel}
@@ -37,13 +37,23 @@
 \usepackage{url}
 \usepackage{color}
 \usepackage{enumitem}
+\usepackage{iflang}
 \usepackage{hyperref}
+
+\newcommand{\frenchdoc}{%
+	\IfLanguageName{english}{0}{1}
+}
 
 \DisableCrossrefs
 \CodelineIndex
 \RecordChanges
-\GlossaryPrologue{\section*{Historique des versions}%
-	\addcontentsline{toc}{section}{Historique des versions}}
+\ifnum\frenchdoc=1
+	\GlossaryPrologue{\section*{Historique des versions}%
+		\addcontentsline{toc}{section}{Historique des versions}}
+\else
+	\GlossaryPrologue{\section*{Change History}%
+		\addcontentsline{toc}{section}{Change History}}
+\fi
 
 \definecolor{liens}{rgb}{0,0.35,0.65}
 \definecolor{shadecolor}{rgb}{0.93,0.97,0.99}
@@ -57,13 +67,15 @@
 	pdfauthor={Benoit Hamel, HEC Montréal}
 }
 
-\frenchbsetup{
-	og=«, fg=»
-}
+\ifnum\frenchdoc=1
+	\frenchbsetup{
+		og=«, fg=»
+	}
 
-\addto\captionsfrench{%
-	\renewcommand{\tablename}{Tableau}
-}
+	\addto\captionsfrench{%
+		\renewcommand{\tablename}{Tableau}
+	}
+\fi
 
 \MakeShortVerb{\+}
 
@@ -79,13 +91,13 @@
 \end{document}
 %</driver>
 % \fi
-% \CheckSum{460}
+% \CheckSum{463}
 % \DoNotIndex{\RequirePackage,\ExecuteOptions,\ifthenelse,\ProcessOptions}
 % \DoNotIndex{\newcommand,\newcommand*,\newboolean,\setboolean}
 % \DoNotIndex{\emph,\cite,\LaTeX,\hecthese,\textbf,\item,\footnote}
 % \DoNotIndex{\label,\ref,\caption,\hline,\multicolumn,\oui,\non,\cmd}
 % \DoNotIndex{\dots,\url,\clearpage,\bibitem}
-% \changes{1.3}{2018-04-17}{Première version anglaise de la classe}
+% \changes{1.3}{2018-04-17}{Première version anglaise de la classe / First english version of the class}
 % \changes{1.2}{2017-11-29}{Mise à jour des liens vers les capsules vidéos dans
 %	la documentation.}
 % \changes{1.1}{2017-10-20}{Uniformisation de la licence lppl dans tous les fichiers.
@@ -111,18 +123,33 @@
 % \maketitle
 %
 % \begin{abstract}
+\ifnum\frenchdoc=1
 %	La classe {\LaTeX} {\hecthese} a été conçue pour permettre aux étudiants de HEC Montréal
 % 	de rédiger leur thèse ou leur mémoire à l'aide du système de préparation de documents tout
 %	en se conformant aux règles de présentation en vigueur à l'École. À ce titre, la classe
 %	répond en tous points aux normes de présentation énoncées dans le 
 %	\emph{Guide pour la rédaction d'un travail universitaire de 1er, 2e et 3e cycles}\cite{guideRedaction}, ci-après
 %	nommé le \emph{Guide de rédaction}.
+\else
+%	The \hecthese\ \LaTeX\ document class has been created to allow graduate students at HEC Montréal
+%	to write their dissertation or thesis with the document preparation system while complying to all
+%	presentation standards required by the University. As such, the class complies entirely with the
+%	\emph{Guidelines for Writing an Academic Work at a Graduate Level}\cite{guideRedaction},
+%	hereafter called the \emph{Guidelines}.
+\fi
 % \end{abstract}
 %
+\ifnum\frenchdoc=1
 % \section{Installation de la classe}
 %
 % \subsection{Prérequis}
+\else
+% \section{Installing the class}
 %
+% \subsection{Prerequisites}
+\fi
+%
+\ifnum\frenchdoc=1
 %	L'utilisation de cette classe suppose que vous avez déjà installé une distribution TeX et
 % 	un éditeur de code intégré. Pour la conception de {\hecthese}, la distribution TeXLive 2016\cite{texlive}
 % 	et l'éditeur de code TeXStudio\cite{texstudio} ont été utilisés et ses fonctionnalités ont 
@@ -131,55 +158,119 @@
 % 	Nous vous invitons à la tester avec vos propres distributions TeX et
 %	éditeurs de codes et à l'utiliser de la même manière dont vous vous servez de vos outils pour vos
 %	autres travaux en {\LaTeX}.
+\else
+%	Use of this document class presumes that you have already installed a \TeX\ distribution and
+% 	a code editor. For the development of \hecthese, the \TeX Live 2016 distribution\cite{texlive}
+%	and the \TeX Studio code editor\cite{texstudio} were used. Its features were tested with the
+%	+latex+, +pdflatex+, +bibtex+ and +makeindex+ compilers. The class has also been tested with the
+%	MiK\TeX\ distribution\footnote{A big ``thank you!'' goes to Franck Jeannot for making the tests.}.
+%	We invite you to test the class with your own distribution and code editor and to use it like
+%	you would with any other work you do with \LaTeX.
+\fi
 %
 % \subsection{Installation}
 %
+\ifnum\frenchdoc=1
 % 	L'archive +.zip+ que vous avez téléchargée contient les cinq fichiers et répertoire suivants :
+\else
+%	The +.zip+ archive you downloaded contains the following files and directory:
+\fi
 %
 %	\begin{enumerate}
+\ifnum\frenchdoc=1
 %		\item \textbf{hecthese.ins} : le fichier d'installation de la classe;
 %		\item \textbf{hecthese.dtx} : le code source documenté de la classe;
 %		\item \textbf{hecthese.pdf} : la documentation de la classe;
 %		\item \textbf{README.md} : le fichier nécessaire à l'affichage de la
-%			description de la classe sur le site ctan.org.
+%			description de la classe sur le site ctan.org;
 %		\item \textbf{<english/>} : le répertoire contenant la version anglaise
 %			de la classe.
+\else
+%		\item \textbf{hecthese.ins} : the french class installation file;
+%		\item \textbf{hecthese.dtx} : the french documented source code;
+%		\item \textbf{hecthese.pdf} : the french class documentation;
+%		\item \textbf{README.md} : the file required to show the class description on
+%			the ctan.org Website;
+%		\item \textbf{<english/>} : directory containing the english translation on the class.
+\fi
 % 	\end{enumerate}
 %
+\ifnum\frenchdoc=1
 %	Suivez les étapes suivantes pour installer la classe
 %	\footnote{Une vidéo d'installation est aussi disponible au \url{https://www.youtube.com/watch?v=nfTEgcJbufs}.} :
+\else
+%	Follow these steps to install the class
+%	\footnote{An installation tutorial is available at \url{https://www.youtube.com/watch?v=nfTEgcJbufs} (in french with english subtitles).}:
+\fi
 %
 %	\begin{enumerate}
+\ifnum\frenchdoc=1
 %		\item Créez-vous un répertoire de travail.
 %		\item Décompressez l'archive +.zip+ dans votre répertoire de travail.
 %		\item Ouvrez un éditeur de ligne de commande.
 %		\item Changez de répertoire pour atteindre votre répertoire de travail.
 %		\item Saisissez la commande suivante dans l'éditeur : \\
+\else
+%		\item Create a working directory on your computer.
+%		\item Extract the +.zip+ archive in that directory.
+%		\item Open a command-line editor.
+%		\item Change directories until you reach your working directory.
+%		\item Type the following command in the editor:\\
+\fi
 %			\begin{shaded*}
 %				+latex hecthese.ins+
 %			\end{shaded*}
 % 	\end{enumerate}
 %
+\ifnum\frenchdoc=1
 %	La commande créera une série de fichiers qui composeront votre travail, et la liste des
 % 	fichiers que vous aurez à utiliser dépendra du type de travail que vous composerez.
+\else
+%	The command will create a bunch of files that will become your document. The list of files
+%	needed will depend on the type of document you'll be writing.
+\fi
 %
-% 	\subsection{\label{liste-fichiers}Liste des fichiers constitutifs d'un travail}
+\ifnum\frenchdoc=1
+% 	\subsection{Liste des fichiers constitutifs d'un travail}
+\else
+% 	\subsection{List of a document's required files}
+\fi
+%	\label{liste-fichiers}
 %
+\ifnum\frenchdoc=1
 % 	Le Tableau \ref{tableau:fichiers} montre la liste des fichiers composant chaque type de document. En fonction
 % 	du type de votre travail, vous devrez choisir l'un des quatre gabarits suivants :
+\else
+%	Table \ref{tableau:fichiers} shows a list of all required files for each type of document.
+%	Depending on the type of work you'll be doing, you'll have to choose between one of these four
+%	templates:
+\fi
 %	
 %	\begin{itemize}
+\ifnum\frenchdoc=1
 %		\item \textbf{gabarit-these-classique.tex} : gabarit pour une thèse rédigée de manière classique;
 %		\item \textbf{gabarit-these-articles.tex} : gabarit pour une thèse rédigée par articles;
 %		\item \textbf{gabarit-memoire-classique.tex} : gabarit pour un mémoire rédigé de manière classique;
 %		\item \textbf{gabarit-memoire-articles.tex} : gabarit pour un mémoire rédigé par articles.
+\else
+%		\item \textbf{template-phd-classic.tex} : template for writing a dissertation in a classic manner;
+%		\item \textbf{template-phd-articles.tex} : template for writing a dissertation with articles;
+%		\item \textbf{template-msc-classic.tex} : template for writing a thesis in a classic manner;
+%		\item \textbf{template-msc-articles.tex} : template for writing a thesis with articles.
+\fi
 %	\end{itemize}
 %
 %	\begin{table}[tb]
-%		\caption{\label{tableau:fichiers} Liste des fichiers constitutifs d'un travail}
+\ifnum\frenchdoc=1
+%		\caption{Liste des fichiers constitutifs d'un travail}
+\else
+%		\caption{List of a document's required files}
+\fi
+%		\label{tableau:fichiers}
 %		\begin{center}
 %			\begin{tabular}{l|cc|cc}
 %				\hline\hline
+\ifnum\frenchdoc=1
 %				& \multicolumn{2}{c|}{Thèses} & \multicolumn{2}{c}{Mémoires} \\
 %				\textbf{Fichier} & Classiques & Par articles & Classiques & Par articles \\
 %				\hline
@@ -202,11 +293,36 @@
 %				article-3.tex & \non & \oui & \non & \non \\
 %				conclusion.tex & \oui & \oui & \oui & \oui \\
 %				annexe.tex & \oui & \oui & \oui & \oui \\
+\else
+%				& \multicolumn{2}{c|}{Dissertations} & \multicolumn{2}{c}{Theses} \\
+%				\textbf{Fichier} & Classic & With articles & Classic & With articles \\
+%				\hline
+%				template-phd-*.tex & \oui & \oui & \non & \non \\
+%				template-msc-*.tex & \non & \non & \oui & \oui \\
+%				abstract-french.tex & \oui & \oui & \oui & \oui \\
+%				abstract-english.tex & \oui & \oui & \oui & \oui \\
+%				acronym-list.tex & \oui & \oui & \oui & \oui \\
+%				dedication.tex & \oui & \oui & \non & \non \\
+%				acknowledgements.tex & \oui & \oui & \oui & \oui \\
+%				preface.tex & \oui & \oui & \oui & \oui \\
+%				introduction.tex & \oui & \oui & \oui & \oui \\
+%				theoretical-framework.tex & \non & \oui & \non & \non \\
+%				literature-revue.tex & \non & \non & \oui & \oui \\
+%				chapter-1.tex & \oui & \non & \oui & \non \\
+%				chapter-2.tex & \oui & \non & \oui & \non \\
+%				chapter-3.tex & \oui & \non & \oui & \non \\
+%				article-1.tex & \non & \oui & \non & \oui \\
+%				article-2.tex & \non & \oui & \non & \non \\
+%				article-3.tex & \non & \oui & \non & \non \\
+%				conclusion.tex & \oui & \oui & \oui & \oui \\
+%				appendix.tex & \oui & \oui & \oui & \oui \\
+\fi
 %				\hline\hline
 %			\end{tabular}
 %		\end{center}
 %	\end{table}
 %
+\ifnum\frenchdoc=1
 %	Une fois que vous aurez choisi un gabarit, supprimez les trois fichiers gabarits dont vous
 %	n'aurez pas besoin. Ce fichier constitue le fichier maître à partir duquel vous lancerez les
 % 	diverses compilations nécessaires à la génération de votre document final. C'est également dans le
@@ -220,9 +336,28 @@
 %	\cmd{\include} relatifs aux fichiers supprimés, mais surtout, de respecter les règles du
 %	\emph{Guide de rédaction} en ce qui concerne les sections obligatoires et
 % 	l'ordre de présentation des sections.
+\else
+%	Once you have chosen a template file, delete the three remaining ones as you won't need them.
+%	The template file is your document's master file, the one on which you will have to run all
+%	compilers needed to generate your final document. It is also in this file that you will write
+% 	all the metadata related to your work (title, author, etc.) and add all packages, user-defined 
+%	commands and environments you will need to complete your work.
 %
+%	Your work will be written in the other files. Each file represents a section of your work. Their
+%	name is, as such, self-explanatory. You can add and delete as many files as you wish. Just make
+%	sure to include the added files to your template file with \cmd{\include} commands, to erase the
+%	\cmd{\include} commands related to the deleted files and, most of all, to comply with all the
+%	\emph{Guidelines}' rules related to the mandatory sections of your work and their presentation
+% 	order.
+\fi
+%
+\ifnum\frenchdoc=1
 %	\section{Utilisation de la classe}
+\else
+%	\section{Using the class}
+\fi
 %
+\ifnum\frenchdoc=1
 %	La classe {\hecthese} a été conçue pour être la plus simple et la plus flexible possible. Le but premier
 %	de la classe étant la mise en forme de votre thèse ou mémoire selon les normes du 
 %	\emph{Guide de rédaction}, vous aurez tout le loisir d'ajouter toutes les fonctionnalités
@@ -233,28 +368,62 @@
 % 	vous invitons donc à consulter l'imposante documentation de la classe
 %	\footnote{L'auteur de la présente classe n'a d'ailleurs pas encore lu la documentation de la classe +memoir+ %
 %	au complet. \emph{Mea culpa}...}.
+\else
+%	The \hecthese\ document class has been created to be as simple and as flexible as possible. The main
+%	goal of the class is to layout your dissertation or thesis according to the presentation standards
+%	required by the \emph{Guidelines} and to allow you to add as many features as you see fit.
 %
+%	\hecthese\ is based on the +memoir+ document class\cite{memoir} which already provides numerous features.
+%	Before programming any new commands or environments, you should read the class' exhaustive documentation
+%	\footnote{In spite of the fact that the author of the present class did not read it himself entirely. \emph{Mea culpa}\ldots}.
+\fi
+%
+\ifnum\frenchdoc=1
 %	\subsection{Options de la classe}
+\else
+%	\subsection{Class options}
+\fi
 %
+\ifnum\frenchdoc=1
 %	La classe comporte très peu d'options de base. Celles-ci ne concernent que la taille de la
 % 	police de caractères, la langue du document ainsi que le type de document que vous rédigez. Elles se retrouvent toutes
 %	à l'intérieur de la commande \cmd{\documentclass}.
+\else
+%	The class has very few default options. They only concern font size, document language and type.
+%	They are all enclosed in the \cmd{\documentclass} command.
+\fi
 %
 %	\begin{DescribeMacro}{10pt,11pt,12pt}
+\ifnum\frenchdoc=1
 %		Le \emph{Guide de rédaction} mentionne à la page 15 que «[la] taille des caractères
 % 		varie généralement entre 10 et 12 points pour le texte courant»\cite{guideRedaction}. Vous inscrivez
 %		donc l'une des trois options permises, soit +10pt+, +11pt+ ou +12pt+. Si vous n'inscrivez
 %		aucune taille de police de caractères dans les options, la classe utilisera l'option
 %		+12pt+ par défaut
 %		\footnote{À titre d'exemple, cette documentation a été écrite avec la taille +10pt+}.
+\else
+%		The french edition of the \emph{Guidelines} mentions that ``font size usually varies between 10 and
+%		12 points in the text''\cite[p. 15]{guideRedactionfr}. You have to choose between one of these three
+%		options: +10pt+, +11pt+ or +12pt+. If none of the options is chosen, the default +12pt+ option will
+%		be used by the class
+%		\footnote{As an example, this documentation is written with a +10pt+ font size}.
+\fi
 %	\end{DescribeMacro}
 %
 %	\begin{DescribeMacro}{english,frenchb}
+\ifnum\frenchdoc=1
 %		Les options +english+ et +frenchb+ sont propres au +package+ +babel+\cite{babel} et servent à indiquer
 %		au compilateur la ou les langues utilisées dans le document. La dernière langue de la liste
 %		est la langue par défaut du document. Même si ces options sont propres à +babel+, nous
 %		les insérons dans les options de la classe pour qu'elles s'appliquent globalement à
 % 		tous les +packages+ qui pourraient en avoir besoin.
+\else
+%		+frenchb+ and +english+ options come from the +babel+ package\cite{babel} and they are used to
+%		indicate to the compiler in which language(s) the document is written. The last language in the
+%		options list is the document's default language. Even if these options come from the +babel+ package,
+%		they are inserted in the \cmd{\documentclass} command so they can be applied globally to all
+%		packages that could use them.
+\fi
 %	\end{DescribeMacro}
 %
 %	\begin{DescribeMacro}{phdclassique}
@@ -264,6 +433,7 @@
 %	\begin{DescribeMacro}{mscclassique}
 %	\end{DescribeMacro}
 %	\begin{DescribeMacro}{mscarticles}
+\ifnum\frenchdoc=1
 %		Vous utilisez l'option +phdclassique+ lorsque vous rédigez une thèse de manière classique,
 %		+phdarticles+, une thèse par articles, +mscclassique+, un mémoire classique et +mscarticles+ %
 %		lorsque vous rédigez un mémoire par articles. Chacune de ces options est inscrite 
@@ -278,10 +448,29 @@
 %		\textbf{ne supprimez pas l'option de la commande \cmd{\documentclass}!}. Ce faisant,
 %		vous aurez des problèmes lors de la compilation de votre document, notamment pour
 %		la génération des bibliographies et des pages titre.
+\else
+%		You use +phdclassique+ when you write a dissertation in a classic manner, +phdarticles+ when
+%		you write a dissertation with articles, +mscclassique+ when you write a thesis in a classic
+%		manner and +mscarticles+ when you write a thesis with articles. Each of these options is
+%		automatically inserted in its corresponding template file when you install the \hecthese\
+%		document class. Since +phdclassique+ is the class' default document type option, you could
+%		erase this option from the \textbf{template-phd-classic.tex} file, but we advise you don't do
+%		that so you don't encounter problems while writing.
+%
+%		As for the three other document type options,
+%		\textbf{never erase them from the \cmd{\documentclass} command!}. By doing so, you would
+%		encounter errors when compiling your document, especially during the BiB\TeX\ compilations
+%		and during the title page layout.
+\fi
 %	\end{DescribeMacro}
 %
+\ifnum\frenchdoc=1
 %	\subsection{Commandes de la classe}
+\else
+%	\subsection{Class commands}
+\fi
 %
+\ifnum\frenchdoc=1
 %	La classe {\hecthese} comprend quelques commandes qu'on pourrait répartir en trois catégories :
 %	\begin{enumerate}
 %		\item les métadonnées de votre document (auteur, titre, etc.) servant à générer la (les)
@@ -289,34 +478,80 @@
 %		\item les commandes de mise en forme du document ;
 %		\item les commandes liées aux bibliographies des thèses et mémoires par articles.
 %	\end{enumerate}
+\else
+%	The \hecthese\ document class provides commands that can be separated in three categories:
+%	\begin{enumerate}
+	%		\item document metadata (author, title, etc.) used to generate the title pages;
+	%		\item document layout commands;
+	%		\item bibliography-related commands for dissertations and theses written with articles.
+	%	\end{enumerate}
+\fi
 %
-%	\subsubsection{Métadonnées du document}\label{commandes:meta}
+\ifnum\frenchdoc=1
+%	\subsubsection{Métadonnées du document}
+\else
+%	\subsubsection{Document metadata}
+\fi
+%	\label{commandes:meta}
 %
+\ifnum\frenchdoc=1
 %	Les commandes ci-dessous s'appliquent à tous les types de documents.
+\else
+%	The following commands are used in all document types.
+\fi
 %	
+\ifnum\frenchdoc=1
 %	\begin{DescribeMacro}{\HECtitre}
 %		Il s'agit du titre de votre thèse ou mémoire. N'utilisez pas la commande {\LaTeX}
 %		\cmd{\title}, car la classe n'en tiendra pas compte. Si votre titre est très long,
 %		séparez-le en plusieurs lignes avec la commande \cmd{\\}.
 %	\end{DescribeMacro}
+\else
+%	\begin{DescribeMacro}{\HECtitle}
+%		This is the title of your dissertation or thesis. Do not use the \LaTeX\ \cmd{\title}
+%		command as the class will not take it into account. If your title is very long, separate it
+%		in more than one line with the \cmd{\\} command.
+%	\end{DescribeMacro}
+\fi
 %
+\ifnum\frenchdoc=1
 %	\begin{DescribeMacro}{\HECsoustitre}
 %		Il s'agit du sous-titre de votre thèse ou mémoire, s'il y a lieu. Si votre travail
 %		comporte un sous-titre, un : séparera automatiquement le titre du sous-titre et ce
 %		dernier s'affichera sous le titre sans qu'il soit nécessaire d'insérer la commande
 %		\cmd{\\} dans le titre.
 %	\end{DescribeMacro}
+\else
+%	\begin{DescribeMacro}{\HECsubtitle}
+%		This is the subtitle of your dissertation or thesis. If there is a subtitle, a colon (:)
+%		will automatically separate the title from the subtitle, and the latter will be laid out below
+%		the title without you having to add the \cmd{\\} command after the title.
+%	\end{DescribeMacro}
+\fi
 %
+\ifnum\frenchdoc=1
 %	\begin{DescribeMacro}{\HECauteur}
 %		L'auteur de la thèse ou du mémoire, c'est vous, à moins que vous n'ayez plagié votre
 %		travail\dots Écrivez votre nom sous la forme \emph{Prénom Nom}. N'utilisez pas la commande
 %		{\LaTeX} \cmd{\author}, car la classe n'en tiendra pas compte.
 %	\end{DescribeMacro}
+\else
+%	\begin{DescribeMacro}{\HECauthor}
+%		This is the author of the dissertation or thesis, meaning you, unless you have plagiarized
+%		your work\ldots Write your name in the \emph{FirstName LastName} format. Do not use the
+%		\LaTeX\ \cmd{\author} command as the class will not take it into account.
+%	\end{DescribeMacro}
+\fi
 %
 %	\begin{DescribeMacro}{\HECoption}
+\ifnum\frenchdoc=1
 %		La commande \cmd{\HECoption} détermine l'option de votre grade de maîtrise ou de doctorat.
+\else
+%		The \cmd{\HECoption} determines your dissertation or thesis' option.
+\fi
 %	\end{DescribeMacro}
 %
+\ifnum\frenchdoc=1
 %	\begin{DescribeMacro}{\HECmoisDepot}
 %	\end{DescribeMacro}
 %	\begin{DescribeMacro}{\HECanneeDepot}
@@ -324,19 +559,40 @@
 %		\textbf{dépôt final} de votre travail. Inscrivez le mois en toutes lettres et l'année 
 %		au format AAAA.
 %	\end{DescribeMacro}
+\else
+%	\begin{DescribeMacro}{\HECsubMonth}
+%	\end{DescribeMacro}
+%	\begin{DescribeMacro}{\HECsubYear}
+%		\cmd{\HECsubMonth} and \cmd{\HECsubYear} represent the month and year of the final submission
+%		of your work. Write down the month in full letters and the year in the \emph{YYYY} format.
+%	\end{DescribeMacro}
+\fi
 %
 %	\begin{DescribeMacro}{\HECpdfauteur}
 %	\end{DescribeMacro}
 %	\begin{DescribeMacro}{\HECpdftitre}
+\ifnum\frenchdoc=1
 %		Ces deux commandes sont des variantes de \cmd{\HECauteur} et \cmd{\HECtitre} et servent
 %		exclusivement à l'inclusion de métadonnées dans le document pdf généré. Pour ce
 %		faire, elle sont utilisées avec les options +pdftitle+ et +pdfauthor+ de la commande
 %		\cmd{\hypersetup} du +package+ +hyperref+\cite{hyperref}.
+\else
+%		These are variants of the \cmd{\HECauthor} and \cmd{\HECtitle} commands and they are used for
+%		inserting metadata in the final .pdf document. They are included in the \cmd{\hypersetup}
+%		command's +pdftitle+ and +pdfauthor+ options provided by the +hyperref+
+%		package\cite{hyperref}.
+\fi
 %	\end{DescribeMacro}	
 %
+\ifnum\frenchdoc=1
 %	Les commandes qui suivent ne s'appliquent qu'aux thèses. Si votre travail est un
 %	mémoire, vous pouvez passez à la Section \ref{commandes:layout}.
+\else
+%	The following commands are used in dissertations only. If you are writing a thesis, you can
+%	skip to Section \ref{commandes:layout}.
+\fi
 %
+\ifnum\frenchdoc=1
 %	\begin{DescribeMacro}{\HECpresidentRapporteur}
 %	\end{DescribeMacro}
 %	\begin{DescribeMacro}{\HECdirecteurRecherche}
@@ -354,6 +610,23 @@
 %		fait le bon moment pour heurter les sensibilités de ceux et celles qui vont vous
 %		évaluer\dots
 %	\end{DescribeMacro}
+\else
+%	\begin{DescribeMacro}{\HECpresidentRapporteur}
+%	\end{DescribeMacro}
+%	\begin{DescribeMacro}{\HECdirecteurRecherche}
+%	\end{DescribeMacro}
+%	\begin{DescribeMacro}{\HECcodirecteurRecherche}
+%	\end{DescribeMacro}
+%	\begin{DescribeMacro}{\HECexaminateurExterne}
+%	\end{DescribeMacro}
+%	\begin{DescribeMacro}{\HECrepresentantDirecteur}
+%		Each of these commands identifies a person involved in your work. The commands take two arguments.
+%		The first argument is the person's name in the \emph{FirstName LastName} format. The second
+%		argument is the person's gender, male (M) or female (F). It is important to type in the person's
+%		gender as it will affect how the person's title is rendered on the title page, and it is not
+%		advisable to hurt your directors' feelings upon submission of your work\ldots
+%	\end{DescribeMacro}
+\fi
 %
 %	\begin{DescribeMacro}{\HECmembreJury}
 %		Cette commande a la même fonction que les cinq précédentes, c'est-à-dire nommer
@@ -842,6 +1115,7 @@
 \newcommand{\HECtitre}[1]{%
 	\renewcommand{\HEC@titre}{#1}
 }
+\newcommand{\HECtitle}[1]{\HECtitre{#1}}
 \newcommand{\HECsoustitre}[1]{%
 	\renewcommand{\HEC@sousTitre}{#1}
 }
