@@ -202,7 +202,7 @@
 %	\footnote{Une vidéo d'installation est aussi disponible au \url{https://www.youtube.com/watch?v=nfTEgcJbufs}.} :
 \else
 %	Follow these steps to install the class
-%	\footnote{An installation tutorial is available at \url{https://www.youtube.com/watch?v=nfTEgcJbufs} (in french with english subtitles).}:
+%	\footnote{An installation tutorial is available at \url{https://www.youtube.com/watch?v=nfTEgcJbufs} (in French with English subtitles).}:
 \fi
 %
 %	\begin{enumerate}
@@ -838,33 +838,57 @@
 %	The \hecthese\ class' environments all share the same purpose : laying out your work.
 \fi
 %
+\ifnum\frenchdoc=1
 %	\begin{DescribeEnv}{HECdedicace}
 %		Cet environnement se retrouve dans le fichier \textbf{dedicace.tex}. C'est à l'intérieur de
 %		+HECdedicace+ que vous rédigez\dots votre dédicace. Celle-ci, au moment de la compilation,
 %		sera centrée verticalement dans la page, justifiée à droite et mise en italiques.
 %	\end{DescribeEnv}
+\else
+%	\begin{DescribeEnv}{HECdedication}
+%		This environment can be found in the \textbf{dedication.tex} file. It is inside the
+%		+HECdedication+ environment that you will write\ldots\ your dedication. At the document's
+%		compilation, the dedication will be vertically centered, aligned at the right margin and
+%		emphasized.
+%	\end{DescribeEnv}
+\fi
 %
 %	\begin{DescribeEnv}{HECabreviations}
+\ifnum\frenchdoc=1
 %		+HECabreviations+ est une variante de l'environnement +description+. Il sert à rédiger
 %		votre liste d'abréviations. L'environnement prend comme argument la plus longue de
 %		vos abréviations et se sert de cette longueur pour aligner la liste des abréviations
 %		en deux colonnes. Les +packages+ +calc+\cite{calc} et +enumitem+\cite{enumitem} 
 %		servent à la mise en forme de la liste.
+\else
+%		+HECabreviations+ is a variant of the +description+ environment. It is used to build
+%		your acronyms list. It takes as argument the longest of your acronyms and uses its
+%		length to align the list in two columns. The +calc+\cite{calc} and +enumitem+\cite{enumitem}
+%		packages are used to layout the list.
+\fi
 %	\end{DescribeEnv}
 %
+\ifnum\frenchdoc=1
 %	\section{Rédaction de la thèse ou du mémoire}
+\else
+%	\section{Writing your dissertation or thesis}
+\fi
 %
-%	Le but de cette documentation n'est pas de vous apprendre à travailler avec {\LaTeX}. Elle
-%	prend pour acquis, au contraire, que vous possédez déjà une certaine connaissance du
-%	système de préparation de documents. Si vous n'avez aucune connaissance en la matière, nous vous
-% 	suggérons très fortement de consulter l'excellente formation élaborée par le professeur Vincent Goulet de
-%	l'Université Laval, contenant non seulement une documentation très élaborée, mais également
-%	de nombreux exercices vous permettant de vous familiariser avec {\LaTeX}
-%	\footnote{La formation est disponible à \url{https://www.ctan.org/pkg/formation-latex-ul}}. La présente
-%	section sert plutôt de guide pour quelques éléments particuliers de votre thèse ou mémoire.
+\ifnum\frenchdoc=1
+%	Dans cette section, nous vous donnerons quelques conseils concernant la rédaction de votre
+%	thèse ou mémoire avec la classe \hecthese.
+\else
+%	In this section, we will give you a few hints for writing your dissertation or thesis with
+%	the \hecthese\ document class.
+\fi
 %
+\ifnum\frenchdoc=1
 %	\subsection{Division du document en multiples fichiers}
+\else
+%	\subsection{One document divided in multiple files}
+\fi
 %
+\ifnum\frenchdoc=1
 %	Tel que mentionné à la Section \ref{liste-fichiers}, votre document est réparti dans une multitude
 %	de fichiers. Plusieurs objectifs sous-tendent ce choix :
 %	
@@ -878,9 +902,28 @@
 %	Chaque fichier contient des instructions sous forme de commentaires pour vous permettre de les
 %	utiliser sans commettre d'impairs ou briser la structure de votre document. Lisez-les attentivement tout
 %	au long de votre rédaction et supprimez-les au besoin.
+\else
+%	As mentioned in Section \ref{liste-fichiers}, your document is divided in many files. A few reasons
+%	underlie the choice of such a division:
 %
+%	\begin{enumerate}
+%		\item Separate your code (packages, commands, environments, etc.) from your document;
+%		\item Reduce the files' size;
+%		\item Facilitate searching through your text;
+%		\item Offer better flexibility for adding or deleting sections.
+%	\end{enumerate}
+%
+%	Each file is heavily commented with instructions to make sure you don't make any mistake or mess
+%	with the document structure. Carefully read through the comments and delete them if necessary.
+\fi
+%
+\ifnum\frenchdoc=1
 %	\subsection{Bibliographie(s) et citations}
+\else
+%	\subsection{Bibliographies and citations}
+\fi
 %
+\ifnum\frenchdoc=1
 %	Nous vous recommandons fortement d'utiliser le style bibliographique +francais+ pour la compilation de
 %	votre (vos) bibliographie(s). Ce style a été conçu par le professeur Vincent Goulet de l'Université 
 %	Laval\cite{francaisbst} et est celui qui ressemble le plus au style bibliographique HEC Montréal, élaboré
@@ -890,33 +933,66 @@
 %	Si vous rédigez votre thèse ou mémoire en anglais, nous vous recommandons d'utiliser le style bibliographique
 %	+apa+ duquel est inspiré le style HEC Montréal.
 %
-%	Notez qu'une version {\LaTeX} du style bibliographique HEC Montréal est présentement en cours d'élaboration
-%	et qu'il devrait être rendu disponible dans une version ultérieure de la classe {\hecthese}. Ce style pourra
-%	être utilisé pour les documents rédigés en français et en anglais.
-%
 %	Afin de vous conformer au format de citation préconisé par le \emph{Guide de rédaction}, nous vous recommandons
 %	enfin d'utiliser la commande \cmd{\citep} lorsque vous citez vos sources.
 %
 %	Si vous choisissez d'utiliser d'autres styles bibliographiques et/ou d'autres formats de citations, assurez-vous
 %	qu'ils soient compatibles avec le +package+ +natbib+ qui est chargé avec la classe, à défaut de quoi vous
 %	rencontrerez des problèmes lors de la compilation de votre document.
+\else
+%	If you plan on writing your dissertation or thesis in French, we suggest you use the +francais+ bibliography
+%	style when compiling your bibliographies. It has been built by Université Laval's professor Vincent Goulet\cite{francaisbst}
+%	and it is the bibliography style resembling the most HEC Montréal's bibliography style, elaborated by
+%	Caroline Archambault\cite{stylehec}. This style also supports the \emph{author-year} citation format that is
+%	recommended for use in the \emph{Guidelines}.
+%
+%	If you write your dissertation or thesis in English, we suggest you use the +apa+ bibliography style, which served
+%	as inspiration for the HEC Montréal bibliography style.
+%
+%	In order to fully comply with the \emph{Guidelines}, we recommend you use the \cmd{\citep} command when citing
+%	your sources.
+%
+%	If you choose to use other bibliography styles and/or citation formats, just make sure that they are
+%	compatible with the +natbib+ package loaded with the document class. Otherwise, you'll run into errors when you'll
+%	compile your document.
+\fi
 %
 %	\section{Compilation}
 %
+\ifnum\frenchdoc=1
 %	Lorsque viendra le temps de compiler votre document, il ne vous suffira pas seulement de cliquer sur
 %	le bouton «Compilation» de votre éditeur de code préféré. Une suite précise de compilations
 % 	s'avèrent nécessaires si vous voulez que votre document soit généré de manière appropriée, surtout
 % 	si vous compilez une thèse ou un mémoire par articles
 %	\footnote{Un tutoriel vidéo concernant la compilation est disponible à l'adresse
 %		\url{https://www.youtube.com/watch?v=hS3LMC3H55w}}.
+\else
+%	When the time comes for compiling your document, simply pressing ``Compile'' in your code editor
+%	won't suffice. A precise chain of compilations is necessary of you want your document to be
+%	rendered properly, most of all if you compile a dissertation or thesis written with articles
+%	\footnote{A video tutorial showing the compilation process is available at
+%		\url{https://www.youtube.com/watch?v=hS3LMC3H55w} (in French with English subtitles)}.
+\fi
 %
-%	\subsection{\label{comp-phd-msc-cl}Thèses et mémoires classiques}
+\ifnum\frenchdoc=1
+%	\subsection{Thèses et mémoires classiques}
+\else
+%	\subsection{Classic dissertations and theses}
+\fi
+%	\label{comp-phd-msc-cl}
 %
+\ifnum\frenchdoc=1
 %	Voici l'ordre de compilations nécessaires à la production de votre thèse ou mémoire classique,
 %	à faire à partir d'un éditeur de code ou d'un éditeur de ligne de commande. Dans la liste
 %	ci-dessous, remplacez +*+ par +these+ ou +memoire+ en fonction du document que vous rédigez.
+\else
+%	Here is the compilation chain you need to do in order to generate your classic dissertation or
+%	thesis. You can perform these compilations from your code editor or from the command line. In the
+%	following list, replace +*+ by +msc+ or +phd+ depending of the type of document you're writing.
+\fi
 %
 %	\begin{HECcompilation}
+\ifnum\frenchdoc=1
 %		\item +pdflatex gabarit-*-classique.tex+
 %		\item +bibtex gabarit-*-classique.tex+
 %		\item +makeindex gabarit-*-classique.tex+
@@ -924,8 +1000,18 @@
 %				et la commande \cmd{\printindex} dans votre document.}
 %		\item +pdflatex gabarit-*-classique.tex+
 %		\item +pdflatex gabarit-*-classique.tex+
+\else
+%		\item +pdflatex template-*-classic.tex+
+%		\item +bibtex template-*-classic.tex+
+%		\item +makeindex template-*-classic.tex+
+%			\footnote{\label{comp-index-en}Do this compilation only if you.ve inserted index entries
+%				and the \cmd{\printindex} command in your document.}
+%		\item +pdflatex template-*-classic.tex+
+%		\item +pdflatex template-*-classic.tex+
+\fi
 %	\end{HECcompilation}
 %
+\ifnum\frenchdoc=1
 %	La compilation d'une thèse ou d'un mémoire classique est assez simple. Toutes les étapes se font
 %	à partir de votre fichier gabarit. Vous lancez une première compilation avec +pdflatex+,
 %	vous générez votre bibliographie et votre index avec +bibtex+ et +makeindex+, puis vous recompilez
@@ -934,13 +1020,33 @@
 %
 %	Lorsque vous utilisez un éditeur de ligne de commandes, vous n'avez pas à inscrire l'extension du fichier
 %	(+.tex+) dans votre commande de compilation. Seul le nom du fichier est nécessaire dans la commande.
+\else
+%	Compiling a dissertation or thesis is pretty straightforward. All compilation steps are performed on
+%	your template file. You run a first compilation with +pdflatex+, you generate your bibliography
+%	and index with +bibtex+ and +makeindex+ and you recompile your template file at least twice with
+%	+pdflatex+ in order to output the bibliography, the index and the table of contents.
 %
+%	When compiling your document using the command line, you don't need to type the file extension (+tex+).
+%	Only the file name will suffice.
+\fi
+%
+\ifnum\frenchdoc=1
 %	\subsection{Thèses et mémoires par articles}
+\else
+%	\subsection{Dissertations and theses written with articles}
+\fi
 %
+\ifnum\frenchdoc=1
 %	Voici l'ordre de compilations nécessaires à la production de votre thèse ou mémoire par
 %	articles. Comme indiqué à la Section \ref{comp-phd-msc-cl}, remplacez +*+ par +these+ ou +memoire+.
+\else
+%	Here is the compilation chain you need to do in order to generate your dissertation or thesis
+%	written with articles. As mentioned in Section \ref{comp-phd-msc-cl}, replace +*+ by +dissertation+
+%	or +thesis+.
+\fi
 %
 %	\begin{HECcompilation}
+\ifnum\frenchdoc=1
 %		\item +pdflatex gabarit-*-articles.tex+
 %		\item +makeindex gabarit-*-articles.tex+
 %			\footnote{Voir note \ref{comp-index}.}
@@ -948,13 +1054,23 @@
 %		\item +bibtex [fichier].aux+
 %		\item +pdflatex gabarit-*-articles.tex+
 %		\item +pdflatex gabarit-*-articles.tex+
+\else
+%		\item +pdflatex template-*-articles.tex+
+%		\item +makeindex template-*-articles.tex+
+%			\footnote{See note \ref{comp-index-en}.}
+%		\item +bibtex template-*-articles.tex+
+%		\item +bibtex [file].aux+
+%		\item +pdflatex template-*-articles.tex+
+%		\item +pdflatex template-*-articles.tex+		
+\fi
 %	\end{HECcompilation}
 %
+\ifnum\frenchdoc=1
 %	La compilation d'une thèse ou d'un mémoire par articles est plus complexe, car vous
 %	devez générer chacune des bibliographies individuellement. Vous commencez par une
 %	première compilation +pdflatex+ sur le fichier gabarit. Vous lancez ensuite +makeindex+ 
 %	et +bibtex+ sur ce même fichier. Une fois que la première compilation +bibtex+ aura été complétée,
-%	ouvrez chacun des fichiers avec l'extension +.aux+ dans lesquels vous avez inséré des citation,
+%	ouvrez chacun des fichiers avec l'extension +.aux+ dans lesquels vous avez inséré des citations,
 %	soit \textbf{article-1.aux}, \textbf{article-2.aux}, \textbf{article-3.aux}, etc.
 %	\footnote{N'ouvrez les fichiers +.aux+ que si vous compilez votre document avec un 
 % 	éditeur de code.}
@@ -964,6 +1080,19 @@
 %
 %	Et comme indiqué à la Section \ref{comp-phd-msc-cl}, seuls les noms de fichiers sont
 %	nécessaires lorsque vous rédigez vos commandes dans un éditeur de ligne de commandes.
+\else
+%	Compiling a dissertation or thesis written with articles is more complex because you have to
+%	generate each article's bibliography separately. You begin by compiling your template
+%	document with +pdflatex+. You then run +bibtex+ and +makeindex+ on this same file. Once
+% 	the first +bibtex+ compilation is overs, open each +.aux+ file where you've inserted
+%	citations, i.e. \textbf{article-1.aux}, \textbf{article-2.aux}, \textbf{article-3.aux}, etc.
+%	\footnote{Open the +.aux+ files only if you compile your documents from the code editor.}
+%	Run a +bibtex+ compilation on each of these files. Finally, run +pdflatex+ at least twice
+%	on your template file to output all bibliographies, the index and the table of contents.
+%
+%	As mentioned at Section \ref{comp-phd-msc-cl}, only the file names as necessary for compiling
+% 	from the command line.
+\fi
 %
 % \StopEventually{
 %	\clearpage
