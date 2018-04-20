@@ -86,6 +86,8 @@
 \newlist{HECcompilation}{itemize}{1}
 \setlist[HECcompilation]{label=\faCog}
 
+\setlength{\parskip}{1ex}
+
 \begin{document}
 	\DocInput{hecthese.dtx}
 \end{document}
@@ -295,7 +297,7 @@
 %				annexe.tex & \oui & \oui & \oui & \oui \\
 \else
 %				& \multicolumn{2}{c|}{Dissertations} & \multicolumn{2}{c}{Theses} \\
-%				\textbf{Fichier} & Classic & With articles & Classic & With articles \\
+%				\textbf{File} & Classic & With articles & Classic & With articles \\
 %				\hline
 %				template-phd-*.tex & \oui & \oui & \non & \non \\
 %				template-msc-*.tex & \non & \non & \oui & \oui \\
@@ -375,7 +377,7 @@
 %
 %	\hecthese\ is based on the +memoir+ document class\cite{memoir} which already provides numerous features.
 %	Before programming any new commands or environments, you should read the class' exhaustive documentation
-%	\footnote{In spite of the fact that the author of the present class did not read it himself entirely. \emph{Mea culpa}\ldots}.
+%	\footnote{\ldots in spite of the fact that the author of the present class did not read it himself entirely. \emph{Mea culpa}\ldots}.
 \fi
 %
 \ifnum\frenchdoc=1
@@ -445,7 +447,7 @@
 %		la laisser dans la liste afin d'éviter des problèmes.
 %
 %		En ce qui a trait aux trois autres options de types de document, 
-%		\textbf{ne supprimez pas l'option de la commande \cmd{\documentclass}!}. Ce faisant,
+%		\textbf{ne supprimez pas l'option de la commande \cmd{\documentclass}}! Ce faisant,
 %		vous aurez des problèmes lors de la compilation de votre document, notamment pour
 %		la génération des bibliographies et des pages titre.
 \else
@@ -458,7 +460,7 @@
 %		that so you don't encounter problems while writing.
 %
 %		As for the three other document type options,
-%		\textbf{never erase them from the \cmd{\documentclass} command!}. By doing so, you would
+%		\textbf{never erase them from the \cmd{\documentclass} command}! By doing so, you would
 %		encounter errors when compiling your document, especially during the BiB\TeX\ compilations
 %		and during the title page layout.
 \fi
@@ -547,7 +549,7 @@
 \ifnum\frenchdoc=1
 %		La commande \cmd{\HECoption} détermine l'option de votre grade de maîtrise ou de doctorat.
 \else
-%		The \cmd{\HECoption} determines your dissertation or thesis' option.
+%		The \cmd{\HECoption} determines your dissertation' or thesis' option.
 \fi
 %	\end{DescribeMacro}
 %
@@ -611,15 +613,15 @@
 %		évaluer\dots
 %	\end{DescribeMacro}
 \else
-%	\begin{DescribeMacro}{\HECpresidentRapporteur}
+%	\begin{DescribeMacro}{\HECrapporteurPresident}
 %	\end{DescribeMacro}
-%	\begin{DescribeMacro}{\HECdirecteurRecherche}
+%	\begin{DescribeMacro}{\HECresearchDirector}
 %	\end{DescribeMacro}
-%	\begin{DescribeMacro}{\HECcodirecteurRecherche}
+%	\begin{DescribeMacro}{\HECresearchCodirector}
 %	\end{DescribeMacro}
-%	\begin{DescribeMacro}{\HECexaminateurExterne}
+%	\begin{DescribeMacro}{\HECexternalexaminator}
 %	\end{DescribeMacro}
-%	\begin{DescribeMacro}{\HECrepresentantDirecteur}
+%	\begin{DescribeMacro}{\HECdirectorRepresentative}
 %		Each of these commands identifies a person involved in your work. The commands take two arguments.
 %		The first argument is the person's name in the \emph{FirstName LastName} format. The second
 %		argument is the person's gender, male (M) or female (F). It is important to type in the person's
@@ -628,13 +630,21 @@
 %	\end{DescribeMacro}
 \fi
 %
+\ifnum\frenchdoc=1
 %	\begin{DescribeMacro}{\HECmembreJury}
 %		Cette commande a la même fonction que les cinq précédentes, c'est-à-dire nommer
 %		explicitement un intervenant dans votre thèse, mais elle ne prend qu'un seul
 %		argument, le nom au format \emph{Prénom Nom}, car le titre de la fonction est
 %		épicène.
 %	\end{DescribeMacro}
+\else
+%	\begin{DescribeMacro}{\HECjuryMember}
+%		This command has the same role as the five preceding ones, but it only takes one argument,
+%		the person's name, as the job title is in this case gender-neutral.
+%	\end{DescribeMacro}
+\fi
 %
+\ifnum\frenchdoc=1
 %	\begin{DescribeMacro}{\HECuniversiteCodirecteur}
 %	\end{DescribeMacro}
 %	\begin{DescribeMacro}{\HECuniversiteMembreJury}
@@ -645,9 +655,27 @@
 %		d'une autre université. Modifiez le nom de l'université dans toutes les commandes
 %		nécessaires, le cas échéant.
 %	\end{DescribeMacro}
+\else
+%	\begin{DescribeMacro}{\HECcodirectorUniversity}
+%	\end{DescribeMacro}
+%	\begin{DescribeMacro}{\HECjuryMemberUniversity}
+%	\end{DescribeMacro}
+%	\begin{DescribeMacro}{\HECexaminatorUniversity}
+%		By default, your codirector, jury member and external examinator are considered
+%		working at HEC Montréal by the \hecthese\ document class, but they could be working
+%		at another university. You'll then have to modify the university's name is these commands
+%		when necessary.
+%	\end{DescribeMacro}
+\fi
 %
-%	\subsubsection{Mise en forme}\label{commandes:layout}
+\ifnum\frenchdoc=1
+%	\subsubsection{Mise en forme}
+\else
+%	\subsubsection{Document layout}
+\fi
+%	\label{commandes:layout}
 %
+\ifnum\frenchdoc=1
 %	\begin{DescribeMacro}{\HECpagestitre}
 %		Les pages titre diffèrent en fonction du type de document, tel qu'il est montré dans
 %		les modèles de pages titre du \emph{Guide de rédaction}. De plus, une page d'identification
@@ -655,12 +683,21 @@
 %		\cmd{\HECpagestitre} met en forme automatiquement toutes les pages de titre en utilisant
 %		le contenu des commandes de la Section \ref{commandes:meta}.
 %	\end{DescribeMacro}
+\else
+%	\begin{DescribeMacro}{\HECtitlepages}
+%		Title pages differ from one document type to the other as it is shown in the
+%		\emph{Guidelines}' title page templates. A jury identification page is also included after
+%		the title page in dissertations. The \cmd{\HECpagestitre} command automatically
+%		generates all title pages using the contents of the commands listes in Section \ref{commandes:meta}.
+%	\end{DescribeMacro}
+\fi
 %
 %	\begin{DescribeMacro}{\HECtitreIntroduction}
 %	\end{DescribeMacro}
 %	\begin{DescribeMacro}{\HECtitreConclusion}
 %	\end{DescribeMacro}
 %	\begin{DescribeMacro}{\HECgenererTitres}
+\ifnum\frenchdoc=1
 %		Les commandes \cmd{\HECtitreIntroduction} et \cmd{\HECtitreConclusion} sont placées en
 %		tant qu'argument des commandes \cmd{\chapter*} situées au début des fichiers
 %		\textbf{introduction.tex} et \textbf{conclusion.tex} respectivement. Elles servent
@@ -669,6 +706,14 @@
 %		les titres seront tout simplement «Introduction» et «Conclusion» ; dans le cas contraire,
 %		ces sections seront intitulées «Introduction générale» et «Conclusion générale» pour les
 %		distinguer des introductions et des conclusions des articles.
+\else
+%		The \cmd{\HECtitreIntroduction} and \cmd{\HECtitreConclusion} commands are placed as arguments in
+% 		the \textbf{introduction.tex} and \textbf{conclusion.tex} files' \cmd{\chapter*} command.
+%		They are used in the title generation with the \cmd{\HECgenererTitres} command. If you
+%		write a dissertation or thesis in a classical manner, the titles of your document's introduction
+%		and conclusion will be ``Introduction'' and ``Conclusion'', whereas if you write a dissertation
+%		or thesis with articles, the titles will be ``General Introduction'' and ``General Conclusion''.
+\fi
 %	\end{DescribeMacro}
 %
 %	\begin{DescribeMacro}{\HECtdmAbreviations}
@@ -682,36 +727,69 @@
 %	\begin{DescribeMacro}{\HECtdmRevueLitterature}
 %	\end{DescribeMacro}
 %	\begin{DescribeMacro}{\HECtdmResumeArticle}
+\ifnum\frenchdoc=1
 %		Plusieurs parties d'une thèse ou d'un mémoire étant des sections et chapitres «maison»,
 %		il n'existe pas de traduction anglaise d'office pour celles-ci. La classe {\hecthese} pallie
 %		à cette situation en détectant la langue et en générant le titre approprié pour de nombreuses
 %		sections du document : l'introduction et la conclusion générales des thèses et mémoires par articles,
 %		la liste des abréviations, les remerciements, l'avant-propos, le cadre théorique, la revue de littérature
 %		et le résumé de chacun des articles.
+\else
+%		Many parts of HEC Montréal's dissertations and theses being ``homemade'' sections and chapters,
+%		no official english translations exist for their titles. The \hecthese\ class takes care of the
+%		problem by automatically detecting the document's default language and by generating the appropriate
+%		titles for these sections : general introduction and conclusion, acronym list, acknowledgements,
+%		preface, theoretical framework, literature revue and each article's abstract.
+\fi
 %	\end{DescribeMacro}
 %
+\ifnum\frenchdoc=1
 %	\subsubsection{Les bibliographies des thèses et mémoires par articles}
+\else
+%	\subsubsection{By-article dissertations' and theses' bibliographies}
+\fi
 %
+%\ifnum\frenchdoc=1
 %		Dans les thèses et mémoires rédigés par articles, il y a plusieurs bibliographies : une
 %		par article et une générale pour l'ensemble du travail. La classe {\hecthese} utilise
 %		le +package chapterbib+\cite{chapterbib} pour permettre la publication de ces nombreuses bibliographies.
+\else
+%		In dissertations and theses written with articles, there are many bibliographies : one specific
+%		bibliography for each article and a general bibliography for the whole document. The
+%		\hecthese\ document class uses the +chapterbib+ package\cite{chapterbib} to generate
+%		multiple bibliographies in one document.
+\fi
 %
 %	\begin{DescribeMacro}{\HECbibliographieArticle}
+\ifnum\frenchdoc=1
 %		Le +package chapterbib+ ne s'accorde cependant pas très bien avec la classe +memoir+ en ce qui
 %		concerne la place de chacune des bibliographies dans les divisions du document. La
 %		commande \cmd{\HECbibliographieArticle} s'assure donc que les bibliographies des articles
 %		seront positionnées en tant que section non numérotées à l'intérieur des articles. C'est
 %		pourquoi, dans les gabarits par articles, cette commande est placée après la commande
 %		\cmd{\HECpagestitre}.
+\else
+%		The +chapterbib+ package and +memoir+ class have conflicting issues concerning the bibliographies'
+%		place in a document's divisions. The \cmd{\HECbibliographieArticle} makes sure that the articles'
+%		bibliographies are positioned as unnumbered sections inside the articles. This is why, in the
+%		by-articles templates, this command is placed just after the \cmd{\HECtitlepages} command.
+\fi
 %	\end{DescribeMacro}
 %
 %	\begin{DescribeMacro}{\HECbibliographieGenerale}
+\ifnum\frenchdoc=1
 %		Cette commande sert	à positionner la bibliographie générale du travail en tant 
 %		que «chapitre» (au sens {\LaTeX} du terme) non numéroté. Cette commande est placée 
 %		tout juste avant la commande \cmd{\bibliographystyle} du gabarit.
+\else
+%		This command positions the document's general bibliography as an unnumbered ``chapter''
+%		(in the \LaTeX\'s definition of the term). It is placed just before the template's
+%		\cmd{\bibliographystyle} command.
+\fi
 %	\end{DescribeMacro}
 %
 %	\begin{DescribeMacro}{\HECreferences}
+\ifnum\frenchdoc=1
 %		Le +package chapterbib+ remplit très bien son rôle de création de bibliographies multiples. Le
 %		hic, c'est qu'il faut inclure la commande \cmd{\bibliography} dans chaque fichier inclus
 %		dans un document pour que les citations s'affichent correctement. Ce faisant, une bibliographie 
@@ -728,12 +806,37 @@
 %		Même si la bibliographie d'une section ne s'affichera pas, il est important d'indiquer comme
 %		argument +style bibliographique+ le même style que celui utilisé partout ailleurs dans le
 %		document, car les références seront au final incluses dans la bibliographie générale.
+\else
+%		The +chapter+ package is pretty good at fulfilling its purpose, which is generating multiple
+%		bibliographies. The problem is that a \cmd{\bibliography} command must be included in each file
+%		if one wants her citations to appear in the document. And by including the command, a bibliography
+%		is generated for that part of the document. In sections of the document such as the introduction, the
+%		abstracts or the conclusion, a bibliography must not be generated as the references for these parts
+%		have to be included in the general bibliography. The \cmd{\HECreferences} command allows you
+%		to insert citations and see them displayed correctly in a given section without generating a
+%		the bibliography for that section. Its syntax is as follows:
+%
+%		\begin{shaded*}
+%			\cmd{\HECreferences\{bibliographic style>\}\{<file.bib>\}}
+%		\end{shaded*}
+%
+%		Even if the bibliography of a given section won't be displayed, it is important to specify
+%		a bibliography style as the references will still appear in the general bibliography.
+\fi
 %	\end{DescribeMacro}
 %
+\ifnum\frenchdoc=1
 %	\subsection{Environnements de la classe}
+\else
+%	\subsection{Class environments}
+\fi
 %
+\ifnum\frenchdoc=1
 %	Les environnements de la classe {\hecthese}	ne servent qu'à la mise en forme de votre
 %	travail.
+\else
+%	The \hecthese\ class' environments all share the same purpose : laying out your work.
+\fi
 %
 %	\begin{DescribeEnv}{HECdedicace}
 %		Cet environnement se retrouve dans le fichier \textbf{dedicace.tex}. C'est à l'intérieur de
