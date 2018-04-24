@@ -59,6 +59,7 @@
 \definecolor{shadecolor}{rgb}{0.93,0.97,0.99}
 \definecolor{TFFrameColor}{rgb}{0,0.235,0.443}
 \definecolor{TFTitleColor}{rgb}{1,1,1}
+\definecolor{bleuFoncePrimaire}{RGB}{0,60,113}
 
 \hypersetup{
 	colorlinks=true,
@@ -86,6 +87,13 @@
 \newlist{HECcompilation}{itemize}{1}
 \setlist[HECcompilation]{label=\faCog}
 
+\newenvironment{HECwhat}[1]{%
+	\begin{leftbar}
+		\noindent{\Large {\color{bleuFoncePrimaire}\faQuestionCircle} \textbf{#1}} \\
+	}{%
+	\end{leftbar}
+}
+
 \setlength{\parskip}{1ex}
 
 \begin{document}
@@ -93,13 +101,13 @@
 \end{document}
 %</driver>
 % \fi
-% \CheckSum{463}
+% \CheckSum{505}
 % \DoNotIndex{\RequirePackage,\ExecuteOptions,\ifthenelse,\ProcessOptions}
 % \DoNotIndex{\newcommand,\newcommand*,\newboolean,\setboolean}
 % \DoNotIndex{\emph,\cite,\LaTeX,\hecthese,\textbf,\item,\footnote}
 % \DoNotIndex{\label,\ref,\caption,\hline,\multicolumn,\oui,\non,\cmd}
 % \DoNotIndex{\dots,\url,\clearpage,\bibitem}
-% \changes{1.3}{2018-04-17}{Première version anglaise de la classe / First english version of the class}
+% \changes{1.3}{2018-04-17}{Première version bilingue de la classe / First bilingual version of the class}
 % \changes{1.2}{2017-11-29}{Mise à jour des liens vers les capsules vidéos dans
 %	la documentation.}
 % \changes{1.1}{2017-10-20}{Uniformisation de la licence lppl dans tous les fichiers.
@@ -687,8 +695,18 @@
 %	\begin{DescribeMacro}{\HECtitlepages}
 %		Title pages differ from one document type to the other as it is shown in the
 %		\emph{Guidelines}' title page templates. A jury identification page is also included after
-%		the title page in dissertations. The \cmd{\HECpagestitre} command automatically
+%		the title page in dissertations. The \cmd{\HECtitlepages} command automatically
 %		generates all title pages using the contents of the commands listes in Section \ref{commandes:meta}.
+%
+%		\begin{HECwhat}{Why are my title pages displayed in French?}
+%			The Université de Montréal's \emph{Règlement pédagogique de la faculté des études supérieures et %
+%			postdoctorales}\cite[art. 88,89,134,135]{udem:reglements} states the language and presentation
+%			standards that prevail for dissertations and thesis, and refers to the
+%			\emph{Guide de présentation des mémoires et des thèses}\cite[p. 22]{udem:guide} where it is
+%			written that ``\emph{title pages must be written in French even when the dissertation or %
+%			thesis is written in English}''. Since HEC Montréal is one of Université de Montréal's
+%			affiliate universities, this rule prevails.
+%		\end{HECwhat}
 %	\end{DescribeMacro}
 \fi
 %
@@ -1101,58 +1119,70 @@
 %		Centre d'aide en français et en rédaction universitaire (2015).
 %		\emph{Guide pour la rédaction d'un travail universitaire de 1er, 2e et 3e cycles},
 %		HEC Montréal. Consulté le 18 mai 2017 à 
-%		\url{http://www.hec.ca/qualitecomm/caf/guide-redaction-travail-cycles.pdf}
+%		\href{http://www.hec.ca/qualitecomm/caf/guide-redaction-travail-cycles.pdf}%
+%			{http://www.hec.ca/qualitecomm/caf/guide-redaction-travail-cycles.pdf}
 %	\bibitem{texlive}
 %		\emph{TeX Live}, TeX Users Group. Consulté le 18 mai 2017 à
-%		\url{https://www.tug.org/texlive/}
+%		\href{https://www.tug.org/texlive/}{https://www.tug.org/texlive/}
 %	\bibitem{texstudio}
 %		van der Zander, Benito, Jan Sundermeyer, Daniel Braun et Tim Hoffmann (2017).
 %		\emph{TeXstudio : LaTeX made comfortable}, TeXstudio. Consulté le 18 mai 2017 à
-%		\url{http://www.texstudio.org/}
+%		\href{http://www.texstudio.org/}{http://www.texstudio.org/}
 %	\bibitem{memoir}
 %		Wilson, Peter R., Lars Madsen (2016).
 %		\emph{Package memoir}, Comprehensive TeX Archive Network. Consulté le 19 mai 2017
-%		à \url{https://www.ctan.org/pkg/memoir}
+%		à \href{https://www.ctan.org/pkg/memoir}{https://www.ctan.org/pkg/memoir}
 %	\bibitem{babel}
 %		Bezos López, Javier, Johannes L. Braams (2017).
 %		\emph{Package babel}, Comprehensive TeX Archive Network. Consulté le 19 mai 2017
-%		à \url{https://www.ctan.org/pkg/babel}
+%		à \href{https://www.ctan.org/pkg/babel}{https://www.ctan.org/pkg/babel}
 %	\bibitem{hyperref}
 %		Oberdiek, Heiko, Sebastian Rahtz (2017).
 %		\emph{Package hyperref}, Comprehensive TeX Archive Network. Consulté le 19 mai 2017
-%		à \url{https://www.ctan.org/pkg/hyperref}
+%		à \href{https://www.ctan.org/pkg/hyperref}{https://www.ctan.org/pkg/hyperref}
 %	\bibitem{chapterbib}
 %		Arseneau, Donald (2010).
 %		\emph{Package chapterbib}, Comprehensive TeX Archive Network. Consulté le 23 mai 2017
-%		à \url{https://www.ctan.org/pkg/chapterbib}
+%		à \href{https://www.ctan.org/pkg/chapterbib}{https://www.ctan.org/pkg/chapterbib}
 %	\bibitem{calc}
 %		Thorup, Kresten Krab, Frank Jensen et The {\LaTeX} Team (2007).
 %		\emph{Package calc}, Comprehensive TeX Archive Network. Consulté le 23 mai 2017 à
-%		\url{https://www.ctan.org/pkg/calc}
+%		\href{https://www.ctan.org/pkg/calc}{https://www.ctan.org/pkg/calc}
 %	\bibitem{enumitem}
 %		Bezos López, Javier (2009).
 %		\emph{Package enumitem}, Comprehensive TeX Archive Network. Consulté le 23 mai 2017 à
-%		\url{https://www.ctan.org/pkg/enumitem}
+%		\href{https://www.ctan.org/pkg/enumitem}{https://www.ctan.org/pkg/enumitem}
 %	\bibitem{ifthen}
 %		Lamport, Leslie, David Carlisle et The {\LaTeX} Team (2014).
 %		\emph{Package ifthen}, Comprehensive TeX Archive Network. Consulté le 23 mai 2017 à
-%		\url{https://www.ctan.org/pkg/ifthen}
+%		\href{https://www.ctan.org/pkg/ifthen}{https://www.ctan.org/pkg/ifthen}
 %	\bibitem{francaisbst}
 %		Goulet, Vincent (2012).
 %		\emph{Package francais-bst}, Comprehensive TeX Archive Network. Consulté le 23 mai 2017 à
-%		\url{https://www.ctan.org/pkg/francais-bst}
+%		\href{https://www.ctan.org/pkg/francais-bst}{https://www.ctan.org/pkg/francais-bst}
 %	\bibitem{natbib}
 %		Daly, Patrick W., Arthur Ogawa (2009).
 %		\emph{Package natbib}, Comprehensive TeX Archive Network. Consulté le 29 mai 2017 à
-%		\url{https://www.ctan.org/pkg/natbib}
+%		\href{https://www.ctan.org/pkg/natbib}{https://www.ctan.org/pkg/natbib}
 %	\bibitem{iflang}
 %		Oberdiek, Heiko (2007).
 %		\emph{Package iflang}, Comprehensive TeX Archive Network. Consulté le 25 septembre 2017 à
-%		\url{https://www.ctan.org/pkg/iflang}
+%		\href{https://www.ctan.org/pkg/iflang}{https://www.ctan.org/pkg/iflang}
 %	\bibitem{stylehec}
 %		Archambault, Caroline (2017).
 %		\emph{Bibliographie selon le style HEC Montréal}, Bibliothèque HEC Montréal. Consulté le 5 octobre 2017 à
-%		\url{http://libguides.hec.ca/style-hec}
+%		\href{http://libguides.hec.ca/style-hec}{http://libguides.hec.ca/style-hec}
+%	\bibitem{udem:reglements}
+%		Secrétariat général (2018).
+%		\emph{Réglement pédagogique de la faculté des études supérieures et postdoctorales},
+%		Université de Montréal. Consulté le 23 avril 2018 à
+%		\href{http://secretariatgeneral.umontreal.ca/documents-officiels/reglements-et-politiques/reglement-pedagogique-de-la-faculte-des-etudes-superieures-et-postdoctorales/}%
+%			{http://secretariatgeneral.umontreal.ca/documents-officiels/reglements-et-politiques/reglement-pedagogique-de-la-faculte-des-etudes-superieures-et-postdoctorales/}
+%	\bibitem{udem:guide}
+%		Faculté des études supérieures et postdoctorales (2015).
+%		\emph{Guide de présentation des mémoires et des thèses de l'Université de Montréal}, Université de Montréal.
+%		Consulté le 23 avril 2018 à \href{http://www.fesp.umontreal.ca/fileadmin/fesp/documents/Cheminement/GuidePresentationMemoiresTheses.pdf}%
+			{http://www.fesp.umontreal.ca/fileadmin/fesp/documents/Cheminement/ GuidePresentationMemoiresTheses.pdf}
 %	\end{thebibliography}
 %	\clearpage
 %	\PrintChanges
@@ -1162,19 +1192,40 @@
 %
 % \appendix
 %
+\ifnum\frenchdoc=1
 % \section{Code source de la classe \hecthese}
+\else
+% \section{\hecthese\ class source code}
+\fi
 %
+\ifnum\frenchdoc=1
 %	Vous retrouverez dans cette annexe le code source de la classe {\LaTeX} {\hecthese}.
 %	Si vous avez envie de voir comment elle est programée, d'aider à la déboguer,
 %	à l'améliorer, etc., cette section est pour vous.
+\else
+%	You will find in this section le \LaTeX\ \hecthese\ document class' source code.
+%	If you want to see how it is programmed, help debug or enhance it, etc., this
+%	section is for you.
+\fi
 %
+\ifnum\frenchdoc=1
 %	\subsection{Tests et valeurs booléennes}
+\else
+%	\subsection{Boolean tests and values}
+\fi
 %
+\ifnum\frenchdoc=1
 %	Pour effectuer les tests conditionnels, la classe utilise le +package+ +ifthen+\cite{ifthen}.
 %	Les variables booléennes servent à déterminer si le travail est une thèse ou un
 % 	mémoire rédigé de manière classique ou par articles, ainsi qu'à déterminer le
 %	genre des intervenants dans la rédaction de la thèse. Une fois les variables créées, 
 %	des valeurs par défaut leur sont attribuées.
+\else
+%	To run conditional tests, the class uses the +ifthen+ package\cite{ifthen}. Boolean variables
+%	are used to determine what kind of document is being written (Ph.D. or M.Sc., classic or by articles) 
+%	and each contributor's gender. Once the variables have been instantiated, default values
+%	are given to these variables.
+\fi
 %
 %    \begin{macrocode}
 %<*class>
@@ -1199,10 +1250,19 @@
 \setboolean{HEC@isRepDirFemme}{false}
 %    \end{macrocode}
 %
+\ifnum\frenchdoc=1
 %	\subsection{Options de la classe}
+\else
+%	\subsection{Class options}
+\fi
 %
+\ifnum\frenchdoc=1
 %	Les quelques options de la classe sont déclarées ci-dessous. Notez que
 %	les options concernant le +package+ +babel+ ne sont pas déclarées ici.
+\else
+%	The few options available with the class are declared hereunder. Note
+%	that the +babel+ package's options are not declared here.
+\fi
 %
 %    \begin{macrocode}
 
@@ -1237,12 +1297,22 @@
 
 %    \end{macrocode}
 %
+\ifnum\frenchdoc=1
 %	\subsection{Chargement de la classe}
+\else
+%	\subsection{Class loading}
+\fi
 %
+\ifnum\frenchdoc=1
 %	La classe est chargée dans le document avec toutes les options
 %	déclarées par l'utilisateur. Si une taille de police de caractères
 % 	n'a pas été spécifiée, la classe utilise la taille +12pt+ par
 % 	défaut.
+\else
+%	The class is loaded in the document with all the options declared
+%	by the end user. If a font size is not specified, the classe loads
+%	the +12pt+ font size by default.
+\fi
 %
 %    \begin{macrocode}
 
@@ -1254,8 +1324,13 @@
 
 %    \end{macrocode}
 %
+\ifnum\frenchdoc=1
 %	\subsection{Packages requis}
+\else
+%	\subsection{Required packages}
+\fi
 %
+\ifnum\frenchdoc=1
 %	Très peu de +packages+ sont chargés avec la classe afin de vous permettre
 %	de rédiger avec la plus grande flexibilité possible.
 %
@@ -1266,6 +1341,17 @@
 %	Les autres +packages+ chargés sont typiques de la plupart des documents : encodage
 %	des fichiers, gestion des graphiques, des images et des couleurs, utilisation des
 % 	mathématiques, etc.
+\else
+%	Very few packages are loaded in the class so you can write your document
+%	with a maximum flexibility.
+%
+%	The class uses the +natbib+ package\cite{natbib} so you can write your citations in the
+%	\emph{author-year} format. The +chapterbib+ package is loaded only if the dissertation or
+%	thesis is written with articles.
+%
+%	The other packages loaded are typical to any other document: file encoding, graphics,
+%	images and color management, math modes, etc.
+\fi
 %
 %    \begin{macrocode}
 
@@ -1289,13 +1375,23 @@
 
 %    \end{macrocode}
 %
+\ifnum\frenchdoc=1
 %	\subsection{Mise en page}
+\else
+%	\subsection{Layout}
+\fi
 %
+\ifnum\frenchdoc=1
 %	Toutes les normes de présentation graphiques du \emph{Guide de rédaction} sont
 %	établies ci-dessous. À la compilation, {\LaTeX} se plaindra que
 %	les entêtes sont trop petites pour son contenu, mais cela ne causera pas de
 %	problèmes pour la génération de votre document (le compilateur retourne un avertissement,
 %	pas une erreur).
+\else
+%	All the presentation standards required by the \emph{Guidelines} are programmed
+%	hereunder. During compilation, \LaTeX\ will complain that some headers are too small
+%	for your content, but this will not generate errors (the compiler only issues warnings).
+\fi
 %
 %    \begin{macrocode}
 
@@ -1313,15 +1409,38 @@
 
 %    \end{macrocode}
 %
+\ifnum\frenchdoc=1
 %	\subsection{Commandes de la classe}
+\else
+%	\subsection{Class commands}
+\fi
 %
+\ifnum\frenchdoc=1
 %	\subsubsection{Métadonnées du document}
+\else
+%	\subsubsection{Document metadata}
+\fi
 %
+\ifnum\frenchdoc=1
 %	Chaque commande relative aux métadonnées du document que vous retrouverez
 %	dans le préambule a son équivalent en commande interne. À titre d'exemple, la
 % 	commande \cmd{\HECtitre} a comme équivalent \cmd{\HEC@titre}. Ce sont les
 %	commandes internes qui servent à construire les pages titre et la page
 % 	d'identification du jury.
+%
+%	Plusieurs commandes ont leur traduction anglaise afin de faciliter l'utilisation
+%	de la classe par les anglophones, mais ces versions anglaises ne sont que des
+%	coquilles qui appellent leur équivalent français.
+\else
+%	Every metadata-related command that you'll find in the document preamble has
+%	its internal command equivalent. Example given, the \cmd{\HECtitre} has
+%	\cmd{\HEC@titre} as equivalent. The internal commands are used to generate the
+%	document's title page and jury indentification page.
+%
+%	Many commands have their english translation so english-speaking students
+%	can work easily with the class, but these english translations are only
+%	placeholders that call their french equivalent.
+\fi
 %
 %    \begin{macrocode}
 
@@ -1348,12 +1467,17 @@
 	\renewcommand{\HEC@titre}{#1}
 }
 \newcommand{\HECtitle}[1]{\HECtitre{#1}}
+
 \newcommand{\HECsoustitre}[1]{%
 	\renewcommand{\HEC@sousTitre}{#1}
 }
+\newcommand{\HECsubtitle}[1]{\HECsoustitre{#1}}
+
 \newcommand{\HECauteur}[1]{%
 	\renewcommand{\HEC@auteur}{#1}
 }
+\newcommand{\HECauthor}[1]{\HECauteur{#1}}
+
 \newcommand{\HECoption}[1]{%
 	\ifthenelse{\boolean{HEC@isPhD}}{%
 		\renewcommand{\HEC@optionPhD}{#1}
@@ -1361,12 +1485,17 @@
 		\renewcommand{\HEC@optionMSc}{#1}
 	}
 }
+
 \newcommand{\HECmoisDepot}[1]{%
 	\renewcommand{\HEC@moisDepot}{#1}
 }
+\newcommand{\HECsubMonth}[1]{\HECmoisDepot{#1}}
+
 \newcommand{\HECanneeDepot}[1]{%
 	\renewcommand{\HEC@anneeDepot}{#1}
 }
+\newcommand{\HECsubYear}[1]{\HECanneeDepot{#1}}
+
 \newcommand{\HECpresidentRapporteur}[2]{%
 	\renewcommand{\HEC@presidentRapporteur}{#1}
 	\ifthenelse{\equal{#2}{F}}{%
@@ -1375,6 +1504,8 @@
 		\setboolean{HEC@isPresRappFemme}{false}
 	}
 }
+
+\newcommand{\HECrapporteurPresident}[2]{\HECpresidentRapporteur{#1}{#2}}
 \newcommand{\HECdirecteurRecherche}[2]{%
 	\renewcommand{\HEC@directeurRecherche}{#1}
 	\ifthenelse{\equal{#2}{F}}{%
@@ -1383,6 +1514,8 @@
 		\setboolean{HEC@isDirRechFemme}{false}
 	}
 }
+\newcommand{\HECresearchDirector}[2]{\HECdirecteurRecherche{#1}{#2}}
+
 \newcommand{\HECcodirecteurRecherche}[2]{%
 	\renewcommand{\HEC@codirecteurRecherche}{#1}
 	\ifthenelse{\equal{#2}{F}}{%
@@ -1391,15 +1524,23 @@
 		\setboolean{HEC@isCodirRechFemme}{false}
 	}
 }
+\newcommand{\HECresearchCodirector}[2]{\HECcodirecteurRecherche{#1}{#2}}
+
 \newcommand{\HECuniversiteCodirecteur}[1]{%
 	\renewcommand{\HEC@universiteCodirecteur}{#1}
 }
+\newcommand{\HECcodirectorUniversity}[1]{\HECuniversiteCodirecteur{#1}}
+
 \newcommand{\HECmembreJury}[1]{%
 	\renewcommand{\HEC@membreJury}{#1}
 }
+\newcommand{\HECjuryMember}[1]{\HECmembreJury{#1}}
+
 \newcommand{\HECuniversiteMembreJury}[1]{%
 	\renewcommand{\HEC@universiteMembreJury}{#1}
 }
+\newcommand{\HECjuryMemberUniversity}[1]{\HECuniversiteMembreJury{#1}}
+
 \newcommand{\HECexaminateurExterne}[2]{%
 	\renewcommand{\HEC@examinateurExterne}{#1}
 	\ifthenelse{\equal{#2}{F}}{%
@@ -1408,9 +1549,13 @@
 		\setboolean{HEC@isExamExtFemme}{false}
 	}
 }
+\newcommand{\HECexternalExaminator}[2]{\HECexaminateurExterne{#1}{#2}}
+
 \newcommand{\HECuniversiteExaminateur}[1]{%
 	\renewcommand{\HEC@universiteExaminateur}{#1}
 }
+\newcommand{\HECexaminatorUniversity}[1]{\HECuniversiteExaminateur{#1}}
+
 \newcommand{\HECrepresentantDirecteur}[2]{%
 	\renewcommand{\HEC@representantDirecteur}{#1}
 	\ifthenelse{\equal{#2}{F}}{%
@@ -1419,15 +1564,27 @@
 		\setboolean{HEC@isRepDirFemme}{false}
 	}
 }
+\newcommand{\HECdirectorRepresentative}[2]{\HECrepresentantDirecteur{#1}{#2}}
 
 %    \end{macrocode}
 %
+\ifnum\frenchdoc=1
 %	\subsubsection{Métadonnées du pdf}
+\else
+%	\subsubsection{pdf metadata}
+\fi
 %
+\ifnum\frenchdoc=1
 %	En plus des métadonnées relatives à votre travail, la classe définit
 %	des commandes pour insérer des métadonnées dans le fichier +.pdf+ qui
 %	sera généré par la compilation de votre thèse ou mémoire. Ces commandes
 %	se retrouvent dans les options du +package+ +hyperref+.
+\else
+%	Along with the metadata-related commands for your work, the class
+%	defines commands that will insert metadata in the +.pdf+ file
+%	generated after the compilation of your dissertation or thesis. These
+%	commands are placed in the +hyperref+ package's options.
+\fi
 %
 %    \begin{macrocode}
 
@@ -1436,15 +1593,26 @@
 
 %    \end{macrocode}
 %
+\ifnum\frenchdoc=1
 %	\subsubsection{Pages de titre et d'identification du jury}
+\else
+%	\subsubsection{Title and jury identification pages}
 %
+\ifnum\frenchdoc=1
 %	La classe utilise trois commandes internes pour générer les pages titre
 % 	et la page d'identification du jury. La commande \cmd{\HECpagestitre} est,
 %	quant à elle, insérée au début de l'environnement +document+ pour
 %	générer la (les) page(s) en fonction du type de document rédigé.
+\else
+%	The class uses three internal commands to generate the title page and
+%	the jury identification page. The \cmd{\HECtitlepages} command is inserted
+%	at the beginning of the +document+ environment to generate the title pages
+%	related to each type of document written.
+\fi
 %
 % \begin{macro}{\HEC@pageTitrePhD}
 %
+\ifnum\frenchdoc=1
 %	La commande +\HEC@pageTitrePhD+ génère la page titre des thèses. Elle
 %	utilise d'abord l'environnement +titlingpage+ de la classe +memoir+, qui
 %	permet la création de pages titre personnalisées plus flexibles que la commande
@@ -1462,6 +1630,20 @@
 %
 %	Référez-vous à l'Annexe F du \emph{Guide de rédaction} pour voir un modèle de page titre
 % 	de thèse.
+\else
+%	The +\HEC@pageTitrePhD+ command generates the dissertations' title page. It uses the
+%	+memoir+ class' +titlingpage+ environment, which gives more flexibility than \LaTeX's
+%	\cmd{\maketitle} command for the creation of title pages\cite{memoir}. The +titlingpage+
+%	environment resets the page numbering at 1 after the title page so it prevents the following
+%	blank page from being counted as a page.
+%
+%	Automatic insertion of the subtitle is made possible by calculating its length. If it is empty,
+%	only a new line is inserted. If it's not empty, a colon is inserted followed by the subtitle.
+%
+%	Instead of defining fixed vertical spaces between the title page elements, the command makes
+%	an extensive use of the \cmd{\vfill} command, which vertically justifies all elements in the page,
+% 	no matter what size they are.
+\fi
 %
 %    \begin{macrocode}
 
@@ -1496,6 +1678,7 @@
 %
 % \begin{macro}{\HEC@pageIdentificationJury}
 %
+\ifnum\frenchdoc=1
 %	Cette commande utilise la version étoilée de l'environnement +titlingpage+, car
 %	elle ne recommence pas la numérotation des pages à 1, ce qui permet de démarrer le
 %	résumé français de la thèse à la page iii.
@@ -1505,6 +1688,14 @@
 %
 %	Référez-vous à l'Annexe G du \emph{Guide de rédaction} pour voir un modèle de page
 % 	d'identification du jury.
+\else
+%	This command uses the +titlingpage+ environment's starred version which doesn't reset
+%	the page numbering at 1. In this way, the french abstract can start at page number iii,
+%	as requested.
+%
+%	The command also determines each contributor's job title spelling according to his or
+%	her gender. It is done by evaluating each +HEC@is*Femme+ boolean variable's value.
+\fi
 %
 %    \begin{macrocode}
 
@@ -1571,6 +1762,7 @@
 %
 % \begin{macro}{\HEC@pageTitreMSc}
 %
+\ifnum\frenchdoc=1
 %	La commande \cmd{\HEC@pageTitreMSc} utilise l'environnement +titlingpage+
 %	et insère automatiquement le sous-titre de la même manière que la commande 
 %	de page titre de thèse.
@@ -1579,6 +1771,14 @@
 %	séparer les éléments du bloc titre-sous-titre-auteur de la page, et ce, afin de
 %	se conformer aux normes de présentation démontrées à l'Annexe E du
 %	\emph{Guide de rédaction}.
+\else
+% 	The \cmd{\HEC@pageTitreMSc} command uses the +titlingpage+ environment
+%	in the same manner as the dissertations' title page command.
+%
+%	This command is also the only place where a fixed vertical space is inserted
+%	between the title and the subtitle, in order to comply with the \emph{Guidelines}' 
+%	presentation standards.
+\fi
 %
 %    \begin{macrocode}
 
@@ -1612,12 +1812,23 @@
 %
 % \end{macro}
 %
+\ifnum\frenchdoc=1
 % \begin{macro}{\HECpagestitre}
+\else
+% \begin{macro}{\HECtitlepages}
+\fi
 %
+\ifnum\frenchdoc=1
 %	La commande évalue la valeur de la variable booléenne +HEC@isPhD+.
 %	Si le type de document est une thèse, la commande insère la page titre
 %	de thèse et la page d'identification du jury. Dans le cas contraire,
 %	elle insère la page titre d'un mémoire.
+\else
+%	The command evaluates the +HEC@isPhD+ boolean variable's value.
+%	If the document is a dissertation, it inserts the dissertation's title
+%	page and the jury identification page. If the document is a thesis,
+%	the command inserts the thesis' title page. 
+\fi
 %
 %    \begin{macrocode}
 
@@ -1629,13 +1840,19 @@
 		\HEC@pageTitreMSc
 	}
 }
+\newcommand{\HECtitlepages}{\HECpagestitre}
 
 %    \end{macrocode}
 %
 % \end{macro}
 %
+\ifnum\frenchdoc=1
 %	\subsubsection{Titres de l'introduction et de la conclusion}
+\else
+%	\subsubsection{Introduction and conclusion titles}
+\fi
 %
+\ifnum\frenchdoc=1
 %	Dans les thèses et mémoires rédigés par articles, il y a plusieurs
 % 	introductions et conclusions, soit une introduction et une conclusion
 %	générales pour le travail, et une introduction et une conclusion par article.
@@ -1643,6 +1860,16 @@
 %	modifie le titre de ces sections pour «Introduction générale» et «Conclusion
 %	générale». Elle tient aussi compte de la langue par défaut, comme pour tous
 %	les autres titres, comme on le verra en détail à la Section \ref{anglais}.
+\else
+%	In dissertations and theses written with articles, there is more than
+%	one introduction and conclusion : a general introduction and conclusion for the
+%	whole document, and one introduction and conclusion for every article.
+%	To make a distinction between all of these introductions and conclusions, the
+%	class changes the document's introduction's and conclusion's titles to
+%	``General Introduction'' and ``General Conclusion''. The command also takes
+%	into account the document's default language, as for all other titles, as we'll
+%	see it in Section \ref{anglais}.
+\fi
 %
 %    \begin{macrocode}
 
@@ -1662,12 +1889,24 @@
 
 %    \end{macrocode}
 %
-%	\subsubsection{\label{anglais}Prise en charge de l'anglais dans les titres et la table des matières}
+\ifnum\frenchdoc=1
+%	\subsubsection{Prise en charge de l'anglais dans les titres et la table des matières}
+%	\label{anglais}
+\else
+%	\subsubsection{Automatic english translation of titles and table of contents}
+\fi
 %
+\ifnum\frenchdoc=1
 %	Le +package+ +iflang+\cite{iflang} permet de détecter la langue par défaut d'un document et
 %	d'effectuer des actions conditionnelles à la langue détectée. La classe {\hecthese} prend en
 %	charge l'anglais et le français et se sert de +iflang+ pour générer les titres des sections
 %	«maison» des thèses et mémoires.
+\else
+%	The +iflang+ package\cite{iflang} enables the detection of a document's default language and
+%	allows the class to carry out conditional actions depending on the language. The \hecthese\
+%	class supports French and English and uses +iflang+ to generate ``homemade'' section titles
+%	for dissertations and theses.
+\fi
 %
 %    \begin{macrocode}
 
@@ -1697,8 +1936,13 @@
 
 %    \end{macrocode}
 %
+\ifnum\frenchdoc=1
 %	\subsubsection{Bibliographies multiples dans les thèses et mémoires par articles}
+\else
+%	\subsubsection{Multiple bibliographies in by-articles dissertations and theses}
+\fi
 %
+\ifnum\frenchdoc=1
 %	La classe +memoir+ et le +package+ +chapterbib+ ne s'entendent pas
 % 	sur la place à accorder aux multiples bibliographies dans un document.
 %	La commande \cmd{\HECbibliographieArticle} fait en sorte que la
@@ -1712,6 +1956,20 @@
 %
 %	Les deux commandes tiennent compte de la langue par défaut du document
 %	pour afficher la version anglaise ou française des titres des sections.
+\else
+%	The +memoir+ class and +chapterbib+ package don't play along very well when the
+%	time comes when bibliographies have to be placed in a document. The
+%	\cmd{\HECbibliographieArticle} command makes sur that an article's 
+%	bibliography is considered like an unnumbered section and that its title
+%	is ``References''.
+%
+%	The \cmd{\HECbibliographieGenerale} command then puts back the document's
+%	bibliography at its usual place, which is an unnumbered chapter. The
+%	command also renames this chapter ``General Bibliography''.
+%
+%	The command finally detects the document's default language to automatically
+%	translate all titles.
+\fi
 %
 %    \begin{macrocode}
 
@@ -1749,6 +2007,7 @@
 
 %    \end{macrocode}
 %
+\ifnum\frenchdoc=1
 %	Pour que les citations s'affichent correctement dans tout le document,
 %	les commandes \cmd{\bibliographystyle} et \cmd{\bibliography} doivent
 %	être insérées dans chaque fichier inclus. Cependant, les bibliographies
@@ -1757,6 +2016,16 @@
 %	si le document est une thèse ou mémoire par articles,
 %	mais «cache» la bibliographie dans un conteneur, une +savebox+ qui ne
 %	sera jamais utilisée.
+\else
+%	In order to display your citations correctly in all the document,
+%	the \cmd{\bibliographystyle} and \cmd{\bibliography} command have to
+%	be inserted in each included file. However, the bibliographies must
+%	only be displayed in the articles and at the end of the document. The
+%	\cmd{\HECreferences} command inserts these the two bibliography commands
+%	in the document if it is written with articles, but ``hides'' the
+%	unwanted bibliographies in a container, a +savebox+ that won't be
+%	ever used.
+%\fi
 %
 %    \begin{macrocode}
 
