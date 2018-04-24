@@ -35,56 +35,57 @@ This work has the LPPL maintenance status `maintained'.
 The Current Maintainer of this work is Benoit Hamel
 <benoit.2.hamel@hec.ca>.
 
-This work consists of the files hecthese.dtx and hecthese.ins
+This work consists of the files hecthese.dtx, hecthese-fr.ins,
+hecthese-en.ins, hecthese.pdf, hecthese-en.pdf
 and the derived files listed in the README file.
 
 \endpreamble
 
 \generate{
 	\file{hecthese.cls}{\from{hecthese.dtx}{class}}
-	\file{gabarit-these-classique.tex}{\from{hecthese.dtx}{gabarit,phd,classique}}
-	\file{gabarit-these-articles.tex}{\from{hecthese.dtx}{gabarit,phd,articles}}
-	\file{gabarit-memoire-classique.tex}{\from{hecthese.dtx}{gabarit,msc,classique}}
-	\file{gabarit-memoire-articles.tex}{\from{hecthese.dtx}{gabarit,msc,articles}}
+	\file{gabarit-these-classique.tex}{\from{hecthese.dtx}{gabarit,phd,classique,francais}}
+	\file{gabarit-these-articles.tex}{\from{hecthese.dtx}{gabarit,phd,articles,francais}}
+	\file{gabarit-memoire-classique.tex}{\from{hecthese.dtx}{gabarit,msc,classique,francais}}
+	\file{gabarit-memoire-articles.tex}{\from{hecthese.dtx}{gabarit,msc,articles,francais}}
 	\file{resume-francais.tex}{\nopreamble\nopostamble
-		\from{hecthese.dtx}{resumefrancais}}
+		\from{hecthese.dtx}{resumefrancais,francais}}
 	\file{resume-anglais.tex}{\nopreamble\nopostamble
-		\from{hecthese.dtx}{resumeanglais}}
+		\from{hecthese.dtx}{resumeanglais,francais}}
 	\file{liste-abreviations.tex}{\nopreamble\nopostamble
-		\from{hecthese.dtx}{listeabreviations}}
+		\from{hecthese.dtx}{listeabreviations,francais}}
 	\file{dedicace.tex}{\nopreamble\nopostamble
-		\from{hecthese.dtx}{dedicace}}
+		\from{hecthese.dtx}{dedicace,francais}}
 	\file{remerciements.tex}{\nopreamble\nopostamble
-		\from{hecthese.dtx}{remerciements}}
+		\from{hecthese.dtx}{remerciements,francais}}
 	\file{avant-propos.tex}{\nopreamble\nopostamble
-		\from{hecthese.dtx}{avantpropos}}
+		\from{hecthese.dtx}{avantpropos,francais}}
 	\file{introduction.tex}{\nopreamble\nopostamble
-		\from{hecthese.dtx}{introduction}}
+		\from{hecthese.dtx}{introduction,francais}}
 	\file{cadre-theorique.tex}{\nopreamble\nopostamble
-		\from{hecthese.dtx}{cadretheorique}}
+		\from{hecthese.dtx}{cadretheorique,francais}}
 	\file{revue-litterature.tex}{\nopreamble\nopostamble
-		\from{hecthese.dtx}{revuelitterature}}
+		\from{hecthese.dtx}{revuelitterature,francais}}
 	\file{chapitre-1.tex}{\nopreamble\nopostamble
-		\from{hecthese.dtx}{chapitre}}
+		\from{hecthese.dtx}{chapitre,francais}}
 	\file{chapitre-2.tex}{\nopreamble\nopostamble
-		\from{hecthese.dtx}{chapitre}}
+		\from{hecthese.dtx}{chapitre,francais}}
 	\file{chapitre-3.tex}{\nopreamble\nopostamble
-		\from{hecthese.dtx}{chapitre}}
+		\from{hecthese.dtx}{chapitre,francais}}
 	\file{article-1.tex}{\nopreamble\nopostamble
-		\from{hecthese.dtx}{articledeveloppement}}
+		\from{hecthese.dtx}{articledeveloppement,francais}}
 	\file{article-2.tex}{\nopreamble\nopostamble
-		\from{hecthese.dtx}{articledeveloppement}}
+		\from{hecthese.dtx}{articledeveloppement,francais}}
 	\file{article-3.tex}{\nopreamble\nopostamble
-		\from{hecthese.dtx}{articledeveloppement}}
+		\from{hecthese.dtx}{articledeveloppement,francais}}
 	\file{conclusion.tex}{\nopreamble\nopostamble
-		\from{hecthese.dtx}{conclusion}}
+		\from{hecthese.dtx}{conclusion,francais}}
 	\file{annexe.tex}{\nopreamble\nopostamble
-		\from{hecthese.dtx}{annexe}}
+		\from{hecthese.dtx}{annexe,francais}}
 }
 
 \obeyspaces
 \Msg{*********************************************************}
-\Msg{* Classe hecthese v1.2	                                 *}
+\Msg{* Classe hecthese v1.3	                                 *}
 \Msg{*                                                       *}
 \Msg{* La classe hecthese est installee et prete a l'emploi. *}
 \Msg{* Consultez le document hecthese.pdf afin de prendre    *}
