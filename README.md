@@ -14,8 +14,8 @@ VERSION
 1.3
 
 ******************************************************************
-* La version française de cette description est à la suite de la *
-* version anglaise.                                              *
+La version française de cette description est à la suite de la
+version anglaise.
 ******************************************************************
 
 *** ENGLISH VERSION ***
