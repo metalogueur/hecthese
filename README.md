@@ -11,9 +11,82 @@ later version.
 
 VERSION
 
-1.2
+1.3
 
-*** The rest of this file is in French ***
+******************************************************************
+* La version française de cette description est à la suite de la *
+* version anglaise.                                              *
+******************************************************************
+
+*** ENGLISH VERSION ***
+
+DESCRIPTION
+
+The LaTeX hecthese document class has been created in order to
+allow graduate students from HEC Montréal to write their dissertation
+or thesis with the typesetting system while complying with the
+presentation standards required by the University. As such, the class
+fully complies to the "Guidelines for Writing an Academic Work at
+a Graduate Level".
+
+ARCHIVE CONTENTS
+
+- hecthese-fr.ins : the installation file for the French version of the
+  class;
+- hecthese-en.ins : the installation file for the English version of the
+  class;
+- hecthese.dtx : the bilingual documented source code of the class;
+- hecthese.pdf : the French version of the class' documentation;
+- hecthese-en.pdf : the English version of the class' documentation;
+- README.md : this file.
+
+CLASS INSTALLATION
+
+Follow these steps to install the class:
+1. Create a working directory.
+2. Extract the .zip archive in the working directory.
+3. Open a command-line editor.
+4. Change directories to get to your working directory.
+5. Type the following command in the editor:
+
+	latex hecthese-en.ins
+	
+The command will generate multiple files:
+
+1. the class itself:
+	- hecthese.cls
+	
+2. one template for each dissertation or thesis type:
+	- template-phd-classic.tex
+	- template-phd-articles.tex
+	- template-msc-classic.tex
+	- template-msc-articles.tex
+	
+3. one file for each section of your work:
+	- abstract-french.tex
+	- abstract-english.tex
+	- acronym-list.tex
+	- dedication.tex
+	- acknowledgements.tex
+	- preface.tex
+	- introduction.tex
+	- theoretical-framework.tex
+	- literature-review.tex
+	- chapter-1.tex
+	- chapter-2.tex
+	- chapter-3.tex	
+	- article-1.tex
+	- article-2.tex
+	- article-3.tex
+	- conclusion.tex
+	- appendix.tex
+	
+DOCUMENTATION
+
+The documentation provided with this class was written to help your
+work with the hecthese document class.
+
+*** VERSION FRANÇAISE ***
 
 DESCRIPTION
 
@@ -26,10 +99,14 @@ la rédaction d'un travail universitaire de 1er, 2e et 3e cycles".
 
 CONTENU DE L'ARCHIVE
 
-- hecthese.ins : le fichier d'installation de la classe
-- hecthese.dtx : le code source documenté de la classe
-- hecthese.pdf : la documentation de la classe
-- README.md : le présent fichier
+- hecthese-fr.ins : le fichier d'installation de la version
+  française de la classe;
+- hecthese-en.ins : le fichier d'installation de la version
+  anglaise de la classe;
+- hecthese.dtx : le code source documenté bilingue de la classe;
+- hecthese.pdf : la version française de la documentation de la classe;
+- hecthese-en.pdf : la version anglaise de la documentation de la classe;
+- README.md : le présent fichier.
 
 INSTALLATION DE LA CLASSE
 
@@ -40,7 +117,7 @@ Suivez les étapes suivantes pour installer la classe :
 4. Changez de répertoire pour atteindre votre répertoire de travail.
 5. Saisissez la commande suivante dans l'éditeur :
 
-	latex hecthese.ins
+	latex hecthese-fr.ins
 	
 La commande générera plusieurs fichiers :
 
@@ -75,11 +152,4 @@ La commande générera plusieurs fichiers :
 DOCUMENTATION
 
 La documentation jointe à cette classe a pour but de vous permettre
-de travailler avec la classe hecthese. Elle n'a pas pour objectif de
-vous apprendre à travailler avec LaTeX.
-
-Pour apprendre à travailler avec LaTeX, vous pouvez consulter l'excellente 
-formation LaTeX dispensée par l'Université Laval, disponible sur le 
-site du CTAN :
-
-https://www.ctan.org/pkg/formation-latex-ul
+de travailler avec la classe hecthese.

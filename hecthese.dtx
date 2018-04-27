@@ -25,7 +25,7 @@
 \ProvidesFile{hecthese.dtx}
 %</dtx>
 %<class>\NeedsTeXFormat{LaTeX2e}
-%<class>\ProvidesClass{hecthese}[2017/11/29 v1.3 Classe pour les theses et memoires de HEC Montreal]
+%<class>\ProvidesClass{hecthese}[2018/04/27 v1.3 Class for dissertations and theses at HEC Montreal]
 %<*driver>
 \documentclass[10pt,english,frenchb]{ltxdoc}
 \usepackage[utf8]{inputenc}
@@ -122,7 +122,7 @@
 % \DoNotIndex{\label,\ref,\caption,\hline,\multicolumn,\oui,\non,\cmd}
 % \DoNotIndex{\dots,\url,\clearpage,\bibitem}
 % \DoNotIndex{\hectheseTitre,\biblio}
-% \changes{1.3}{2018-04-17}{Première version bilingue de la classe / First bilingual version of the class}
+% \changes{1.3}{2018-04-27}{Première version bilingue de la classe / First bilingual version of the class}
 % \changes{1.2}{2017-11-29}{Mise à jour des liens vers les capsules vidéos dans
 %	la documentation.}
 % \changes{1.1}{2017-10-20}{Uniformisation de la licence lppl dans tous les fichiers.
@@ -237,16 +237,19 @@
 %		\item Ouvrez un éditeur de ligne de commande.
 %		\item Changez de répertoire pour atteindre votre répertoire de travail.
 %		\item Saisissez la commande suivante dans l'éditeur : \\
+%			\begin{shaded*}
+%				+latex hecthese-fr.ins+
+%			\end{shaded*}
 \else
 %		\item Create a working directory on your computer.
 %		\item Extract the +.zip+ archive in that directory.
 %		\item Open a command-line editor.
 %		\item Change directories until you reach your working directory.
 %		\item Type the following command in the editor:\\
-\fi
 %			\begin{shaded*}
-%				+latex hecthese.ins+
+%				+latex hecthese-en.ins+
 %			\end{shaded*}
+\fi
 % 	\end{enumerate}
 %
 \ifnum\frenchdoc=1
@@ -2145,11 +2148,16 @@
 % \iffalse
 % ^^A Contenu des fichiers gabarits
 %<*gabarit>
-%<phd&classique>%% GABARIT POUR UNE THÈSE CLASSIQUE
-%<phd&articles>%% GABARIT POUR UNE THÈSE PAR ARTICLES
-%<msc&classique>%% GABARIT POUR UN MÉMOIRE CLASSIQUE
-%<msc&articles>%% GABARIT POUR UN MÉMOIRE PAR ARTICLES
+%<phd&classique&francais>%% GABARIT POUR UNE THÈSE CLASSIQUE
+%<phd&articles&francais>%% GABARIT POUR UNE THÈSE PAR ARTICLES
+%<msc&classique&francais>%% GABARIT POUR UN MÉMOIRE CLASSIQUE
+%<msc&articles&francais>%% GABARIT POUR UN MÉMOIRE PAR ARTICLES
+%<phd&classique&anglais>%% TEMPLATE FOR A CLASSIC DISSERTATION
+%<phd&articles&anglais>%% TEMPLATE FOR A DISSERTATION WRITTEN WITH ARTICLES
+%<msc&classique&anglais>%% TEMPLATE FOR A CLASSIC THESIS
+%<msc&articles&anglais>%% TEMPLATE FOR A THESIS WRITTEN WITH ARTICLES
 %%
+%<*francais>
 %% Ceci est le fichier maître dans lequel vous inscrivez les métadonnées
 %% relatives à votre travail, vous créez vos commandes et environnements
 %% personnalisés, et à partir duquel vous lancez vos compilations.
@@ -2165,11 +2173,32 @@
 %% défaut. Inscrivez dans la liste d'options la taille de police de
 %% caractères (10pt, 11pt, 12pt) ou laissez la classe charger la taille
 %% par défaut : 12pt.
-%<phd&classique>\documentclass[phdclassique,english,frenchb]{hecthese}
-%<phd&articles>\documentclass[phdarticles,english,frenchb]{hecthese}
-%<msc&classique>\documentclass[mscclassique,english,frenchb]{hecthese}
-%<msc&articles>\documentclass[mscarticles,english,frenchb]{hecthese}
+%</francais>
+%<*anglais>
+%% This is the master file where you write all your work-related metadata,
+%% where you create your homemade commands and environments. It is from this
+%% file that you run your compilations.
 %%
+%% DO NOT WRITE YOUR DISSERTATION OR THESIS IN THIS FILE!
+%%
+%% Read the hecthese class documentation for more information.
+%%
+%% DOCUMENT CLASS DECLARATION
+%%
+%% The document class is declared with its default document type and
+%% language. Write in the options list the desired font size (10pt, 11pt,12pt)
+%% or let the class load the default font size: 12pt.
+%</anglais>
+%<phd&classique&francais>\documentclass[phdclassique,english,frenchb]{hecthese}
+%<phd&articles&francais>\documentclass[phdarticles,english,frenchb]{hecthese}
+%<msc&classique&francais>\documentclass[mscclassique,english,frenchb]{hecthese}
+%<msc&articles&francais>\documentclass[mscarticles,english,frenchb]{hecthese}
+%<phd&classique&anglais>\documentclass[phdclassique,frenchb,english]{hecthese}
+%<phd&articles&anglais>\documentclass[phdarticles,frenchb,english]{hecthese}
+%<msc&classique&anglais>\documentclass[mscclassique,frenchb,english]{hecthese}
+%<msc&articles&anglais>\documentclass[mscarticles,frenchb,english]{hecthese}
+%%
+%<*francais>
 %% PACKAGES À CHARGER
 %%
 %% Ajoutez tous les packages nécessaires à la rédaction de votre travail.
@@ -2189,24 +2218,53 @@
 %% Times, avec empattements, et le package mathpazo si vous voulez utiliser
 %% une police de type Arial, sans empattements. Choisissez-en une et supprimez
 %% l'autre, ou mettez-la en commentaires.
+%</francais>
+%<*anglais>
+%% LOADING PACKAGES
+%%
+%% Add all the packages you need to write your dissertation or thesis.
+%% Read the class documentation so learn more about preloaded packages. Make
+%% sure to follow these instructions:
+%%
+%% 1) The hyperref MUST ALWAYS BE LOADED LAST if you want the package to work
+%%		correctly.
+%% 2) The geometry package et INCOMPATIBLE with the memoir class. You can't
+%%		use it in your work. Read the memoir class' documentation for more
+%%		information.
+%%
+%% CHOOSING A FONT
+%%
+%% Choose the mathptmx package if you want to use a serif-type font, like
+%% Times, and the mathpazo package if you want to use a sans serif-type font,
+%% like Arial. Choose one package and delete the other, or comment it out.
+%</anglais>
 \usepackage{mathptmx}
 %% \usepackage{mathpazo}
 
 \usepackage{hyperref}
 %%
-%% PRODUCTION DE L'INDEX
+%<francais>%% PRODUCTION DE L'INDEX
+%<anglais>%% INDEX PRODUCTION
 %%
 \makeindex
 %<*articles>
 %%
+%<*francais>
 %% GÉNÉRATION DES TITRES
 %%
 %% On change les titres de l'introduction et de la conclusion générales.
+%</francais>
+%<*anglais>
+%% TITLE GENERATION
+%%
+%% We change the general introduction's and conclusion's titles.
+%</anglais>
 %%
 \HECgenererTitres
 %</articles>
 %<*classique>
 %%
+%<*francais>
 %% STYLE BIBLIOGRAPHIQUE
 %%
 %% On utilise par défaut le style bibliographique francais issu du package 
@@ -2214,23 +2272,38 @@
 %% la documentation pour connaître la liste des styles compatibles avec la
 %% langue de rédaction de votre thèse ou mémoire.
 %%
-%% Si vous rédigez une thèse ou un mémoire par articles, assurez-vous
-%% d'inscrire le même style bibliographique dans chaque commande
-%% \bibliographystyle{}.
-%%
 \bibliographystyle{francais}
+%</francais>
+%<*anglais>
+%% BIBLIOGRAPHY STYLE
+%%
+%% We use the default apa bibliography style. Using this style isn't mandatory.
+%% Read the class' documentation to learn more about the styles compatible with
+%% the language of your dissertation or thesis.
+%%
+\bibliographystyle{apa}
+%</anglais>
 %</classique>
 %%
+%<*francais>
 %% MISE EN FORME DE LA TABLE DES MATIÈRES
 %%
 %% On inclut dans la table des matières toutes les divisions de document
 %% jusqu'aux sous-sections. Si vous désirez avoir une table des matières
 %% plus détaillée, indiquez dans les deux commandes ci-dessous jusqu'à
 %% quel niveau vous voulez voir répertoriés dans la TDM.
+%</francais>
+%<*anglais>
+%% All document divisions up to the subsections are included in the table
+%% of contents. If you want a more detailled table of contents, change
+%% the following two commands so they match the level of detail you want
+%% in your TOC.
+%</anglais>
 %%
-\setsecnumdepth{subsection}					% Numérotation des sous-sections
-\settocdepth{subsection}					% Inclusion des sous-sections dans la TDM
+\setsecnumdepth{subsection}	% Numérotation des sous-sections / Subsection numbering
+\settocdepth{subsection} % Inclusion des sous-sections dans la TDM / Including subsections in the TOC
 %%
+%<*francais>
 %% MÉTADONNÉES DU DOCUMENT
 %%
 %% Le titre de votre travail. Si le titre est long, utilisez la commande \\
@@ -2247,7 +2320,27 @@
 \HECmoisDepot{Mai}
 %% Année du dépôt final de votre travail
 \HECanneeDepot{2017}
+%</francais>
+%<*anglais>
+%% DOCUMENT METADATA
+%%
+%% The title of your work. If the title is too long, use the \\ command
+%% to output the title in multiple lines.
+\HECtitle{Dissertation or thesis title}
+%% The subtitle of your work. If there is no subtitle, empty the contents
+%% from  the curly braces.
+\HECsubtitle{Dissertation or thesis subtitle}
+%% The author is you...
+\HECauthor{FirstName LastName}
+%% Name of the M.Sc. or Ph.D. option
+\HECoption{Option Name}
+%% Month of the work's final submission
+\HECsubMonth{May}
+%% Year of the work's final submission
+\HECsubYear{2018}
+%</anglais>
 %<*phd>
+%<*francais>
 %% Le nom complet du président rapporteur et son genre (M ou F)
 \HECpresidentRapporteur{Prénom Nom}{M ou F}
 %% Le nom complet de votre directeur de recherche et son genre (M ou F)
@@ -2266,109 +2359,161 @@
 \HECuniversiteExaminateur{HEC Montréal}
 %% Le nom complet du représentant du directeur et son genre (M ou F)
 \HECrepresentantDirecteur{Prénom Nom}{M ou F}
+%</francais>
+%<*anglais>
+%% The complete name of the "rapporteur president" and her gender (M or F)
+\HECrapporteurPresident{FirstName LastName}{M or F}
+%% The complete name of the research director and her gender (M or F)
+\HECresearchDirector{FirstName LastName}{M or F}
+%% The complete name of the research codirector and her gender (M or F)
+\HECresearchCodirector{FirstName LastName}{M or F}
+%% The research codirector's university
+\HECcodirectorUniversity{HEC Montréal}
+%% The complete name of the jury member
+\HECjuryMember{FirstName LastName}
+%% The jury member's university
+\HECjuryMemberUniversity{HEC Montréal}
+%% The complete name of the external examinator and her gender (M or F)
+\HECexternalExaminator{FirstName LastName}{M or F}
+%% The external examinator's university
+\HECexaminatorUniversity{HEC Montréal}
+%% The complete name of the director's representative and her gender (M or F)
+\HECdirectorRepresentative{FirstName LastName}{M or F}
+%</anglais>
 %</phd>
 %%
+%<*francais>
 %% OPTIONS DES PACKAGES CHARGÉS
 %%
 %% Si vos packages ont des options spécifiques à charger avant le début
 %% du document, inscrivez-les ci-dessous. Si vous voulez outrepasser les
 %% options des packages chargés par défaut avec la classe hecthese,
 %% consultez la documentation pour en connaître la procédure.
+%</francais>
+%<*anglais>
+%% PACKAGE OPTIONS
 %%
-%% Options du package hyperref (inclure les métadonnées pdf dans les options)
+%% If your packages need to have options loaded before the document's
+%% beginning, write them hereafter. If you want to override preloaded
+%% packages' options, read the class documentation to learn how.
+%</anglais>
+%%
+%% Options du package hyperref (inclure les métadonnées pdf dans les options) /
+%% hyperref package option (including pdf metadata)
 \hypersetup{%
 	colorlinks=true,
 	allcolors=black,
 	pdfauthor=\HECpdfauteur,
 	pdftitle=\HECpdftitre
 }
-%% Options de babel
+%% Options de babel / babel options
 \frenchbsetup{%	
-	og=«, fg=»                     % caractères « et » sont les guillemets
+	og=«, fg=» % caractères « et » sont les guillemets
 }
 %%
-%% DÉBUT DE LA THÈSE OU DU MÉMOIRE
+%<francais>%% DÉBUT DE LA THÈSE OU DU MÉMOIRE
+%<anglais>%% BEGINNING OF THE DISSERTATION OR THESIS
 %%
 \begin{document}
 	
-	%% Pages liminaires
+	%% Pages liminaires / frontmatter
 	\frontmatter
 	
-	%% Page de garde
+	%% Page de garde / cover page
 	\mbox{}
 	\thispagestyle{empty}
 	\cleardoublepage
 	
 	%% Page de titre
-	\HECpagestitre
+%<francais>	\HECpagestitre
+%<anglais> \HECtitlepages
 	
 	%<*articles>
-	%% Configuration des bibliographies des articles
+	%% Configuration des bibliographies des articles /
+	%% Articles' bibliographies configuration
 	\HECbibliographieArticle
 	%</articles>
+
+	%% Résumé français / french abstract
+	%<francais>	\include{resume-francais}
+	%<anglais>	\include{abstract-french}
 	
-	%% Résumé français
-	\include{resume-francais}
+	%% Résumé anglais / english abstract
+	%<francais>	\include{resume-anglais}
+	%<anglais>	\include{abstract-english}
 	
-	%% Résumé anglais
-	\include{resume-anglais}
-	
-	%% Table des matières (* pour ne pas inclure la TDM dans la TDM)
+	%% Table des matières (* pour ne pas inclure la TDM dans la TDM) /
+	%% Table of contents (* for excluding the TOC from the TOC)
 	\tableofcontents*
 	\cleardoublepage
 	
-	%% Liste des tableaux (si nécessaire)
+	%% Liste des tableaux / list of table
 	\listoftables
 	\cleardoublepage
 	
-	%% Liste des figures
+	%% Liste des figures / list of figures
 	\listoffigures
 	\cleardoublepage
 	
-	%% Liste des abréviations ou des figures (si nécessaire)
-	\include{liste-abreviations}
+	%% Liste des abréviations / acronyms list
+	%<francais>	\include{liste-abreviations}
+	%<anglais>	\include{acronym-list}
 	
 	%<*phd>
-	%% Dédicace (si nécessaire)
-	\include{dedicace}
+	%% Dédicace / dedication
+	%<francais>	\include{dedicace}
+	%<anglais>	\include{dedication}
 	
-	%% Remerciements
-	\include{remerciements}
+	%% Remerciements / acknowledgements
+	%<francais>	\include{remerciements}
+	%<anglais>	\include{acknowledgements}
 	
-	%% Avant-propos
-	\include{avant-propos}
+	%% Avant-propos / preface
+	%<francais>	\include{avant-propos}
+	%<anglais>	\include{preface}
 	%</phd>
 	%<*msc>
-	%% Avant-propos
-	\include{avant-propos}	
+	%% Avant-propos / preface
+	%<francais>	\include{avant-propos}	
+	%<anglais>	\include{preface}
 	
-	%% Remerciements
-	\include{remerciements}
+	%% Remerciements / acknowledgements
+	%<francais>	\include{remerciements}
+	%<anglais>	\include{acknowledgements}
 	%</msc>
 	
-	%% Partie principale de la thèse ou du mémoire
+	%% Partie principale de la thèse ou du mémoire / mainmatter
 	\mainmatter
 	
 	%% Introduction
 	\include{introduction}
 	
 	%<*phd&articles>
-	%% Cadre théorique
-	\include{cadre-theorique}
+	%% Cadre théorique / theoretical framework
+	%<francais>	\include{cadre-theorique}
+	%<anglais>	\include{theoretical-framework}
 	%</phd&articles>
 	%<*msc>
-	%% Revue de la littérature
-	\include{revue-litterature}
+	%% Revue de la littérature / literature review
+	%<francais>	\include{revue-litterature}
+	%<anglais>	\include{literature-review}
 	%</msc>
 	
 	%<*classique>
-	%% Chapitres de développement
-	\include{chapitre-1}
-	\include{chapitre-2}
-	\include{chapitre-3}
+	%% Chapitres de développement / chapters
+	%<*francais>
+		\include{chapitre-1}
+		\include{chapitre-2}
+		\include{chapitre-3}
+	%</francais>
+	%<*anglais>
+		\include{chapter-1}
+		\include{chapter-2}
+		\include{chapter-3}
+	%</anglais>
 	%</classique>
 	%<*articles>
-	%% Chapitres de développement
+	%% Articles de développement / articles
 	\include{article-1}
 	%</articles>
 	%<*phd&articles>
@@ -2379,28 +2524,32 @@
 	%% Conclusion
 	\include{conclusion}
 	
-	%% Index analytique (si nécessaire)
+	%% Index analytique / analytical index
 	\printindex
 	
-	%% BIBLIOGRAPHIE
+	%% BIBLIOGRAPHIE / BIBLIOGRAPHY
 	%<*articles>
-	%% Configuration de la bibliographie générale
+	%<francais> %% Configuration de la bibliographie générale
+	%<anglais> %% General bibliography configuration
 	\HECbibliographieGenerale
-	\bibliographystyle{francais}
+	%<francais>\bibliographystyle{francais}
+	%<anglais>\bibliographystyle{apa}
 	%</articles>
-	%% Inscrivez le nom de votre fichier .bib entre les accolades.
+	%<francais>%% Inscrivez le nom de votre fichier .bib entre les accolades.
+	%<anglais>%% Write the name of your .bib file between the curly braces.
 	\bibliography{}
 	
 	\backmatter
 	
-	%% Retour à la pagination romaine
+	%% Retour à la pagination romaine / Back to roman page numbering
 	\pagenumbering{roman}
 	
-	%% Annexes
+	%% Annexes / appendices
 	\appendix
-	\include{annexe}
+	%<francais>	\include{annexe}
+	%<anglais>	\include{appendix}
 	
-	%% Page de garde de fin
+	%% Page de garde de fin / back cover page
 	\mbox{}
 	\thispagestyle{empty}
 	
@@ -2409,58 +2558,92 @@
 %
 % ^^A Résumés français et anglais
 %<*resumefrancais>
-%% Fichier contenant le résumé français, les mots-clés et les méthodes de recherche.
+%<francais>%% Fichier contenant le résumé français, les mots-clés et les méthodes de recherche.
+%<anglais>%% File containing the french abstract, keywords and research methods.
 \chapter*{Résumé}
 \phantomsection\addcontentsline{toc}{chapter}{Résumé}
-\thispagestyle{empty}	% Première page non paginée
+\thispagestyle{empty}	% Première page non paginée / Unnumbered first page
 
-%% Rédigez votre résumé français ici (350 à 500 mots). 
+%<francais>%% Rédigez votre résumé français ici (350 à 500 mots). 
+%<anglais>%% Write your french abstract here (350 to 500 words).
 
 \section*{Mots-clés}
 
-%% Inscrivez vos mots-clés ici (15 maximum, incluant les méthodes de recherche ci-dessous).
+%<francais>%% Inscrivez vos mots-clés ici (15 maximum, incluant les méthodes de recherche ci-dessous).
+%<anglais>%% Write your french keywords here (15 max, including the research methods).
 
 \section*{Méthodes de recherche}
 
+%<*francais>
 %% Inscrivez vos méthodes de recherche ici.
 
 %% THÈSES ET MÉMOIRES PAR ARTICLES SEULEMENT
 %% Si vous avez inséré des citations dans cette section, retirez les signes 
 %% de commentaires (%%) devant la commande ci-dessous et inscrivez le style
 %% bibliographique et le nom du fichier .bib utilisés pour vos références.
-%% \HECreferences{style}{nom-du-fichier}
+%</francais>
+%<*anglais>
+%% Write your research methods here.
+
+%% DISSERTATIONS AND THESES WRITTEN WITH ARTICLES
+%% If you have inserted citations in this section, uncomment the following
+%% command and type in the bibliography style and the .bib file name
+%% used for your references.
+%</anglais>
+%% \HECreferences{style}{nom-du-fichier-file-name}
 %</resumefrancais>
 %<*resumeanglais>
-%% Fichier contenant le résumé français, les mots-clés et les méthodes de recherche.
+%<francais>%% Fichier contenant le résumé anglais, les mots-clés et les méthodes de recherche.
+%<anglais>%% File containing the English abstract, keywords and research methods.
 \chapter*{Abstract}
 \phantomsection\addcontentsline{toc}{chapter}{Abstract}
 
-%% Rédigez votre résumé anglais ici (350 à 500 mots).
+%<francais>%% Rédigez votre résumé anglais ici (350 à 500 mots).
+%<anglais>%% Write your english abstract hereafter (350 to 500 words).
 
 \section*{Keywords}
 
-%% Inscrivez vos mots-clés en anglais ici (15 maximum, incluant les méthodes de recherche ci-dessous).
+%<francais>%% Inscrivez vos mots-clés en anglais ici (15 maximum, incluant les méthodes de recherche ci-dessous).
+%<anglais>%% Write your english keywords here (15 max, including the research methods)
 
 \section*{Research methods}
 
+%<*francais>
 %% Inscrivez vos méthodes de recherche en anglais ici.
 
 %% THÈSES ET MÉMOIRES PAR ARTICLES SEULEMENT
 %% Si vous avez inséré des citations dans cette section, retirez les signes 
 %% de commentaires (%%) devant la commande ci-dessous et inscrivez le style
 %% bibliographique et le nom du fichier .bib utilisés pour vos références.
-%% \HECreferences{style}{nom-du-fichier}
+%</francais>
+%<*anglais>
+%% Write your research methods here.
+
+%% DISSERTATIONS AND THESES WRITTEN WITH ARTICLES
+%% If you have inserted citations in this section, uncomment the following
+%% command and type in the bibliography style and the .bib file name
+%% used for your references.
+%</anglais>
+%% \HECreferences{style}{nom-du-fichier-file-name}
 %</resumeanglais>
 %
 % ^^A Liste des abréviations
 %<*listeabreviations>
+%<*francais>
 %% Fichier contenant la liste des abréviations. Vous retrouverez ci-dessous un exemple
 %% de liste. L'environnement HECabreviations prend en argument la plus longue des
 %% abréviations. À la compilation, une liste en deux colonnes alignées est générée.
+%</francais>
+%<*anglais>
+%% File containing the acronyms list. You'll find below and example list. The
+%% HECabbreviations environment takes as an argument the longest acronym. On
+%% compilation, a list with two aligned columns is generated.
+%</anglais>
 \chapter*{\HECtdmAbreviations}
 \phantomsection\addcontentsline{toc}{chapter}{\HECtdmAbreviations}
 
-\begin{HECabreviations}{ABBR}
+%<francais>\begin{HECabreviations}{ABBR}
+%<anglais>\begin{abbreviations}{ABBR}
 	\item[ABBR] Abréviation
 	\item[BAA] Baccalauréat en administration des affaires
 	\item[DESS] Diplôme d'études supérieures spécialisées
@@ -2468,105 +2651,177 @@
 	\item[MBA] Maîtrise en administration des affaires
 	\item[MSc] Maîtrise
 	\item[PhD] Doctorat
-\end{HECabreviations}
+%<francais>\end{HECabreviations}
+%<anglais>\end{abbreviations}
 %</listeabreviations>
 %
 % ^^A Dédicace
 %<*dedicace>
+%<*francais>
 %% Fichier contenant la dédicace
 %% N'inscrivez rien entre les accolades de la commande \chapter*{},
 %% sauf si vous voulez voir la dédicace dans la table des matières.
+
 \chapter*{}
 
 \begin{HECdedicace}
 	%% Rédigez votre dédicace ici.
 \end{HECdedicace}
+%</francais>
+%<*anglais>
+%% File containing the dedication
+%% Do not write anything between the curly braces of the \chapter*
+%% command unless you want the dedication to show up in the table
+%% of contents.
+
+\chapter*{}
+
+\begin{HECdedication}
+	%% Writte your dedication here.
+\end{HECdedication}
+%</anglais>
 %</dedicace>
 %
 % ^^A Remerciements
 %<*remerciements>
-%% Fichier contenant les remerciements
+%<francais>%% Fichier contenant les remerciements
+%<anglais>%% File containing the acknowledgements
 \chapter*{\HECtdmRemerciements}
 \phantomsection\addcontentsline{toc}{chapter}{\HECtdmRemerciements}
 
-%% Rédigez vos remerciements ici.
+%<francais>%% Rédigez vos remerciements ici.
+%<anglais>%% Write your acknowledgements here.
 %</remerciements>
 %
 % ^^A Avant-propos
 %<*avantpropos>
-%% Fichier contenant l'avant-propos
+%<francais>%% Fichier contenant l'avant-propos
+%<anglais>%% File containing the preface
 \chapter*{\HECtdmAvantPropos}
 \phantomsection\addcontentsline{toc}{chapter}{\HECtdmAvantPropos}
 
+%<*francais>
 %% Rédigez votre avant-propos ici.
 
 %% THÈSES ET MÉMOIRES PAR ARTICLES SEULEMENT
 %% Si vous avez inséré des citations dans cette section, retirez les signes 
 %% de commentaires (%%) devant la commande ci-dessous et inscrivez le style
 %% bibliographique et le nom du fichier .bib utilisés pour vos références.
-%% \HECreferences{style}{nom-du-fichier}
+%</francais>
+%<*anglais>
+%% Write your preface here.
+
+%% DISSERTATIONS AND THESES WRITTEN WITH ARTICLES
+%% If you have inserted citations in this section, uncomment the following
+%% command and type in the bibliography style and the .bib file name
+%% used for your references.
+%</anglais>
+%% \HECreferences{style}{nom-du-fichier-file-name}
 %</avantpropos>
 %
 % ^^A Introduction
 %<*introduction>
-%% Fichier contenant l'introduction
+%<francais>%% Fichier contenant l'introduction
+%<anglais>%% File containing the introduction
 \chapter*{\HECtitreIntroduction}
 \phantomsection\addcontentsline{toc}{chapter}{\HECtitreIntroduction}
-\thispagestyle{empty}	% Première page non paginée
+\thispagestyle{empty}	% Première page non paginée / First page is unnumbered
 
+%<*francais>
 %% Rédigez votre introduction ici.
 
 %% THÈSES ET MÉMOIRES PAR ARTICLES SEULEMENT
 %% Si vous avez inséré des citations dans cette section, retirez les signes 
 %% de commentaires (%%) devant la commande ci-dessous et inscrivez le style
 %% bibliographique et le nom du fichier .bib utilisés pour vos références.
+%</francais>
+%<*anglais>
+%% Write your introduction here.
+
+%% DISSERTATIONS AND THESES WRITTEN WITH ARTICLES
+%% If you have inserted citations in this section, uncomment the following
+%% command and type in the bibliography style and the .bib file name
+%% used for your references.
+%</anglais>
 %% \HECreferences{style}{nom-du-fichier}
 %</introduction>
 %
 % ^^A Cadre théorique
 %<*cadretheorique>
-%% Fichier contenant le cadre théorique
+%<francais>%% Fichier contenant le cadre théorique
+%<anglais>%% File containing the theoretical framework
 \chapter*{\HECtdmCadreTheorique}
 \phantomsection\addcontentsline{toc}{chapter}{\HECtdmCadreTheorique}
 \thispagestyle{empty}
 
+%<*francais>
 %% Rédigez votre cadre théorique ici.
 
 %% THÈSES ET MÉMOIRES PAR ARTICLES SEULEMENT
 %% Si vous avez inséré des citations dans cette section, retirez les signes 
 %% de commentaires (%%) devant la commande ci-dessous et inscrivez le style
 %% bibliographique et le nom du fichier .bib utilisés pour vos références.
-%% \HECreferences{style}{nom-du-fichier}
+%</francais>
+%<*anglais>
+%% Write your theoretical framework here.
+
+%% DISSERTATIONS AND THESES WRITTEN WITH ARTICLES
+%% If you have inserted citations in this section, uncomment the following
+%% command and type in the bibliography style and the .bib file name
+%% used for your references.
+%</anglais>
+%% \HECreferences{style}{nom-du-fichier-file-name}
 %</cadretheorique>
 %
 % ^^A Revue de littérature
 %<*revuelitterature>
-%% Fichier contenant la revue de la littérature
+%<francais>%% Fichier contenant la revue de la littérature
+%<anglais>%% File containing the literature review
 \chapter*{\HECtdmRevueLitterature}
 \phantomsection\addcontentsline{toc}{chapter}{\HECtdmRevueLitterature}
-\thispagestyle{empty}	% Première page non paginée
+\thispagestyle{empty}	% Première page non paginée / First page unnumbered
 
+%<*francais>
 %% Rédigez votre revue de littérature ici.
 
 %% THÈSES ET MÉMOIRES PAR ARTICLES SEULEMENT
 %% Si vous avez inséré des citations dans cette section, retirez les signes 
 %% de commentaires (%%) devant la commande ci-dessous et inscrivez le style
 %% bibliographique et le nom du fichier .bib utilisés pour vos références.
+%</francais>
+%<*anglais>
+%% Write your literature review here.
+
+%% DISSERTATIONS AND THESES WRITTEN WITH ARTICLES
+%% If you have inserted citations in this section, uncomment the following
+%% command and type in the bibliography style and the .bib file name
+%% used for your references.
+%</anglais>
 %% \HECreferences{style}{nom-du-fichier}
 %</revuelitterature>
 %
 % ^^A Chapitres de développement
 %<*chapitre>
+%<*francais>
 %% Fichier contenant un chapitre du développement. La classe génère
 %% trois fichiers de chapitres par défaut. Si vous en avez besoin
 %% davantage, enregistrez ce fichier sous un autre nom et incluez
 %% le nouveau fichier dans votre gabarit avec la commande \include.
-\chapter{Titre du chapitre}
-\thispagestyle{empty}	% Première page non paginée
+%</francais>
+%<*anglais>
+%% File containing one of the main content's chapters. The class
+%% generates three chapter files by default. If you need more,
+%% save a file with another name and include it in your template file
+%% with the \include command.
+%</anglais>
+\chapter{Titre du chapitre / Chapter title}
+\thispagestyle{empty}	% Première page non paginée / First page is unnumbered
 
-%% Écrivez votre chapitre ici.
+%<francais>%% Écrivez votre chapitre ici.
+%<anglais>%% Write your chapter here.
 %</chapitre>
 %<*articledeveloppement>
+%<*francais>
 %% Fichier contenant un article. La classe génère trois fichiers
 %% d'articles par défaut. Une thèse compte généralement trois articles
 %% et un mémoire, un. Si vous en avez besoin davantage,
@@ -2577,55 +2832,91 @@
 %% un résumé non numéroté, une introduction, des sections et une 
 %% conclusion numérotées, et une bibliographie. Vous pouvez ajouter
 %% ou supprimer des sections de développement selon vos besoins.
-\chapter{Titre de l'article}
-\thispagestyle{empty}	% Première page non paginée
+%</francais>
+%<*anglais>
+%% File containing an article. The class generates three articles
+%% by default. A dissertation normally has three articles and a
+%% thesis, one. If you need more articles, save a file with another
+%% name and include it in your template file with the \include
+%% command.
+%%
+%% Articles are structured as you can see hereafter: an unnumbered abstract,
+%% an introduction, numbered sections and conclusion, and a bibliography.
+%% You can add or delete sections according to your needs.
+%</anglais>
+\chapter{Titre de l'article / Article title}
+\thispagestyle{empty}	% Première page non paginée / First page is unnumbered
 
 \section*{\HECtdmResumeArticle}
 \phantomsection\addcontentsline{toc}{section}{\HECtdmResumeArticle}
 
-%% Rédigez votre résumé ici.
+%<francais>%% Rédigez votre résumé ici.
+%<anglais>%% Write your article abstract here.
 
 \section{Introduction}
 
-%% Rédigez votre introduction d'article ici.
+%<francais>%% Rédigez votre introduction d'article ici.
+%<anglais>%% Write your article introduction here.
 
-\section{Titre de la section de développement 1}
+\section{Titre de la section de développement 1 / Section 1 title}
 
-%% Rédigez votre section de développement ici.
+%<francais>%% Rédigez votre section de développement ici.
+%<anglais>%% Write your section 1 here.
 
-\section{Titre de la section de développement 2}
+\section{Titre de la section de développement 2 / Section 2 title}
 
-%% Rédigez votre section de développement ici.
+%<francais>%% Rédigez votre section de développement ici.
+%<anglais>%% Write your section 2 here.
 
-\section{Titre de la section de développement 3}
+\section{Titre de la section de développement 3 / Section 3 title}
 
-%% Rédigez votre section de développement ici.
+%<francais>%% Rédigez votre section de développement ici.
+%<anglais>%% Write your section 3 here.
 
 \section{Conclusion}
 
-%% Rédigez votre conclusion d'article ici.
+%<francais>%% Rédigez votre conclusion d'article ici.
+%<anglais>%% Write your article conclusion here.
 
+%<*francais>
 \bibliographystyle{francais}
 %% Inscrivez le nom de votre fichier .bib entre les accolades.
+%</francais>
+%<*anglais>
+\bibliographystyle{apa}
+%% Write the name of your .bib file between the curly braces.
+%</anglais>
 \bibliography{}
 %</articledeveloppement>
 %
 % ^^A Conclusion
 %<*conclusion>
-%% Fichier contenant la conclusion
+%<francais>%% Fichier contenant la conclusion
+%<anglais>%% File containing the conclusion
 \chapter*{\HECtitreConclusion}
 \phantomsection\addcontentsline{toc}{chapter}{\HECtitreConclusion}
-\thispagestyle{empty}	% Première page non paginée
+\thispagestyle{empty}	% Première page non paginée / First page is unnumbered
 
+%<*francais>
 %% Rédigez votre conclusion ici.
 
 %% THÈSES ET MÉMOIRES PAR ARTICLES SEULEMENT
 %% Si vous avez inséré des citations dans cette section, retirez les signes 
 %% de commentaires (%%) devant la commande ci-dessous et inscrivez le style
 %% bibliographique et le nom du fichier .bib utilisés pour vos références.
-%% \HECreferences{style}{nom-du-fichier}
+%</francais>
+%<*anglais>
+%% Write your conclusion here.
+
+%% DISSERTATIONS AND THESES WRITTEN WITH ARTICLES
+%% If you have inserted citations in this section, uncomment the following
+%% command and type in the bibliography style and the .bib file name
+%% used for your references.
+%</anglais>
+%% \HECreferences{style}{nom-du-fichier-file-name}
 %</conclusion>
 %<*annexe>
+%<*francais>
 %% Fichier contenant une annexe. La classe ne génère qu'un seul
 %% fichier annexe.tex par défaut. Si vous en avez besoin davantage,
 %% enregistrez ce fichier sous un autre nom et incluez-le dans votre
@@ -2645,6 +2936,26 @@
 %% Si vous avez inséré des citations dans cette section, retirez les signes 
 %% de commentaires (%%) devant la commande ci-dessous et inscrivez le style
 %% bibliographique et le nom du fichier .bib utilisés pour vos références.
-%% \HECreferences{style}{nom-du-fichier}
+%</francais>
+%<*anglais>
+%% File containing an appendix. The class only generates one appendix by default.
+%% If you need more, save the file with another name and include in your
+%% template file with the \include command.
+%%
+%% For the bibliography and appendices to be paged correctly, meaning in arabic
+%% numbers for the bibliography and roman numbers for the appendices, the latter
+%% have to placed after the \backmatter command. But by doing so, the appendices'
+%% numbering will be disabled. You'll have to number your appendices manually
+%% inside the \chapter command.
+\chapter{Appendix A -- Appendix Title}
+
+%% Write your appendix here.
+
+%% DISSERTATIONS AND THESES WRITTEN WITH ARTICLES
+%% If you have inserted citations in this section, uncomment the following
+%% command and type in the bibliography style and the .bib file name
+%% used for your references.
+%</anglais>
+%% \HECreferences{style}{nom-du-fichier-file-name}
 %</annexe>
 % \fi
