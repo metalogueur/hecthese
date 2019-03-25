@@ -11,7 +11,7 @@ later version.
 
 VERSION
 
-1.3.1
+1.3.2
 
 ******************************************************************
 La version française de cette description est à la suite de la
