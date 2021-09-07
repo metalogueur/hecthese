@@ -1,6 +1,6 @@
 % \iffalse
 %
-% Copyright 2017-2020 HEC Montreal
+% Copyright 2017-2021 HEC Montreal
 %
 % This work may be distributed and/or modified under the
 % conditions of the LaTeX Project Public License, either version 1.3c
@@ -25,7 +25,7 @@
 \ProvidesFile{hecthese.dtx}
 %</dtx>
 %<class>\NeedsTeXFormat{LaTeX2e}
-%<class>\ProvidesClass{hecthese}[2020/08/24 v1.4 Class for dissertations and theses at HEC Montreal]
+%<class>\ProvidesClass{hecthese}[2021/09/07 v1.5 Class for dissertations and theses at HEC Montreal]
 %<*driver>
 \documentclass[10pt,english,french]{ltxdoc}
 \usepackage[utf8]{inputenc}
@@ -132,6 +132,8 @@
 % \DoNotIndex{\label,\ref,\caption,\hline,\multicolumn,\oui,\non,\cmd}
 % \DoNotIndex{\dots,\url,\clearpage,\bibitem}
 % \DoNotIndex{\hectheseTitre,\biblio}
+% \changes{1.5}{2021-09-07}{Corrig\'e l'impl\'ementation de chapterbib. /
+%	Fixed the chapterbib implementation.}
 % \changes{1.4}{2020-08-24}{Beaucoup de corrections de bogues et de mises \`{a} jour (voir d\'{e}p\^{o}t Git). /
 %	Lots of bug fixes and updates (see Git repository).}
 % \changes{1.3.2}{2019-03-25}{Coquille dans la dtx et changement du lien vers le gabarit anglais pour MacOS.}
@@ -195,7 +197,7 @@
 % 	et l'\'{e}diteur de code TeXStudio\cite{texstudio} ont \'{e}t\'{e} utilis\'{e}s et ses fonctionnalit\'{e}s ont 
 %	\'{e}t\'{e} test\'{e}es avec les compilateurs +latex+, +pdflatex+, +bibtex+ et +makeindex+. La classe
 %	a \'{e}galement \'{e}t\'{e} test\'{e}e avec la distribution MiK\TeX\footnote{Un immense merci \`{a} Franck Jeannot pour avoir effectu\'{e} ces tests!},
-%   de même qu'avec les versions 2017 à 2019 de TeXLive.
+%   avec les versions 2017 à 2020 de TeXLive de m\^eme qu'avec l'application Web Overleaf.
 % 	Nous vous invitons \`{a} la tester avec vos propres distributions TeX et
 %	\'{e}diteurs de codes et \`{a} l'utiliser de la m\^{e}me mani\`{e}re dont vous vous servez de vos outils pour vos
 %	autres travaux en {\LaTeX}.
@@ -205,7 +207,8 @@
 %	and the \TeX Studio code editor\cite{texstudio} were used. Its features were tested with the
 %	+latex+, +pdflatex+, +bibtex+ and +makeindex+ compilers. The class has also been tested with the
 %	MiK\TeX\ distribution\footnote{A big ``thank you!'' goes to Franck Jeannot for making the tests.}
-%	and WinEdt code editor, as well as with the 2017 to 2019 versions of TeXLive.
+%	and WinEdt code editor, with the 2017 to 2020 versions of TeXLive as well as with the Overleaf
+%	web application.
 %	We invite you to test the class with your own distribution and code editor and to use it like
 %	you would with any other work you do with \LaTeX.
 % \fi
@@ -215,8 +218,8 @@
 % \ifnum\frenchdoc=1
 %	\begin{HECwarning}{Utilisateurs de Overleaf et de MacOS}
 %		Pour une raison encore non r\'{e}solue, le processus d'installation d\'{e}crit ci-dessous ne fonctionne
-%		pas sous MacOS. Vous devez donc \lien{http://bit.ly/frhecthesemac}{t\'{e}l\'{e}charger}	une version
-%		pr\'{e}install\'{e}e de la classe pour vous en servir.
+%		pas sous MacOS. Vous devez donc \lien{https://www.overleaf.com/read/njbvvqtmytqk}{t\'{e}l\'{e}charger cette version
+%		pr\'{e}install\'{e}e} de la classe pour vous en servir.
 %
 %		Si vous \^{e}tes un utilisateur d'Overleaf, utilisez \'{e}galement la version pr\'{e}install\'{e}e mentionn\'{e}e ci-dessus 
 %		pour d\'{e}marrer un projet.
@@ -226,7 +229,7 @@
 % \else
 %	\begin{HECwarning}{Overleaf and MacOS users}
 %		For a reason still unresolved, the installation process described hereunder doesn't work on
-%		MacOS. You must \lien{http://bit.ly/enhecthesemac2}{download} a preinstalled version of the
+%		MacOS. You must \lien{https://www.overleaf.com/read/yqybpzfqqhzx}{download this preinstalled version} of the
 %		class to work with it.
 %
 %		If you are an Overleaf user, please use the preinstalled version mentioned above to start a project.
@@ -393,7 +396,7 @@
 %	vous ajouterez les +packages+, commandes et environnements n\'{e}cessaires \`{a} votre r\'{e}daction.
 %
 %	La r\'{e}daction en tant que telle se fera dans les autres fichiers. Chaque fichier repr\'{e}sente une
-% 	section de votre travail. Leur nom est donc, comme on le dit en chinois, \emph{self-explanatory}.
+% 	section de votre travail. Leur nom est donc, comme on le dit en anglais, \emph{self-explanatory}.
 %	Vous pourrez en ajouter ou en supprimer \`{a} votre guise. Assurez-vous seulement
 %	d'inclure les fichiers ajout\'{e}s dans le gabarit avec la commande \cmd{\include}, de supprimer les
 %	\cmd{\include} relatifs aux fichiers supprim\'{e}s, mais surtout, de respecter les r\`{e}gles du
@@ -473,15 +476,15 @@
 % \fi
 %	\end{DescribeMacro}
 %
-%	\begin{DescribeMacro}{english,frenchb}
+%	\begin{DescribeMacro}{english,french}
 % \ifnum\frenchdoc=1
-%		Les options +english+ et +frenchb+ sont propres au +package+ +babel+\cite{babel} et servent \`{a} indiquer
+%		Les options +english+ et +french+ sont propres au +package+ +babel+\cite{babel} et servent \`{a} indiquer
 %		au compilateur la ou les langues utilis\'{e}es dans le document. La derni\`{e}re langue de la liste
 %		est la langue par d\'{e}faut du document. M\^{e}me si ces options sont propres \`{a} +babel+, nous
 %		les ins\'{e}rons dans les options de la classe pour qu'elles s'appliquent globalement \`{a}
 % 		tous les +packages+ qui pourraient en avoir besoin.
 % \else
-%		+frenchb+ and +english+ options come from the +babel+ package\cite{babel} and they are used to
+%		+french+ and +english+ options come from the +babel+ package\cite{babel} and they are used to
 %		indicate to the compiler in which language(s) the document is written. The last language in the
 %		options list is the document's default language. Even if these options come from the +babel+ package,
 %		they are inserted in the \cmd{\documentclass} command so they can be applied globally to all
@@ -1004,7 +1007,7 @@
 %	pr\'{e}conis\'{e} dans le \emph{Guide de r\'{e}daction}.
 %
 %	Si vous r\'{e}digez votre th\`{e}se ou m\'{e}moire en anglais, nous vous recommandons d'utiliser le style bibliographique
-%	+apa+ duquel est inspir\'{e} le style HEC Montr\'{e}al.
+%	+apalike+.
 %
 %	Afin de vous conformer au format de citation pr\'{e}conis\'{e} par le \emph{Guide de r\'{e}daction}, nous vous recommandons
 %	enfin d'utiliser la commande \cmd{\citep} lorsque vous citez vos sources.
@@ -1019,8 +1022,7 @@
 %	Caroline Archambault\cite{stylehec}. This style also supports the \emph{author-year} citation format that is
 %	recommended for use in the \emph{Guidelines}.
 %
-%	If you write your dissertation or thesis in English, we suggest you use the +apa+ bibliography style, which served
-%	as inspiration for the HEC Montr\'{e}al bibliography style.
+%	If you write your dissertation or thesis in English, we suggest you use the +apalike+ bibliography style.
 %
 %	In order to fully comply with the \emph{Guidelines}, we recommend you use the \cmd{\citep} command when citing
 %	your sources.
@@ -2344,28 +2346,7 @@
 %%
 \HECgenererTitres
 %</articles>
-%<*classique>
 %%
-%<*francais>
-%% STYLE BIBLIOGRAPHIQUE
-%%
-%% On utilise par defaut le style bibliographique francais issu du package 
-%% francais-bst. L'utilisation de ce style n'est pas obligatoire. Consultez
-%% la documentation pour connaitre la liste des styles compatibles avec la
-%% langue de redaction de votre these ou memoire.
-%%
-\bibliographystyle{francais}
-%</francais>
-%<*anglais>
-%% BIBLIOGRAPHY STYLE
-%%
-%% We use the default apa bibliography style. Using this style isn't mandatory.
-%% Read the class' documentation to learn more about the styles compatible with
-%% the language of your dissertation or thesis.
-%%
-\bibliographystyle{apa}
-%</anglais>
-%</classique>
 %%
 %<*francais>
 %% MISE EN FORME DE LA TABLE DES MATIERES
@@ -2376,6 +2357,8 @@
 %% quel niveau vous voulez voir repertories dans la TDM.
 %</francais>
 %<*anglais>
+%% TABLE OF CONTENTS LAYOUT
+%% 
 %% All document divisions up to the subsections are included in the table
 %% of contents. If you want a more detailled table of contents, change
 %% the following two commands so they match the level of detail you want
@@ -2507,6 +2490,27 @@
 %<anglais>%% BEGINNING OF THE DISSERTATION OR THESIS
 %%
 \begin{document}
+%<*francais>
+%%
+%% STYLE BIBLIOGRAPHIQUE
+%%
+%% On utilise par defaut le style bibliographique francais issu du package 
+%% francais-bst. L'utilisation de ce style n'est pas obligatoire. Consultez
+%% la documentation pour connaitre la liste des styles compatibles avec la
+%% langue de redaction de votre these ou memoire.
+%%
+\bibliographystyle{francais}
+%</francais>
+%<*anglais>
+%%
+%% BIBLIOGRAPHY STYLE
+%%
+%% We use the default apalike bibliography style. Using this style isn't mandatory.
+%% Read the class' documentation to learn more about the styles compatible with
+%% the language of your dissertation or thesis.
+%%
+\bibliographystyle{apalike}
+%</anglais>
 	
 	%% Pages liminaires / frontmatter
 	\frontmatter
@@ -2624,8 +2628,6 @@
 	%<francais> %% Configuration de la bibliographie generale
 	%<anglais> %% General bibliography configuration
 	\HECbibliographieGenerale
-	%<francais>\bibliographystyle{francais}
-	%<anglais>\bibliographystyle{apa}
 	%</articles>
 	%<francais>%% Inscrivez le nom de votre fichier .bib entre les accolades.
 	%<anglais>%% Write the name of your .bib file between the curly braces.
@@ -2769,7 +2771,7 @@
 \chapter*{}
 
 \begin{HECdedication}
-	%% Writte your dedication here.
+	%% Write your dedication here.
 \end{HECdedication}
 %</anglais>
 %</dedicace>
@@ -2975,7 +2977,7 @@
 %% Inscrivez le nom de votre fichier .bib entre les accolades.
 %</francais>
 %<*anglais>
-\bibliographystyle{apa}
+\bibliographystyle{apalike}
 %% Write the name of your .bib file between the curly braces.
 %</anglais>
 \bibliography{}
