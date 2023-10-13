@@ -1,6 +1,6 @@
 % \iffalse
 %
-% Copyright 2017-2021 HEC Montreal
+% Copyright 2017-2023 HEC Montreal
 %
 % This work may be distributed and/or modified under the
 % conditions of the LaTeX Project Public License, either version 1.3c
@@ -25,7 +25,7 @@
 \ProvidesFile{hecthese.dtx}
 %</dtx>
 %<class>\NeedsTeXFormat{LaTeX2e}
-%<class>\ProvidesClass{hecthese}[2021/09/07 v1.5 Class for dissertations and theses at HEC Montreal]
+%<class>\ProvidesClass{hecthese}[2023/10/13 v1.5.1 Class for dissertations and theses at HEC Montreal]
 %<*driver>
 \documentclass[10pt,english,french]{ltxdoc}
 \usepackage[utf8]{inputenc}
@@ -132,6 +132,8 @@
 % \DoNotIndex{\label,\ref,\caption,\hline,\multicolumn,\oui,\non,\cmd}
 % \DoNotIndex{\dots,\url,\clearpage,\bibitem}
 % \DoNotIndex{\hectheseTitre,\biblio}
+% \changes{1.5.1}{2023-10-13}{Corrigé la typographie de certaines phantomsections / 
+%	Corrected typos in phantomsections}
 % \changes{1.5}{2021-09-07}{Corrig\'e l'impl\'ementation de chapterbib. /
 %	Fixed the chapterbib implementation.}
 % \changes{1.4}{2020-08-24}{Beaucoup de corrections de bogues et de mises \`{a} jour (voir d\'{e}p\^{o}t Git). /
@@ -1987,7 +1989,7 @@
 %    \begin{macrocode}
 
 \newcommand{\HECtdmAbreviations}{%
-	\IfLanguageName{english}{List of acronyms}{Liste des abr\'{e}viations}
+	\IfLanguageName{english}{List of Acronyms}{Liste des abr\'{e}viations}
 }
 
 \newcommand{\HECtdmRemerciements}{%
@@ -1999,11 +2001,11 @@
 }
 
 \newcommand{\HECtdmCadreTheorique}{%
-	\IfLanguageName{english}{Theoretical framework}{Cadre th\'{e}orique}
+	\IfLanguageName{english}{Theoretical Framework}{Cadre th\'{e}orique}
 }
 
 \newcommand{\HECtdmRevueLitterature}{%
-	\IfLanguageName{english}{Literature review}{Revue de la litt\'{e}rature}
+	\IfLanguageName{english}{Literature Review}{Revue de la litt\'{e}rature}
 }
 
 \newcommand{\HECtdmResumeArticle}{%
@@ -2700,7 +2702,7 @@
 %<francais>%% Inscrivez vos mots-cles en anglais ici (15 maximum, incluant les methodes de recherche ci-dessous).
 %<anglais>%% Write your english keywords here (15 max, including the research methods)
 
-\section*{Research methods}
+\section*{Research Methods}
 
 %<*francais>
 %% Inscrivez vos methodes de recherche en anglais ici.
@@ -2908,7 +2910,7 @@
 %% save a file with another name and include it in your template file
 %% with the \include command.
 %</anglais>
-\chapter{Titre du chapitre / Chapter title}
+\chapter{Titre du chapitre / Chapter Title}
 \thispagestyle{empty}	% Premiere page non paginee / First page is unnumbered
 
 %<francais>%% Ecrivez votre chapitre ici.
@@ -2938,7 +2940,7 @@
 %% an introduction, numbered sections and conclusion, and a bibliography.
 %% You can add or delete sections according to your needs.
 %</anglais>
-\chapter{Titre de l'article / Article title}
+\chapter{Titre de l'article / Article Title}
 \thispagestyle{empty}	% Premiere page non paginee / First page is unnumbered
 
 \section*{\HECtdmResumeArticle}
@@ -2952,17 +2954,17 @@
 %<francais>%% Redigez votre introduction d'article ici.
 %<anglais>%% Write your article introduction here.
 
-\section{Titre de la section de d\'{e}veloppement 1 / Section 1 title}
+\section{Titre de la section de d\'{e}veloppement 1 / Section 1 Title}
 
 %<francais>%% Redigez votre section de developpement ici.
 %<anglais>%% Write your section 1 here.
 
-\section{Titre de la section de d\'{e}veloppement 2 / Section 2 title}
+\section{Titre de la section de d\'{e}veloppement 2 / Section 2 Title}
 
 %<francais>%% Redigez votre section de developpement ici.
 %<anglais>%% Write your section 2 here.
 
-\section{Titre de la section de d\'{e}veloppement 3 / Section 3 title}
+\section{Titre de la section de d\'{e}veloppement 3 / Section 3 Title}
 
 %<francais>%% Redigez votre section de developpement ici.
 %<anglais>%% Write your section 3 here.
