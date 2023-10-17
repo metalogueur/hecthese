@@ -25,9 +25,9 @@
 \ProvidesFile{hecthese.dtx}
 %</dtx>
 %<class>\NeedsTeXFormat{LaTeX2e}
-%<class>\ProvidesClass{hecthese}[2023/10/13 v1.5.1 Class for dissertations and theses at HEC Montreal]
+%<class>\ProvidesClass{hecthese}[2023/10/17 v2.0 Class for dissertations and theses at HEC Montreal]
 %<*driver>
-\documentclass[10pt,english,french]{ltxdoc}
+\documentclass[10pt,french,english]{ltxdoc}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{babel}
@@ -125,13 +125,14 @@
 \end{document}
 %</driver>
 % \fi
-% \CheckSum{574}
+% \CheckSum{519}
 % \DoNotIndex{\RequirePackage,\ExecuteOptions,\ifthenelse,\ProcessOptions}
 % \DoNotIndex{\newcommand,\newcommand*,\newboolean,\setboolean}
 % \DoNotIndex{\emph,\cite,\LaTeX,\hecthese,\textbf,\item,\footnote}
 % \DoNotIndex{\label,\ref,\caption,\hline,\multicolumn,\oui,\non,\cmd}
 % \DoNotIndex{\dots,\url,\clearpage,\bibitem}
 % \DoNotIndex{\hectheseTitre,\biblio}
+% \changes{2.0}{2023-10-17}{Ajout de biblatex et abandon de chapterbib / Added biblatex and dropped chapterbib}
 % \changes{1.5.1}{2023-10-13}{Corrigé la typographie de certaines phantomsections / 
 %	Corrected typos in phantomsections}
 % \changes{1.5}{2021-09-07}{Corrig\'e l'impl\'ementation de chapterbib. /
@@ -199,7 +200,7 @@
 % 	et l'\'{e}diteur de code TeXStudio\cite{texstudio} ont \'{e}t\'{e} utilis\'{e}s et ses fonctionnalit\'{e}s ont 
 %	\'{e}t\'{e} test\'{e}es avec les compilateurs +latex+, +pdflatex+, +bibtex+ et +makeindex+. La classe
 %	a \'{e}galement \'{e}t\'{e} test\'{e}e avec la distribution MiK\TeX\footnote{Un immense merci \`{a} Franck Jeannot pour avoir effectu\'{e} ces tests!},
-%   avec les versions 2017 à 2020 de TeXLive de m\^eme qu'avec l'application Web Overleaf.
+%   avec les versions 2017 à 2023 de TeXLive de m\^eme qu'avec l'application Web Overleaf.
 % 	Nous vous invitons \`{a} la tester avec vos propres distributions TeX et
 %	\'{e}diteurs de codes et \`{a} l'utiliser de la m\^{e}me mani\`{e}re dont vous vous servez de vos outils pour vos
 %	autres travaux en {\LaTeX}.
@@ -209,7 +210,7 @@
 %	and the \TeX Studio code editor\cite{texstudio} were used. Its features were tested with the
 %	+latex+, +pdflatex+, +bibtex+ and +makeindex+ compilers. The class has also been tested with the
 %	MiK\TeX\ distribution\footnote{A big ``thank you!'' goes to Franck Jeannot for making the tests.}
-%	and WinEdt code editor, with the 2017 to 2020 versions of TeXLive as well as with the Overleaf
+%	and WinEdt code editor, with the 2017 to 2023 versions of TeXLive as well as with the Overleaf
 %	web application.
 %	We invite you to test the class with your own distribution and code editor and to use it like
 %	you would with any other work you do with \LaTeX.
@@ -539,19 +540,17 @@
 % \fi
 %
 % \ifnum\frenchdoc=1
-%	La classe {\hecthese} comprend quelques commandes qu'on pourrait r\'{e}partir en trois cat\'{e}gories :
+%	La classe {\hecthese} comprend quelques commandes qu'on pourrait r\'{e}partir en deux cat\'{e}gories :
 %	\begin{enumerate}
 %		\item les m\'{e}tadonn\'{e}es de votre document (auteur, titre, etc.) servant \`{a} g\'{e}n\'{e}rer la (les)
 %			page(s) titre ;
-%		\item les commandes de mise en forme du document ;
-%		\item les commandes li\'{e}es aux bibliographies des th\`{e}ses et m\'{e}moires par articles.
+%		\item les commandes de mise en forme du document.
 %	\end{enumerate}
 % \else
-%	The \hecthese\ document class provides commands that can be separated into three categories:
+%	The \hecthese\ document class provides commands that can be separated into two categories:
 %	\begin{enumerate}
 	%		\item document metadata (author, title, etc.) used to generate the title pages;
-	%		\item document layout commands;
-	%		\item bibliography-related commands for dissertations and theses written with articles.
+	%		\item document layout commands.
 	%	\end{enumerate}
 % \fi
 %
@@ -820,88 +819,6 @@
 %	\end{DescribeMacro}
 %
 % \ifnum\frenchdoc=1
-%	\subsubsection{Les bibliographies des th\`{e}ses et m\'{e}moires par articles}
-% \else
-%	\subsubsection{By-article dissertations' and theses' bibliographies}
-% \fi
-%
-%\ifnum\frenchdoc=1
-%		Dans les th\`{e}ses et m\'{e}moires r\'{e}dig\'{e}s par articles, il y a plusieurs bibliographies : une
-%		par article et une g\'{e}n\'{e}rale pour l'ensemble du travail. La classe {\hecthese} utilise
-%		le +package chapterbib+\cite{chapterbib} pour permettre la publication de ces nombreuses bibliographies.
-% \else
-%		In dissertations and theses written with articles, there are many bibliographies: one specific
-%		bibliography for each article and a general bibliography for the whole document. The
-%		\hecthese\ document class uses the +chapterbib+ package\cite{chapterbib} to generate
-%		multiple bibliographies in one document.
-% \fi
-%
-%	\begin{DescribeMacro}{\HECbibliographieArticle}
-% \ifnum\frenchdoc=1
-%		Le +package chapterbib+ ne s'accorde cependant pas tr\`{e}s bien avec la classe +memoir+ en ce qui
-%		concerne la place de chacune des bibliographies dans les divisions du document. La
-%		commande \cmd{\HECbibliographieArticle} s'assure donc que les bibliographies des articles
-%		seront positionn\'{e}es en tant que section non num\'{e}rot\'{e}es \`{a} l'int\'{e}rieur des articles. C'est
-%		pourquoi, dans les gabarits par articles, cette commande est plac\'{e}e apr\`{e}s la commande
-%		\cmd{\HECpagestitre}.
-% \else
-%		The +chapterbib+ package and +memoir+ class have conflicting issues concerning the bibliographies'
-%		place in a document's divisions. The \cmd{\HECbibliographieArticle} makes sure that the articles'
-%		bibliographies are positioned as unnumbered sections inside the articles. This is why, in the
-%		by-articles templates, this command is placed just after the \cmd{\HECtitlepages} command.
-% \fi
-%	\end{DescribeMacro}
-%
-%	\begin{DescribeMacro}{\HECbibliographieGenerale}
-% \ifnum\frenchdoc=1
-%		Cette commande sert	\`{a} positionner la bibliographie g\'{e}n\'{e}rale du travail en tant 
-%		que «chapitre» (au sens {\LaTeX} du terme) non num\'{e}rot\'{e}. Cette commande est plac\'{e}e 
-%		tout juste avant la commande \cmd{\bibliographystyle} du gabarit.
-% \else
-%		This command positions the document's general bibliography as an unnumbered ``chapter''
-%		(in the \LaTeX\ definition of the term). It is placed just before the template's
-%		\cmd{\bibliographystyle} command.
-% \fi
-%	\end{DescribeMacro}
-%
-%	\begin{DescribeMacro}{\HECreferences}
-% \ifnum\frenchdoc=1
-%		Le +package chapterbib+ remplit tr\`{e}s bien son r\^{o}le de cr\'{e}ation de bibliographies multiples. Le
-%		hic, c'est qu'il faut inclure la commande \cmd{\bibliography} dans chaque fichier inclus
-%		dans un document pour que les citations s'affichent correctement. Ce faisant, une bibliographie 
-%		est g\'{e}n\'{e}r\'{e}e pour chacun de ces fichiers. Or, dans des sections comme l'introduction, 
-%		les r\'{e}sum\'{e}s ou encore la conclusion, la bibliographie ne doit pas \^{e}tre affich\'{e}e, 
-%		car elle est incluse dans la bibliographie g\'{e}n\'{e}rale du document. La commande \cmd{\HECreferences}
-%		permet d'ins\'{e}rer des citations et de les voir s'afficher correctement sans qu'une bibliographie
-%		soit g\'{e}n\'{e}r\'{e}e dans une section donn\'{e}e. Sa syntaxe est la suivante :
-%
-%		\begin{shaded*}
-%			\cmd{\HECreferences\{<style bibliographique>\}\{<fichier.bib>\}}
-%		\end{shaded*}
-%
-%		M\^{e}me si la bibliographie d'une section ne s'affichera pas, il est important d'indiquer comme
-%		argument +style bibliographique+ le m\^{e}me style que celui utilis\'{e} partout ailleurs dans le
-%		document, car les r\'{e}f\'{e}rences seront au final incluses dans la bibliographie g\'{e}n\'{e}rale.
-% \else
-%		The +chapterbib+ package is pretty good at fulfilling its purpose, which is generating multiple
-%		bibliographies. The problem is that a \cmd{\bibliography} command must be included in each file
-%		if one wants her citations to appear in the document. And by including the command, a bibliography
-%		is generated for that part of the document. In sections of the document such as the introduction, the
-%		abstracts or the conclusion, a bibliography must not be generated as the references for these parts
-%		have to be included in the general bibliography. The \cmd{\HECreferences} command allows you
-%		to insert citations and see them displayed correctly in a given section without generating a
-%		bibliography for that section. Its syntax is as follows:
-%
-%		\begin{shaded*}
-%			\cmd{\HECreferences\{bibliographic style>\}\{<file.bib>\}}
-%		\end{shaded*}
-%
-%		Even if the bibliography of a given section won't be displayed, it is important to specify
-%		a bibliography style as the references will still appear in the general bibliography.
-% \fi
-%	\end{DescribeMacro}
-%
-% \ifnum\frenchdoc=1
 %	\subsection{Environnements de la classe}
 % \else
 %	\subsection{Class environments}
@@ -1002,36 +919,50 @@
 % \fi
 %
 % \ifnum\frenchdoc=1
-%	Nous vous recommandons fortement d'utiliser le style bibliographique +francais+ pour la compilation de
-%	votre (vos) bibliographie(s). Ce style a \'{e}t\'{e} con\c{c}u par le professeur Vincent Goulet de l'Universit\'{e} 
-%	Laval\cite{francaisbst} et est celui qui ressemble le plus au style bibliographique HEC Montr\'{e}al, \'{e}labor\'{e}
-%	par Caroline Archambault\cite{stylehec}. De plus, ce style supporte les citations au format \emph{auteur-ann\'{e}e}
-%	pr\'{e}conis\'{e} dans le \emph{Guide de r\'{e}daction}.
+%	La classe de document utilise le +package biblatex+\cite{biblatex} pour la production des citations et 
+%	de la bibliographie des th\`{e}ses et m\'{e}moires classiques, et \textbf{des} bibliographies des
+%	th\`{e}ses et m\'{e}moires par articles.
 %
-%	Si vous r\'{e}digez votre th\`{e}se ou m\'{e}moire en anglais, nous vous recommandons d'utiliser le style bibliographique
-%	+apalike+.
+%	Les versions ant\'{e}rieures de +hecthese+ utilisaient le +package chapterbib+ pour g\'{e}rer les
+%	bibliographies multiples, mais ce dernier s'av\'{e}rait \^{e}tre incompatible avec la classe de
+%	document +memoir+.
 %
-%	Afin de vous conformer au format de citation pr\'{e}conis\'{e} par le \emph{Guide de r\'{e}daction}, nous vous recommandons
-%	enfin d'utiliser la commande \cmd{\citep} lorsque vous citez vos sources.
+%	Le +package biblatex+ et le compilateur +biber+ \'{e}tant beaucoup plus polyvalents et flexibles
+%	que +bibtex+, ceux-ci deviennent les gestionnaires de bibliographie par d\'{e}faut \`{a} partir de
+%	la version 2.0.
 %
-%	Si vous choisissez d'utiliser d'autres styles bibliographiques et/ou d'autres formats de citations, assurez-vous
-%	qu'ils soient compatibles avec le +package+ +natbib+ qui est charg\'{e} avec la classe, \`{a} d\'{e}faut de quoi vous
-%	rencontrerez des probl\`{e}mes lors de la compilation de votre document.
+%	Veuillez consulter le guide \href{https://www.overleaf.com/learn/latex/Articles/Getting_started_with_BibLaTeX}%
+%	{Getting started with BibLaTeX} pour vous familiariser avec son utilisation ainsi que le code source de la
+%	classe +hecthese+ pour en comprendre l'impl\'{e}mentation.
+%
+%	Ce qu'il importe de savoir est que dans les thèses et mémoires par articles, il doit y avoir une bibliographie
+%	particulière pour chacun des articles ainsi qu'une bibliographie générale regroupant toutes les références
+%	de votre document, incluant celles des articles.
+%
+%	Pour ce faire, vous devez ajouter des +keywords+ dans les références de votre fichier +.bib+, comme
+%	+article-n+ ou +bib-generale+ par exemple, et inscrire le +keyword+ approprié dans la commande
+%	+\printbibliography[]+ que vous retrouverez dans les fichiers +gabarit+ et +articles+.
 % \else
-%	If you plan on writing your dissertation or thesis in French, we suggest you use the +francais+ bibliography
-%	style when compiling your bibliographies. It has been built by Universit\'{e} Laval's professor Vincent Goulet\cite{francaisbst}
-%	and it is the bibliography style resembling the most HEC Montr\'{e}al's bibliography style, elaborated by
-%	Caroline Archambault\cite{stylehec}. This style also supports the \emph{author-year} citation format that is
-%	recommended for use in the \emph{Guidelines}.
+%	The document class uses the +biblatex+ package\cite{biblatex} to manage the dissertations and theses'
+% 	citations and bibliographies.
 %
-%	If you write your dissertation or thesis in English, we suggest you use the +apalike+ bibliography style.
+%	Previous versions of +hecthese+ used the +chapterbib+ package, but it was incompatible with the +memoir+
+%	document class.
 %
-%	In order to fully comply with the \emph{Guidelines}, we recommend you use the \cmd{\citep} command when citing
-%	your sources.
+%	The +biblatex+ package and +biber+ compiler being more versatile and flexible that their +bibtex+
+% 	counterpart, they have become the default bibliography managers starting at +hecthese+ version 2.0.
 %
-%	If you choose to use other bibliography styles and/or citation formats, just make sure that they are
-%	compatible with the +natbib+ package loaded with the document class. Otherwise, you'll run into errors when you'll
-%	compile your document.
+%	Please read the \href{https://www.overleaf.com/learn/latex/Articles/Getting_started_with_BibLaTeX}%
+%	{Getting started with BibLaTeX} guide to learn how to use the package and look at the class'
+%	source code to see how it has been implemented.
+%
+%	What is important to understand is that in dissertations and theses written with articles, each
+% 	article has to have its own bibliography and the entire document has to have a global bibliography
+% 	regrouping references found everywhere, including in the articles.
+%
+% 	To do so, you must add +keywords+ in your +.bib+ file's references, like +article-n+ or +general-bib+ for example,
+%	and write the appropriate +keyword+ in the +\printbibliography[]+ commands found in the +template+
+%	and +articles+ files. 
 % \fi
 %
 %	\section{Compilation}
@@ -1042,8 +973,7 @@
 %	\end{HECwarning}
 %	Lorsque viendra le temps de compiler votre document, il ne vous suffira pas seulement de cliquer sur
 %	le bouton «Compilation» de votre \'{e}diteur de code pr\'{e}f\'{e}r\'{e}. Une suite pr\'{e}cise de compilations
-% 	s'av\`{e}rent n\'{e}cessaires si vous voulez que votre document soit g\'{e}n\'{e}r\'{e} de mani\`{e}re appropri\'{e}e, surtout
-% 	si vous compilez une th\`{e}se ou un m\'{e}moire par articles
+% 	s'av\`{e}rent n\'{e}cessaires si vous voulez que votre document soit g\'{e}n\'{e}r\'{e} de mani\`{e}re appropri\'{e}e
 %	\footnote{Un tutoriel vid\'{e}o concernant la compilation est disponible \`{a} l'adresse
 %		\url{https://www.youtube.com/watch?v=hS3LMC3H55w}}.
 % \else
@@ -1052,52 +982,47 @@
 %	\end{HECwarning}
 %	When the time comes for compiling your document, simply pressing ``Compile'' in your code editor
 %	won't suffice. A precise chain of compilations is necessary if you want your document to be
-%	rendered properly, most of all if you compile a dissertation or thesis written with articles
+%	rendered properly
 %	\footnote{A video tutorial showing the compilation process is available at
 %		\url{https://www.youtube.com/watch?v=hS3LMC3H55w} (in French with English subtitles)}.
 % \fi
 %
 % \ifnum\frenchdoc=1
-%	\subsection{Th\`{e}ses et m\'{e}moires classiques}
-% \else
-%	\subsection{Classic dissertations and theses}
-% \fi
-%	\label{comp-phd-msc-cl}
-%
-% \ifnum\frenchdoc=1
 %	Voici l'ordre de compilations n\'{e}cessaires \`{a} la production de votre th\`{e}se ou m\'{e}moire classique,
 %	\`{a} faire \`{a} partir d'un \'{e}diteur de code ou d'un \'{e}diteur de ligne de commande. Dans la liste
-%	ci-dessous, remplacez +*+ par +these+ ou +memoire+ en fonction du document que vous r\'{e}digez.
+%	ci-dessous, remplacez +*+ par +these+ ou +memoire+ et +**+ par +classique+ ou +articles+ en fonction du document 
+%	que vous r\'{e}digez.
 % \else
 %	Here is the compilation chain you need to do in order to generate your classic dissertation or
 %	thesis. You can perform these compilations from your code editor or from the command line. In the
-%	following list, replace +*+ by +msc+ or +phd+ depending of the type of document you're writing.
+%	following list, replace +*+ by +msc+ or +phd+ and +**+ by +classic+ ou +articles+ depending of the type of 
+%	document you're writing.
 % \fi
 %
 %	\begin{HECcompilation}
 % \ifnum\frenchdoc=1
-%		\item +pdflatex gabarit-*-classique.tex+
-%		\item +bibtex gabarit-*-classique.tex+
-%		\item +makeindex gabarit-*-classique.tex+
+%		\item +pdflatex gabarit-*-**.tex+
+%		\item +biber gabarit-*-**.tex+
+%		\item +makeindex gabarit-*-**.tex+
 %			\footnote{\label{comp-index}N\'{e}cessaire seulement si vous avez ins\'{e}r\'{e} des entr\'{e}es d'index 
 %				et la commande \cmd{\printindex} dans votre document.}
-%		\item +pdflatex gabarit-*-classique.tex+
-%		\item +pdflatex gabarit-*-classique.tex+
+%		\item +pdflatex gabarit-*-**.tex+
+%		\item +pdflatex gabarit-*-**.tex+
 % \else
-%		\item +pdflatex template-*-classic.tex+
-%		\item +bibtex template-*-classic.tex+
-%		\item +makeindex template-*-classic.tex+
+%		\item +pdflatex template-*-**.tex+
+%		\item +biber template-*-**.tex+
+%		\item +makeindex template-*-**.tex+
 %			\footnote{\label{comp-index-en}Do this compilation only if you,ve inserted index entries
 %				and the \cmd{\printindex} command in your document.}
-%		\item +pdflatex template-*-classic.tex+
-%		\item +pdflatex template-*-classic.tex+
+%		\item +pdflatex template-*-**.tex+
+%		\item +pdflatex template-*-**.tex+
 % \fi
 %	\end{HECcompilation}
 %
 % \ifnum\frenchdoc=1
-%	La compilation d'une th\`{e}se ou d'un m\'{e}moire classique est assez simple. Toutes les \'{e}tapes se font
+%	La compilation d'une th\`{e}se ou d'un m\'{e}moire est assez simple. Toutes les \'{e}tapes se font
 %	\`{a} partir de votre fichier gabarit. Vous lancez une premi\`{e}re compilation avec +pdflatex+,
-%	vous g\'{e}n\'{e}rez votre bibliographie et votre index avec +bibtex+ et +makeindex+, puis vous recompilez
+%	vous g\'{e}n\'{e}rez votre bibliographie et votre index avec +biber+ et +makeindex+, puis vous recompilez
 %	au moins deux fois de suite votre fichier gabarit avec +pdflatex+ afin de permettre la g\'{e}n\'{e}ration
 %	ad\'{e}quate de la bibliographie, de l'index et de la table des mati\`{e}res.
 %
@@ -1106,75 +1031,11 @@
 % \else
 %	Compiling a dissertation or thesis is pretty straightforward. All compilation steps are performed on
 %	your template file. You run a first compilation with +pdflatex+, you generate your bibliography
-%	and index with +bibtex+ and +makeindex+ and you recompile your template file at least twice with
+%	and index with +biber+ and +makeindex+ and you recompile your template file at least twice with
 %	+pdflatex+ in order to output the bibliography, the index and the table of contents.
 %
 %	When compiling your document using the command line, you don't need to type the file extension (+tex+).
 %	Only the file name will suffice.
-% \fi
-%
-% \ifnum\frenchdoc=1
-%	\subsection{Th\`{e}ses et m\'{e}moires par articles}
-% \else
-%	\subsection{Dissertations and theses written with articles}
-% \fi
-%
-% \ifnum\frenchdoc=1
-%	Voici l'ordre de compilations n\'{e}cessaires \`{a} la production de votre th\`{e}se ou m\'{e}moire par
-%	articles. Comme indiqu\'{e} \`{a} la Section \ref{comp-phd-msc-cl}, remplacez +*+ par +these+ ou +memoire+.
-% \else
-%	Here is the compilation chain you need to do in order to generate your dissertation or thesis
-%	written with articles. As mentioned in Section \ref{comp-phd-msc-cl}, replace +*+ by +dissertation+
-%	or +thesis+.
-% \fi
-%
-%	\begin{HECcompilation}
-% \ifnum\frenchdoc=1
-%		\item +pdflatex gabarit-*-articles.tex+
-%		\item +makeindex gabarit-*-articles.tex+
-%			\footnote{Voir note \ref{comp-index}.}
-%		\item +bibtex gabarit-*-articles.tex+
-%		\item +bibtex [fichier].aux+
-%		\item +pdflatex gabarit-*-articles.tex+
-%		\item +pdflatex gabarit-*-articles.tex+
-% \else
-%		\item +pdflatex template-*-articles.tex+
-%		\item +makeindex template-*-articles.tex+
-%			\footnote{See note \ref{comp-index-en}.}
-%		\item +bibtex template-*-articles.tex+
-%		\item +bibtex [file].aux+
-%		\item +pdflatex template-*-articles.tex+
-%		\item +pdflatex template-*-articles.tex+		
-% \fi
-%	\end{HECcompilation}
-%
-% \ifnum\frenchdoc=1
-%	La compilation d'une th\`{e}se ou d'un m\'{e}moire par articles est plus complexe, car vous
-%	devez g\'{e}n\'{e}rer chacune des bibliographies individuellement. Vous commencez par une
-%	premi\`{e}re compilation +pdflatex+ sur le fichier gabarit. Vous lancez ensuite +makeindex+ 
-%	et +bibtex+ sur ce m\^{e}me fichier. Une fois que la premi\`{e}re compilation +bibtex+ aura \'{e}t\'{e} compl\'{e}t\'{e}e,
-%	ouvrez chacun des fichiers avec l'extension +.aux+ dans lesquels vous avez ins\'{e}r\'{e} des citations,
-%	soit \textbf{article-1.aux}, \textbf{article-2.aux}, \textbf{article-3.aux}, etc.
-%	\footnote{N'ouvrez les fichiers +.aux+ que si vous compilez votre document avec un 
-% 	\'{e}diteur de code.}
-% 	Lancez une compilation +bibtex+ sur chacun de ces fichiers. Finalement, lancez au
-%	moins deux compilations +pdflatex+ sur votre fichier gabarit afin de g\'{e}n\'{e}rer
-%	les bibliographies, l'index et la table des mati\`{e}res.
-%
-%	Et comme indiqu\'{e} \`{a} la Section \ref{comp-phd-msc-cl}, seuls les noms de fichiers sont
-%	n\'{e}cessaires lorsque vous r\'{e}digez vos commandes dans un \'{e}diteur de ligne de commandes.
-% \else
-%	Compiling a dissertation or thesis written with articles is more complex because you have to
-%	generate each article's bibliography separately. You begin by compiling your template
-%	file with +pdflatex+. You then run +bibtex+ and +makeindex+ on this same file. Once
-% 	the first +bibtex+ compilation is over, open each +.aux+ file where you've inserted
-%	citations, i.e. \textbf{article-1.aux}, \textbf{article-2.aux}, \textbf{article-3.aux}, etc.
-%	\footnote{Open the +.aux+ files only if you compile your documents from the code editor.}
-%	Run a +bibtex+ compilation on each of these files. Finally, run +pdflatex+ at least twice
-%	on your template file to output all bibliographies, the index and the table of contents.
-%
-%	As mentioned at Section \ref{comp-phd-msc-cl}, only the file names are necessary for compiling
-% 	from the command line.
 % \fi
 %
 % \StopEventually{
@@ -1211,10 +1072,6 @@
 %		Oberdiek, Heiko, Sebastian Rahtz (2017).
 %		\emph{Package hyperref}, Comprehensive TeX Archive Network. Consult\'{e} le 19 mai 2017
 %		\`{a} \href{https://www.ctan.org/pkg/hyperref}{https://www.ctan.org/pkg/hyperref}
-%	\bibitem{chapterbib}
-%		Arseneau, Donald (2010).
-%		\emph{Package chapterbib}, Comprehensive TeX Archive Network. Consult\'{e} le 23 mai 2017
-%		\`{a} \href{https://www.ctan.org/pkg/chapterbib}{https://www.ctan.org/pkg/chapterbib}
 %	\bibitem{calc}
 %		Thorup, Kresten Krab, Frank Jensen et The {\LaTeX} Team (2007).
 %		\emph{Package calc}, Comprehensive TeX Archive Network. Consult\'{e} le 23 mai 2017 \`{a}
@@ -1254,6 +1111,10 @@
 %		\emph{Guide de pr\'{e}sentation des m\'{e}moires et des th\`{e}ses de l'Universit\'{e} de Montr\'{e}al}, Universit\'{e} de Montr\'{e}al.
 %		Consult\'{e} le 23 avril 2018 \`{a} \href{http://www.fesp.umontreal.ca/fileadmin/fesp/documents/Cheminement/GuidePresentationMemoiresTheses.pdf}%
 %			{http://www.fesp.umontreal.ca/fileadmin/fesp/documents/Cheminement/ GuidePresentationMemoiresTheses.pdf}
+%	\bibitem{biblatex}
+%		Kime, Philip, Moritz Wemheuer (2023).
+%		\emph{Package biblatex}, Comprehensive TeX Archive Network. Consult\'{e} le 17 octobre 2023 \`{a}
+%		\href{https://www.ctan.org/pkg/biblatex}{https://www.ctan.org/pkg/biblatex}
 %	\end{thebibliography}
 %	\clearpage
 %	\PrintChanges
@@ -1428,13 +1289,8 @@
 
 \RequirePackage[utf8]{inputenc}				% Pour ecrire les diacritiques directement
 \RequirePackage[T1]{fontenc}				% Utilisation des polices T1
-\RequirePackage{natbib}						% A inclure avant babel
-
-% Si le document est redige par articles, charger chapterbib.
-\ifthenelse{\boolean{HEC@isClassique}}{}{%
-	\RequirePackage{chapterbib}				% Bibliographies multiples pour les articles
-}
 \RequirePackage{babel}						% Support multilingue
+\RequirePackage{csquotes}					% Requis par babel
 \RequirePackage[autolanguage]{numprint}
 \RequirePackage{calc}						% Necessaire pour la liste des abreviations
 \RequirePackage{enumitem}					% Necessaire pour la liste des abreviations
@@ -2015,108 +1871,6 @@
 %    \end{macrocode}
 %
 % \ifnum\frenchdoc=1
-%	\subsubsection{Bibliographies multiples dans les th\`{e}ses et m\'{e}moires par articles}
-% \else
-%	\subsubsection{Multiple bibliographies in by-articles dissertations and theses}
-% \fi
-%
-% \ifnum\frenchdoc=1
-%	La classe +memoir+ et le +package+ +chapterbib+ ne s'entendent pas
-% 	sur la place \`{a} accorder aux multiples bibliographies dans un document.
-%	La commande \cmd{\HECbibliographieArticle} fait en sorte que la
-%	bibliographie d'un article soit consid\'{e}r\'{e}e comme une section non num\'{e}rot\'{e}e
-% 	de cet article et renomme la section «R\'{e}f\'{e}rences».
-%
-%	La commande \cmd{\HECbibliographieGenerale} remet par la suite la
-%	bibliographie \`{a} sa place usuelle, soit au m\^{e}me niveau qu'un chapitre, encore
-%	une fois sans la num\'{e}roter. La commande renomme aussi la bibliographie
-%	«Bibliographie g\'{e}n\'{e}rale».
-%
-%	Les deux commandes tiennent compte de la langue par d\'{e}faut du document
-%	pour afficher la version anglaise ou fran\c{c}aise des titres des sections.
-% \else
-%	The +memoir+ class and +chapterbib+ package don't play along very well when the
-%	time comes when bibliographies have to be placed in a document. The
-%	\cmd{\HECbibliographieArticle} command makes sur that an article's 
-%	bibliography is considered like an unnumbered section and that its title
-%	is ``References''.
-%
-%	The \cmd{\HECbibliographieGenerale} command then puts back the document's
-%	bibliography at its usual place, which is an unnumbered chapter. The
-%	command also renames this chapter ``General Bibliography''.
-%
-%	The command finally detects the document's default language to automatically
-%	translate all titles.
-% \fi
-%
-%    \begin{macrocode}
-
-\newcommand{\HECbibliographieArticle}{%
-	\renewcommand{\bibsection}{%
-		\IfLanguageName{english}{%		
-			\renewcommand{\bibname}{References}
-		}{%
-			\renewcommand{\bibname}{R\'{e}f\'{e}rences}
-		}
-		\section*{\bibname}
-		\bibmark
-		\ifnobibintoc\else
-			\phantomsection\addcontentsline{toc}{section}{\bibname}
-		\fi
-		\prebibhook
-	}
-}
-
-\newcommand{\HECbibliographieGenerale}{%
-	\renewcommand{\bibsection}{%
-		\IfLanguageName{english}{%
-			\renewcommand{\bibname}{Bibliography}
-		}{%
-			\renewcommand{\bibname}{Bibliographie g\'{e}n\'{e}rale}
-		}
-		\chapter*{\bibname}
-		\bibmark
-		\ifnobibintoc\else
-			\phantomsection\addcontentsline{toc}{chapter}{\bibname}
-		\fi
-		\prebibhook
-	}
-}
-
-%    \end{macrocode}
-%
-% \ifnum\frenchdoc=1
-%	Pour que les citations s'affichent correctement dans tout le document,
-%	les commandes \cmd{\bibliographystyle} et \cmd{\bibliography} doivent
-%	\^{e}tre ins\'{e}r\'{e}es dans chaque fichier inclus. Cependant, les bibliographies
-%	ne doivent s'afficher que dans les articles et \`{a} la fin d'une th\`{e}se ou
-% 	d'un m\'{e}moire. La commande \cmd{\HECreferences} ins\`{e}re les deux commandes
-%	si le document est une th\`{e}se ou m\'{e}moire par articles,
-%	mais «cache» la bibliographie dans un conteneur, une +savebox+ qui ne
-%	sera jamais utilis\'{e}e.
-% \else
-%	In order to display your citations correctly in all the document,
-%	the \cmd{\bibliographystyle} and \cmd{\bibliography} command have to
-%	be inserted in each included file. However, the bibliographies must
-%	only be displayed in the articles and at the end of the document. The
-%	\cmd{\HECreferences} command inserts these two bibliography commands
-%	in the document if it is written with articles, but ``hides'' the
-%	unwanted bibliographies in a container, a +savebox+ that won't be
-%	ever used.
-%\fi
-%
-%    \begin{macrocode}
-
-\newsavebox{\bibliographieCachee}
-
-\newcommand{\HECreferences}[2]{%
-	\bibliographystyle{#1}
-	\savebox\bibliographieCachee{\parbox{\textwidth}{\bibliography{#2}}}
-}
-
-%    \end{macrocode}
-%
-% \ifnum\frenchdoc=1
 %	\subsection{Environnements de la classe}
 % \else
 %	\subsection{Class environments}
@@ -2256,7 +2010,6 @@
 %%
 %% Package[utf8]{inputenc}
 %% Package[T1]{fontenc}
-%% Package{natbib}
 %% Package{chapterbib}
 %% Package{babel}
 %% Package[autolanguage]{numprint}
@@ -2294,7 +2047,6 @@
 %%
 %% Package[utf8]{inputenc}
 %% Package[T1]{fontenc}
-%% Package{natbib}
 %% Package{chapterbib}
 %% Package{babel}
 %% Package[autolanguage]{numprint}
@@ -2327,6 +2079,10 @@
 \usepackage{mathptmx}
 %% \usepackage{mathpazo}
 
+\usepackage[
+	backend=biber,
+	style=authoryear,
+]{biblatex}
 \usepackage{hyperref}
 %%
 %<francais>%% PRODUCTION DE L'INDEX
@@ -2475,6 +2231,9 @@
 %% packages' options, read the class documentation to learn how.
 %</anglais>
 %%
+%% Fichier contenant les références bibliographiques pour biblatex /
+%% references file for biblatex
+\addbibresource{biblio.bib}
 %% Options du package hyperref (inclure les metadonnees pdf dans les options) /
 %% hyperref package option (including pdf metadata)
 \hypersetup{%
@@ -2492,27 +2251,7 @@
 %<anglais>%% BEGINNING OF THE DISSERTATION OR THESIS
 %%
 \begin{document}
-%<*francais>
-%%
-%% STYLE BIBLIOGRAPHIQUE
-%%
-%% On utilise par defaut le style bibliographique francais issu du package 
-%% francais-bst. L'utilisation de ce style n'est pas obligatoire. Consultez
-%% la documentation pour connaitre la liste des styles compatibles avec la
-%% langue de redaction de votre these ou memoire.
-%%
-\bibliographystyle{francais}
-%</francais>
-%<*anglais>
-%%
-%% BIBLIOGRAPHY STYLE
-%%
-%% We use the default apalike bibliography style. Using this style isn't mandatory.
-%% Read the class' documentation to learn more about the styles compatible with
-%% the language of your dissertation or thesis.
-%%
-\bibliographystyle{apalike}
-%</anglais>
+
 	
 	%% Pages liminaires / frontmatter
 	\frontmatter
@@ -2526,12 +2265,6 @@
 %<francais>	\HECpagestitre
 %<anglais> \HECtitlepages
 	
-	%<*articles>
-	%% Configuration des bibliographies des articles /
-	%% Articles' bibliographies configuration
-	\HECbibliographieArticle
-	%</articles>
-
 	%% Resume francais / french abstract
 	%<francais>	\include{resume-francais}
 	%<anglais>	\include{abstract-french}
@@ -2626,14 +2359,10 @@
 	\printindex
 	
 	%% BIBLIOGRAPHIE / BIBLIOGRAPHY
-	%<*articles>
-	%<francais> %% Configuration de la bibliographie generale
-	%<anglais> %% General bibliography configuration
-	\HECbibliographieGenerale
-	%</articles>
-	%<francais>%% Inscrivez le nom de votre fichier .bib entre les accolades.
-	%<anglais>%% Write the name of your .bib file between the curly braces.
-	\bibliography{}
+	%<classique&francais> \printbibliography[title=Bibliographie, heading=bibintoc]
+	%<classique&anglais> \printbibliography[title=Bibliography, heading=bibintoc]
+	%<articles&francais> \printbibliography[keyword=bib-generale, title=Bibliographie, heading=bibintoc]
+	%<articles&anglais> \printbibliography[keyword=general-bib, title=Bibliography, heading=bibintoc]
 	
 	\backmatter
 	
@@ -2670,23 +2399,8 @@
 
 \section*{M\'{e}thodes de recherche}
 
-%<*francais>
-%% Inscrivez vos methodes de recherche ici.
-
-%% THESES ET MEMOIRES PAR ARTICLES SEULEMENT
-%% Si vous avez insere des citations dans cette section, retirez les signes 
-%% de commentaires (%%) devant la commande ci-dessous et inscrivez le style
-%% bibliographique et le nom du fichier .bib utilises pour vos references.
-%</francais>
-%<*anglais>
-%% Write your research methods here.
-
-%% DISSERTATIONS AND THESES WRITTEN WITH ARTICLES
-%% If you have inserted citations in this section, uncomment the following
-%% command and type in the bibliography style and the .bib file name
-%% used for your references.
-%</anglais>
-%% \HECreferences{style}{nom-du-fichier-file-name}
+%<francais>%%Inscrivez vos methodes de recherche ici.
+%<anglais>%% Write your research methods here.
 %</resumefrancais>
 %<*resumeanglais>
 %<francais>%% Fichier contenant le resume anglais, les mots-cles et les methodes de recherche.
@@ -2704,23 +2418,8 @@
 
 \section*{Research Methods}
 
-%<*francais>
-%% Inscrivez vos methodes de recherche en anglais ici.
-
-%% THESES ET MEMOIRES PAR ARTICLES SEULEMENT
-%% Si vous avez insere des citations dans cette section, retirez les signes 
-%% de commentaires (%%) devant la commande ci-dessous et inscrivez le style
-%% bibliographique et le nom du fichier .bib utilises pour vos references.
-%</francais>
-%<*anglais>
-%% Write your research methods here.
-
-%% DISSERTATIONS AND THESES WRITTEN WITH ARTICLES
-%% If you have inserted citations in this section, uncomment the following
-%% command and type in the bibliography style and the .bib file name
-%% used for your references.
-%</anglais>
-%% \HECreferences{style}{nom-du-fichier-file-name}
+%<francais>%% Inscrivez vos methodes de recherche en anglais ici.
+%<anglais>%% Write your research methods here.
 %</resumeanglais>
 %
 % ^^A Liste des abreviations
@@ -2796,23 +2495,8 @@
 \chapter*{\HECtdmAvantPropos}
 \phantomsection\addcontentsline{toc}{chapter}{\HECtdmAvantPropos}
 
-%<*francais>
-%% Redigez votre avant-propos ici.
-
-%% THESES ET MEMOIRES PAR ARTICLES SEULEMENT
-%% Si vous avez insere des citations dans cette section, retirez les signes 
-%% de commentaires (%%) devant la commande ci-dessous et inscrivez le style
-%% bibliographique et le nom du fichier .bib utilises pour vos references.
-%</francais>
-%<*anglais>
-%% Write your preface here.
-
-%% DISSERTATIONS AND THESES WRITTEN WITH ARTICLES
-%% If you have inserted citations in this section, uncomment the following
-%% command and type in the bibliography style and the .bib file name
-%% used for your references.
-%</anglais>
-%% \HECreferences{style}{nom-du-fichier-file-name}
+%<francais>%% Redigez votre avant-propos ici.
+%<anglais>%% Write your preface here.
 %</avantpropos>
 %
 % ^^A Introduction
@@ -2823,23 +2507,8 @@
 \phantomsection\addcontentsline{toc}{chapter}{\HECtitreIntroduction}
 \thispagestyle{empty}	% Premiere page non paginee / First page is unnumbered
 
-%<*francais>
-%% Redigez votre introduction ici.
-
-%% THESES ET MEMOIRES PAR ARTICLES SEULEMENT
-%% Si vous avez insere des citations dans cette section, retirez les signes 
-%% de commentaires (%%) devant la commande ci-dessous et inscrivez le style
-%% bibliographique et le nom du fichier .bib utilises pour vos references.
-%</francais>
-%<*anglais>
-%% Write your introduction here.
-
-%% DISSERTATIONS AND THESES WRITTEN WITH ARTICLES
-%% If you have inserted citations in this section, uncomment the following
-%% command and type in the bibliography style and the .bib file name
-%% used for your references.
-%</anglais>
-%% \HECreferences{style}{nom-du-fichier}
+%<francais>%% Redigez votre introduction ici.
+%<anglais>%% Write your introduction here.
 %</introduction>
 %
 % ^^A Cadre theorique
@@ -2850,23 +2519,8 @@
 \phantomsection\addcontentsline{toc}{chapter}{\HECtdmCadreTheorique}
 \thispagestyle{empty}
 
-%<*francais>
-%% Redigez votre cadre theorique ici.
-
-%% THESES ET MEMOIRES PAR ARTICLES SEULEMENT
-%% Si vous avez insere des citations dans cette section, retirez les signes 
-%% de commentaires (%%) devant la commande ci-dessous et inscrivez le style
-%% bibliographique et le nom du fichier .bib utilises pour vos references.
-%</francais>
-%<*anglais>
-%% Write your theoretical framework here.
-
-%% DISSERTATIONS AND THESES WRITTEN WITH ARTICLES
-%% If you have inserted citations in this section, uncomment the following
-%% command and type in the bibliography style and the .bib file name
-%% used for your references.
-%</anglais>
-%% \HECreferences{style}{nom-du-fichier-file-name}
+%<francais>%% Redigez votre cadre theorique ici.
+%<anglais>%% Write your theoretical framework here.
 %</cadretheorique>
 %
 % ^^A Revue de litterature
@@ -2877,23 +2531,8 @@
 \phantomsection\addcontentsline{toc}{chapter}{\HECtdmRevueLitterature}
 \thispagestyle{empty}	% Premiere page non paginee / First page unnumbered
 
-%<*francais>
-%% Redigez votre revue de litterature ici.
-
-%% THESES ET MEMOIRES PAR ARTICLES SEULEMENT
-%% Si vous avez insere des citations dans cette section, retirez les signes 
-%% de commentaires (%%) devant la commande ci-dessous et inscrivez le style
-%% bibliographique et le nom du fichier .bib utilises pour vos references.
-%</francais>
-%<*anglais>
-%% Write your literature review here.
-
-%% DISSERTATIONS AND THESES WRITTEN WITH ARTICLES
-%% If you have inserted citations in this section, uncomment the following
-%% command and type in the bibliography style and the .bib file name
-%% used for your references.
-%</anglais>
-%% \HECreferences{style}{nom-du-fichier}
+%<francais>%% Redigez votre revue de litterature ici.
+%<anglais>%% Write your literature review here.
 %</revuelitterature>
 %
 % ^^A Chapitres de developpement
@@ -2974,15 +2613,8 @@
 %<francais>%% Redigez votre conclusion d'article ici.
 %<anglais>%% Write your article conclusion here.
 
-%<*francais>
-\bibliographystyle{francais}
-%% Inscrivez le nom de votre fichier .bib entre les accolades.
-%</francais>
-%<*anglais>
-\bibliographystyle{apalike}
-%% Write the name of your .bib file between the curly braces.
-%</anglais>
-\bibliography{}
+%<francais> \printbibliography[keyword={article-n}, title=R\'{e}f\'{e}rences, heading=subbibintoc]
+%<anglais> \printbibliography[keyword={article-n}, title=References, heading=subbibintoc]
 %</articledeveloppement>
 %
 % ^^A Conclusion
@@ -2993,23 +2625,8 @@
 \phantomsection\addcontentsline{toc}{chapter}{\HECtitreConclusion}
 \thispagestyle{empty}	% Premiere page non paginee / First page is unnumbered
 
-%<*francais>
-%% Redigez votre conclusion ici.
-
-%% THESES ET MEMOIRES PAR ARTICLES SEULEMENT
-%% Si vous avez insere des citations dans cette section, retirez les signes 
-%% de commentaires (%%) devant la commande ci-dessous et inscrivez le style
-%% bibliographique et le nom du fichier .bib utilises pour vos references.
-%</francais>
-%<*anglais>
-%% Write your conclusion here.
-
-%% DISSERTATIONS AND THESES WRITTEN WITH ARTICLES
-%% If you have inserted citations in this section, uncomment the following
-%% command and type in the bibliography style and the .bib file name
-%% used for your references.
-%</anglais>
-%% \HECreferences{style}{nom-du-fichier-file-name}
+%<francais>%% Redigez votre conclusion ici.
+%<anglais>%% Write your conclusion here.
 %</conclusion>
 %<*annexe>
 %<*francais>
@@ -3028,10 +2645,6 @@
 
 %% Redigez votre annexe ici.
 
-%% THESES ET MEMOIRES PAR ARTICLES SEULEMENT
-%% Si vous avez insere des citations dans cette section, retirez les signes 
-%% de commentaires (%%) devant la commande ci-dessous et inscrivez le style
-%% bibliographique et le nom du fichier .bib utilises pour vos references.
 %</francais>
 %<*anglais>
 %% File containing an appendix. The class only generates one appendix by default.
@@ -3047,11 +2660,6 @@
 
 %% Write your appendix here.
 
-%% DISSERTATIONS AND THESES WRITTEN WITH ARTICLES
-%% If you have inserted citations in this section, uncomment the following
-%% command and type in the bibliography style and the .bib file name
-%% used for your references.
 %</anglais>
-%% \HECreferences{style}{nom-du-fichier-file-name}
 %</annexe>
 % \fi
