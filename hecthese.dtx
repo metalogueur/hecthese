@@ -1,6 +1,6 @@
 % \iffalse
 %
-% Copyright 2017-2023 HEC Montreal
+% Copyright 2017-2025 HEC Montreal
 %
 % This work may be distributed and/or modified under the
 % conditions of the LaTeX Project Public License, either version 1.3c
@@ -25,9 +25,9 @@
 \ProvidesFile{hecthese.dtx}
 %</dtx>
 %<class>\NeedsTeXFormat{LaTeX2e}
-%<class>\ProvidesClass{hecthese}[2023/10/17 v2.0 Class for dissertations and theses at HEC Montreal]
+%<class>\ProvidesClass{hecthese}[2025/10/09 v2.1 Class for dissertations and theses at HEC Montreal]
 %<*driver>
-\documentclass[10pt,french,english]{ltxdoc}
+\documentclass[10pt,french]{ltxdoc}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{babel}
@@ -132,6 +132,7 @@
 % \DoNotIndex{\label,\ref,\caption,\hline,\multicolumn,\oui,\non,\cmd}
 % \DoNotIndex{\dots,\url,\clearpage,\bibitem}
 % \DoNotIndex{\hectheseTitre,\biblio}
+% \changes{2.1}{2025-10-09}{Ajout de la section Contribution de l'\'etudiant / Added Student Contribution Section}
 % \changes{2.0}{2023-10-17}{Ajout de biblatex et abandon de chapterbib / Added biblatex and dropped chapterbib}
 % \changes{1.5.1}{2023-10-13}{Corrigé la typographie de certaines phantomsections / 
 %	Corrected typos in phantomsections}
@@ -362,6 +363,8 @@
 %				article-3.tex & \non & \oui & \non & \non \\
 %				conclusion.tex & \oui & \oui & \oui & \oui \\
 %				annexe.tex & \oui & \oui & \oui & \oui \\
+%				contribution-etudiant.tex & \non & \non & \oui & \oui \\
+%				certificat.tex & \non & \non & \oui & \oui \\
 % \else
 %				& \multicolumn{2}{c|}{Dissertations} & \multicolumn{2}{c}{Theses} \\
 %				\textbf{File} & Classic & With articles & Classic & With articles \\
@@ -385,6 +388,8 @@
 %				article-3.tex & \non & \oui & \non & \non \\
 %				conclusion.tex & \oui & \oui & \oui & \oui \\
 %				appendix.tex & \oui & \oui & \oui & \oui \\
+%				student-contribution.tex & \non & \non & \oui & \oui \\
+%				certificate.tex & \non & \non & \oui & \oui \\
 % \fi
 %				\hline\hline
 %			\end{tabular}
@@ -2374,6 +2379,17 @@
 	%<francais>	\include{annexe}
 	%<anglais>	\include{appendix}
 	
+	%<*phd>
+	%<*francais>
+	\include{contribution-etudiant.tex}
+	\include{certificat.tex}
+	%</francais>
+	%<*anglais>
+	\include{student-contribution.tex}
+	\include{certificate.tex}
+	%</anglais>
+	%</phd>
+	
 	%% Page de garde de fin / back cover page
 	\mbox{}
 	\thispagestyle{empty}
@@ -2662,4 +2678,26 @@
 
 %</anglais>
 %</annexe>
+%<*contributionetudiant>
+%<*francais>
+%% Insérer ici explication du fichier par la direction du programme du Ph.D.
+\chapter{Contribution de l'\'etudiant et utilisation de l'IAG}
+
+%% Redigez votre contribution ici.
+%</francais>
+%<*anglais>
+%% Insérer ici explication du fichier par la direction du programme du Ph.D.
+\chapter{Student contribution and use of AGI}
+
+%% Write your contribution here.
+%</anglais>
+%</contributionetudiant>
+%<*certificat>
+%<*francais>
+%% Inserez votre certificat d'ethique a la recherche ici.
+%</francais>
+%<*anglais>
+%% Insert your research ethics certificate here.
+%</anglais>
+%</certificat>
 % \fi

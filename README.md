@@ -11,7 +11,7 @@ later version.
 
 VERSION
 
-2.0
+2.1
 
 ******************************************************************
 La version française de cette description est à la suite de la
@@ -80,6 +80,8 @@ The command will generate multiple files:
 	- article-3.tex
 	- conclusion.tex
 	- appendix.tex
+	- student-contribution.tex
+	- certificate.tex
 	
 DOCUMENTATION
 
@@ -148,6 +150,8 @@ La commande générera plusieurs fichiers :
 	- article-3.tex
 	- conclusion.tex
 	- annexe.tex
+	- contribution-etudiant.tex
+	- certificat.tex
 	
 DOCUMENTATION
 
