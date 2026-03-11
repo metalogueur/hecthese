@@ -1,5 +1,5 @@
 %% 
-%% Copyright 2017-2025 HEC Montréal
+%% Copyright 2017-2026 HEC Montréal
 %%
 %% This work may be distributed and/or modified under the
 %% conditions of the LaTeX Project Public License, either version 1.3c
@@ -19,7 +19,7 @@
 
 This is a stripped version of the original file.
 
-Copyright 2017-2025 HEC Montreal
+Copyright 2017-2026 HEC Montreal
 
 This work may be distributed and/or modified under the
 conditions of the LaTeX Project Public License, either version 1.3c
@@ -35,7 +35,7 @@ This work has the LPPL maintenance status `maintained'.
 The Current Maintainer of this work is Benoit Hamel
 <benoit.2.hamel@hec.ca>.
 
-This work consists of the files hecthese.dtx and hecthese-fr.ins,
+This work consists of the files hecthese.dtx, hecthese-fr.ins,
 hecthese-en.ins, hecthese.pdf, hecthese-en.pdf
 and the derived files listed in the README file.
 
@@ -43,53 +43,49 @@ and the derived files listed in the README file.
 
 \generate{
 	\file{hecthese.cls}{\from{hecthese.dtx}{class}}
-	\file{template-phd-classic.tex}{\from{hecthese.dtx}{gabarit,phd,classique,anglais}}
-	\file{template-phd-articles.tex}{\from{hecthese.dtx}{gabarit,phd,articles,anglais}}
-	\file{template-msc-classic.tex}{\from{hecthese.dtx}{gabarit,msc,classique,anglais}}
-	\file{template-msc-articles.tex}{\from{hecthese.dtx}{gabarit,msc,articles,anglais}}
+	\file{template-phd.tex}{\from{hecthese.dtx}{template,phd,mono,english}}
+	\file{template-phd-articles.tex}{\from{hecthese.dtx}{template,phd,articles,english}}
+	\file{template-msc.tex}{\from{hecthese.dtx}{template,msc,mono,english}}
+	\file{template-msc-articles.tex}{\from{hecthese.dtx}{template,msc,articles,english}}
 	\file{abstract-french.tex}{\nopreamble\nopostamble
-		\from{hecthese.dtx}{resumefrancais,anglais}}
+		\from{hecthese.dtx}{frenchabstract,english}}
 	\file{abstract-english.tex}{\nopreamble\nopostamble
-		\from{hecthese.dtx}{resumeanglais,anglais}}
+		\from{hecthese.dtx}{englishabstract,english}}
 	\file{acronym-list.tex}{\nopreamble\nopostamble
-		\from{hecthese.dtx}{listeabreviations,anglais}}
+		\from{hecthese.dtx}{acronymslist,english}}
 	\file{dedication.tex}{\nopreamble\nopostamble
-		\from{hecthese.dtx}{dedicace,anglais}}
+		\from{hecthese.dtx}{dedication,english}}
 	\file{acknowledgements.tex}{\nopreamble\nopostamble
-		\from{hecthese.dtx}{remerciements,anglais}}
+		\from{hecthese.dtx}{acknowledgements,english}}
 	\file{preface.tex}{\nopreamble\nopostamble
-		\from{hecthese.dtx}{avantpropos,anglais}}
+		\from{hecthese.dtx}{preface,english}}
 	\file{introduction.tex}{\nopreamble\nopostamble
-		\from{hecthese.dtx}{introduction,anglais}}
+		\from{hecthese.dtx}{introduction,english}}
 	\file{theoretical-framework.tex}{\nopreamble\nopostamble
-		\from{hecthese.dtx}{cadretheorique,anglais}}
+		\from{hecthese.dtx}{theoreticalframework,english}}
 	\file{literature-review.tex}{\nopreamble\nopostamble
-		\from{hecthese.dtx}{revuelitterature,anglais}}
+		\from{hecthese.dtx}{literaturereview,english}}
 	\file{chapter-1.tex}{\nopreamble\nopostamble
-		\from{hecthese.dtx}{chapitre,anglais}}
+		\from{hecthese.dtx}{chapter,english}}
 	\file{chapter-2.tex}{\nopreamble\nopostamble
-		\from{hecthese.dtx}{chapitre,anglais}}
+		\from{hecthese.dtx}{chapter,english}}
 	\file{chapter-3.tex}{\nopreamble\nopostamble
-		\from{hecthese.dtx}{chapitre,anglais}}
+		\from{hecthese.dtx}{chapter,english}}
 	\file{article-1.tex}{\nopreamble\nopostamble
-		\from{hecthese.dtx}{articledeveloppement,anglais}}
+		\from{hecthese.dtx}{article,english}}
 	\file{article-2.tex}{\nopreamble\nopostamble
-		\from{hecthese.dtx}{articledeveloppement,anglais}}
+		\from{hecthese.dtx}{article,english}}
 	\file{article-3.tex}{\nopreamble\nopostamble
-		\from{hecthese.dtx}{articledeveloppement,anglais}}
+		\from{hecthese.dtx}{article,english}}
 	\file{conclusion.tex}{\nopreamble\nopostamble
-		\from{hecthese.dtx}{conclusion,anglais}}
+		\from{hecthese.dtx}{conclusion,english}}
 	\file{appendix.tex}{\nopreamble\nopostamble
-		\from{hecthese.dtx}{annexe,anglais}}
-	\file{student-contribution.tex}{\nopreamble\nopostamble
-		\from{hecthese.dtx}{contributionetudiant,anglais}}
-	\file{certificate.tex}{\nopreamble\nopostamble
-		\from{hecthese.dtx}{certificat,anglais}}
+		\from{hecthese.dtx}{appendix,english}}
 }
 
 \obeyspaces
 \Msg{*********************************************************}
-\Msg{* hecthese document class v2.1                          *}
+\Msg{* hecthese document class v3.0                          *}
 \Msg{*                                                       *}
 \Msg{* hecthese document class has been installed and is     *}
 \Msg{* ready for use. Read the hecthese.pdf file to learn    *}
