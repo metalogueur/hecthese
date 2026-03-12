@@ -429,10 +429,19 @@
 	\renewcommand{\acronymslisttitle}{List of Acronyms}
 }
 
+% ------ Key-values for dedication section -------
+
+\define@boolkey{HEC@dedication}{signed}[true]{}
 % ------ Dedication section ----------------------
 
 \epigraphtextposition{flushleftright}
 \setlength{\epigraphrule}{0pt}
+\newcommand{\dedication}[2][]{%
+	\setkeys{HEC@dedication}{signed=true,#1}
+	\begin{vplace}
+		\epigraph{#2}{\ifKV@HEC@dedication@signed\theauthor\fi}
+	\end{vplace}
+}
 
 % ------ Acknowledgements ------------------------
 
@@ -796,12 +805,10 @@
 \end{description}
 %</acronymslist>
 %<*dedication>
-\begin{vplace}		
-	\epigraph{%
-		%<francais>%% Rédigez votre dédicace ici.
-		%<english>%% Write your dedication here.
-	}{\theauthor}
-\end{vplace}
+\dedication[signed=true]{%
+	%<francais>%% Rédigez votre dédicace ici.
+	%<english>%% Write your dedication here.
+}
 %</dedication>
 %<*acknowledgements>
 \chapter{\acknowledgementstitle}
