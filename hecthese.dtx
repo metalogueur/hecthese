@@ -28,20 +28,53 @@
 %<class>\ProvidesClass{hecthese}[2026/02/26 v3.0 Class for dissertations and theses at HEC Montreal]
 %<*driver>
 \documentclass[10pt,french]{ltxdoc}
+\usepackage{amssymb}
 \usepackage{fontspec}
 \usepackage{babel}
 \usepackage{iflang}
-\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{tcolorbox}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{footmisc}
+\usepackage{froufrou}
+\usepackage{hypdoc}
 \EnableCrossrefs
 \CodelineIndex
 \RecordChanges
 
+\NewDocElement[
+	macrolike=false,
+	toplevel=true,
+	idxtype={option},
+	idxgroup={Options},
+	printtype={\textit{opt}}
+]{Option}{option}
+\newtcolorbox{warningbox}{%
+	colback=orange!5!white,
+	colframe=orange,
+	fonttitle=\bfseries,
+	title={ATTENTION!},
+	grow sidewards by=12pt
+}
+\newtcolorbox{codeblock}{%
+	colback=cyan!5!white,
+	colframe=cyan,
+	grow sidewards by=12pt
+}
+\setlength{\parskip}{6pt}
+\setlist[itemize, 1]{label=$\bullet$}
+\setlocalecaption{french}{table}{Tableau}
+\graphicspath{{img/}}
 \hypersetup{
 	colorlinks=true,
 	allcolors=blue,
 	pdftitle={Guide d'utilisation de la classe hecthese},
 	pdfauthor={Benoit Hamel, HEC Montr\'{e}al}
 }
+
+\newcommand{\pkg}[1]{\emph{package} \textsf{#1}}
 
 \begin{document}
 	\DocInput{hecthese.dtx}
@@ -55,14 +88,14 @@
 % Digits \0\1\2\3\4\5\6\7\8\9 
 % Exclamation	\!		Double quote	\"		Hash (number)	\# 
 % Dollar		\$ 		Percent			\% 		Ampersand		\& 
-% Acute accent	\’ 		Left paren		\( 		Right paren		\) 
+% Acute accent	\' 		Left paren		\( 		Right paren		\) 
 % Asterisk		\* 		Plus			\+ 		Comma			\, 
 % Minus			\- 		Point			\. 		Solidus			\/ 
 % Colon			\: 		Semicolon		\; 		Less than		\< 
 % Equals		\= 		Greater than	\> 		Question mark	\? 
 % Commercial at \@ 		Left bracket	\[ 		Backslash		\\ 
 % Right bracket \] 		Circumflex		\^ 		Underscore		\_ 
-% Grave accent 	\‘ 		Left brace		\{ 		Vertical bar	\| 
+% Grave accent 	\` 		Left brace		\{ 		Vertical bar	\| 
 % Right brace 	\} 		Tilde			\~}
 %
 % \changes{3.0}{2026-MM-DD}{Complete code refactoring}
@@ -84,39 +117,1006 @@
 %
 % \GetFileInfo{hecthese.dtx}
 %
-% \DoNotIndex{}
+% \DoNotIndex{\\,\ ,\absleftindent,\absnamepos,\absrightindent,\abstitleskip}
+% \DoNotIndex{\abstractnamefont,\abstracttextfont,\addto,\afterchapskip}
+% \DoNotIndex{\baselineskip,\begin,\bfseries,\bibname,\boolfalse,\booltrue}
+% \DoNotIndex{\captionsenglish,\captionsfrench,\centering,\chapnamefont}
+% \DoNotIndex{\checkandfixthelayout,\cleardoublepage,\contentsname,\copyright}
+% \DoNotIndex{\CurrentOption,\DeclareOption,\define@boolkey,\define@choicekey}
+% \DoNotIndex{\else,\end,\epigraph,\epigraphrule,\epigraphtextposition}
+% \DoNotIndex{\ExecuteOptions,\fi,\ifbool,\ifdefempty,\ifdefstring}
+% \DoNotIndex{\ifKV@HEC@dedication@signed,\ifKV@HEC@jury@last,\itshape}
+% \DoNotIndex{\Large,\listfigurename,\LoadClass,\maxsecnumdepth,\mbox}
+% \DoNotIndex{\newbool,\newcommand,\normalfont,\OnehalfSpacing,\pagenumbering}
+% \DoNotIndex{\pagestyle,\parindent,\parskip,\PassOptionsToClass,\ProcessOptions}
+% \DoNotIndex{\relax,\renewcommand,\RequirePackage,\setkeys,\setlength}
+% \DoNotIndex{\setlrmarginsandblock,\setmainfont,\setmathfont,\setmonofont}
+% \DoNotIndex{\setsansfont,\setsecnumdepth,\settocdepth,\setulmarginsandblock}
+% \DoNotIndex{\textbf,\theauthor,\thedate,\vfill,\ifstrempty}
 %
 % \title{\textsf{hecthese} : \\ une classe de documents pour la rédaction des thèses et mémoires à HEC Montréal}
-% \author{Benoit Hamel, Bibliothèque, HEC Montréal}
+% \author{Benoit Hamel, Bibliothèque, HEC Montréal
+%	\thanks{\textsf{hecthese} version \fileversion, \filedate}}
 % \date{\today}
 % \maketitle
 %
-% \begin{abstract}
-%	Écrire résumé de la classe ici...
-% \end{abstract}
+% 	\begin{abstract}
+%		La classe \textsf{hecthese} a été conçue pour permettre aux étudiants et étudiantes
+%   	de HEC Montréal de rédiger leur mémoire ou leur thèse à l'aide du système de préparation
+%   	de documents \LaTeX\ tout en se conformant aux règles de présentation en vigueur à
+%   	l'École. À ce titre, la classe répond en tous points aux normes de présentation
+%   	énoncées dans le \emph{Guide pour la rédaction d'un travail universitaire de 1er, 2e et 3e cycles}
+%		\cite{cfla2020guide},
+%		ci-après nommé le \emph{Guide de rédaction}.
 %
-% [reste de la documentation de la classe]
+%		Grâce à cette classe, les étudiants et étudiantes auront le choix de rédiger leur mémoire
+% 		ou leur thèse soit sous la forme classique monographique, c'est-à-dire une succession
+% 		de chapitres, soit sous la forme de compilation d'articles. La présente documentation se veut
+%		être un guide pas à pas couvrant tous les aspects de la rédaction, allant de la prise en
+% 		main du gabarit jusqu'à la compilation finale du document, en passant par la référence technique
+%		des fonctionnalités de la classe.
+% 	\end{abstract}
+%
+% 	\section{Guide de l'utilisateur}
+%
+% 	\subsection{Choix de conception}\label{subsec:choix-conception}
+%
+%	Cette troisième version de la classe est la première révision majeure depuis 2023.
+%	Elle est aussi la première à utiliser le plein potentiel de la classe \textsf{memoir}
+%	\cite{wilson2025memoir}	de laquelle elle est dérivée
+%	\footnote{C'est-à-dire que c'est la première fois que l'auteur prend la peine de lire 
+%	les 625 pages de la documentation.}.
+%
+%	Le code source a donc été revu, simplifié et réécrit de fond en comble. Voici une liste des
+%	changements majeurs qui distinguent cette version de \textsf{hecthese} de la précédente.
+%
+%	\subsubsection{Retrait des versions françaises des commandes et environnements}
+%	
+%	Les commandes et environnements français n'étaient rien d'autre que des coquilles
+%	vides qui appelaient leur équivalent anglais. Considérant que tout le reste du code
+%	standard et des autres \emph{packages} \LaTeX\ est en anglais et considérant que le
+%	but premier de cette nouvelle version de la classe est de réduire le code au maximum 
+%	et d'en faciliter sa maintenance, les commandes et environments français ont été
+%	supprimés.
+%
+% 	\subsubsection{Liste personnalisable des membres du jury du doctorat}
+%	\label{subsubsec:jury}
+%
+%	Les premières versions de \textsf{hecthese} comprenaient une page d'indentification 
+%	du jury du doctorat qui était fixe. Tous les membres qui figuraient dans la définition 
+%	de la classe \textbf{devaient} s'y retrouver et \textbf{devaient} être inscrits dans un
+%	ordre prédéterminé.
+%
+%	Au fil des années, il est arrivé à plusieurs reprises que des personnes demandent à ce
+%	que des membres du jury soient retirés ou ajoutés (un codirecteur, par exemple). La page
+%	d'identification du jury ne pouvant être modifiée qu'à l'intérieur du fichier |.cls| de
+%	définition de classe, il apparaissait nécessaire d'ajouter dans la nouvelle version une
+%	fonctionnalité à l'intérieur des gabarits eux-mêmes, d'où la conception de la nouvelle 
+%	commande |\phdjurylist|.
+%
+% 	\subsubsection{Intégration optimisée à la classe de documents \textsf{memoir}}
+%
+%	Comme il l'a été mentionné au début de la \autoref{subsec:choix-conception}, le but 
+%	premier de cette refonte était d'exploiter au maximum les fonctionnalités fournies
+% 	par la classe \textsf{memoir}, contrairement aux versions précédentes qui ne faisaient
+%	que l'invoquer sans vraiment en tirer profit.
+%
+%	À titre d'exemple, la mise en page, les pages titres, les résumés et la dédicace sont
+%	maintenant gérés avec des commandes et environnements de la classe \textsf{memoir}.
+%	Avant d'ajouter quoi que ce soit à cette nouvelle version, la question primordiale qui
+%	s'est toujours posée a été «est-ce qu'il existe une fonctionnalité de la classe 
+%	\textsf{memoir} qui peut le faire?» Si c'était le cas, cette dernière était utilisée.
+%
+% 	\subsubsection{Adoption définitive de \textsf{biblatex} pour les bibliographies}
+%	\label{subsubsec:biblatex}
+%
+%	La \href{https://github.com/metalogueur/hecthese/releases/tag/v2.0}{version 2.0} de
+%	\textsf{hecthese} a introduit le \pkg{biblatex} et le compilateur
+%	\textsf{biber} comme gestionnaires des bibliographies par défaut afin de
+%	palier à une incompatibilité entre le \pkg{chapterbib} et la classe
+%	\textsf{memoir}. Cette incompatibilité affectait les personnes rédigerant une thèse 
+%	ou un mémoire par articles.
+%
+%	La présente version reconduit ce changement et confirme \textsf{biblatex} et \textsf{biber}
+%	comme seuls gestionnaires de bibliographies pour tous les types de documents, non
+% 	seulement pour la raison mentionnée au paragraphe précédent, mais aussi pour toutes les
+%	raisons suivantes :
+%
+%	\begin{itemize}
+%		\item \textsf{biblatex} et \textsf{biber} offrent des fonctionnalités bibliographiques 
+%		plus avancées que \textsf{natbib} et \textsf{bibtex}, la possibilité d'avoir plus d'une
+%		bibliographie par document (un prérequis pour les thèses et mémoires par articles), le
+%		support complet des caractères Unicode (donc des caractères accentués), un modèle de 
+%		données plus riche pour les références et une granularité plus fine au niveau des commandes de 
+%		citation\cite{kime2025biblatex}. \textsf{biblatex} est 
+%		également \href{https://github.com/plk/biblatex}{maintenu de manière active}.
+%		\item \textsf{bibtex}, au contraire, offre un modèle de données plus limité pour les références,
+%		supporte les caractères accentués si vous utilisez les commandes \LaTeX\
+%		associées, ne supporte pas les bibliographies multiples\cite{stack2023bibtex} et n'est
+%		plus développé depuis 1988, sauf pour quelques révisions mineures\cite{wiki2026bibtex}.
+%		\item Les personnes qui rédigent leur mémoire ou thèse par articles ont de fortes
+%		chances d'avoir de vieux fichiers de références |.bib| rédigés pour \textsf{bibtex}
+%		qu'ils auront besoin de réutiliser. Dans cette situation, sachez que \textsf{biblatex}
+%		est compatible à 99.9\% avec \textsf{bibtex}\cite{stack2024compatibility} et que la
+%		section «\emph{2.3 Usage Notes}» de la documentation de \textsf{biblatex} explique dans
+%		le détail comment elle gère les quelques rares cas où il y a des différences
+%		\cite{kime2025biblatex}. Donc, à quelques exceptions près, la transition vers \textsf{biblatex}
+%		sera complètement transparente et sans problèmes.
+%	\end{itemize}
+%
+% 	\subsubsection{Introduction de \textsf{lualatex} à titre de compilateur par défaut}
+% 	\label{subsubsec:lualatex}
+%
+%	Depuis 2024, le moteur de compilation \textsf{lualatex} est devenu le moteur recommandé pour
+%	tous les nouveaux documents\cite{wright2024engine}. Il succède pour bien des gens à
+%	\textsf{pdflatex}.
+%
+%	Dans la même veine que \textsf{biblatex} et \textsf{biber}, l'utilisation de \textsf{lualatex}
+%	donne accès à des fonctionnalités modernes : 
+%
+%	\begin{itemize}
+%		\item support complet pour les caractères Unicode;
+%		\item support complet pour les polices de caractères \emph{OpenType} et \emph{TrueType};
+%		\item possibilité d'intégrer des scripts Lua à même les projets;
+%		\item accès aux fonctionnalités d'accessibilité universelle comme PDF/UA-2, etc.
+%		\cite{lualatex2025lualatex}
+% 	\end{itemize}
+%
+%	Plusieurs projets logiciels, comme \href{https://github.com/quarto-dev/quarto-cli/issues/11321}{Quarto} 
+%	et \href{https://github.com/rstudio/tinytex/issues/454}{TinyTeX} considèrent passer à \textsf{lualatex}
+%	comme compilateur par défaut. Overleaf a également pris acte de cette recommandation et a
+%	fait des PDF accessibles l'un de ses développements clés de 2025\cite{overleaf2025tex}. Compte tenu
+%	de cette évolution dans le monde de \LaTeX, le support à \textsf{lualatex} a été ajouté à \textsf{hecthese}.
+%
+%	Cependant, considérant que la présente version de la classe est la première à supporter
+%	ce moteur de compilation, des fonctionnalités alternatives ont été mises
+%	en place pour conserver le support à \textsf{pdflatex}, entre autres par le biais
+%	de l'option |legacy|.
+%
+%	Si vous utilisez \textsf{xelatex}, sachez que \textsf{hecthese} est compatible avec ce moteur autant
+%	qu'elle l'est avec \textsf{lualatex}.
+%
+% 	\subsubsection{\textsf{hecthese} dans un monde d'intelligence artificielle}
+%
+%	Lorsque la version précédente de cette classe a été publiée, ChatGPT n'était lui-même
+%	accessible au public que depuis onze mois\cite{wiki2026chatgpt}. Depuis, l'intelligence artificielle
+%	s'est infiltrée partout et la réflexion entourant le développement du code et de la documentation
+%	de la présente version de la classe n'y a pas fait abstraction. Tout a été reformaté pour que
+%	ce soit non seulement plus facile pour un humain de s'y retrouver, mais aussi pour un modèle
+%	d'intelligence artificielle de s'y référer.
+%	\footnote{Soyez assuré(e) par contre que tout a été codé de manière très naturelle avec deux mains
+%	et un cerveau humains.} En ce sens, un carnet 
+%	\href{https://notebooklm.google.com/notebook/0ae7fc08-e280-4975-b605-1f21b408572c}{NotebookLM}
+%	a été conçu pour faciliter l'utilisation de \textsf{hecthese}. Il contient la documentation des
+%	principaux \emph{packages} utilisés par la classe ainsi que des notes diverses. Son but est de 
+%	vous servir de support technique. Servez-vous en
+%	tel quel ou recréez-vous un outil semblable qui cible davantage vos besoins particuliers!
+%
+% 	\subsection{Prise en main}
+%	Dans cette section, vous apprendrez comment vous procurer les fichiers de classe et de gabarits,
+%	et comment les installer sur votre poste de travail ou les copier dans Overleaf. On vous indiquera
+%	également quel gabarit choisir parmi les choix offerts, quelles options de classe configurer en
+%	fonction de vos besoins particuliers et comment effectuer une première compilation de votre
+%	document afin de vous assurer que tout fonctionne correctement.
+%
+%	\subsubsection{Vérification de la version \TeX\ utilisée}
+%
+%	Cette version de \textsf{hecthese} a été développée et testée en utilisant la version 2025
+%	de \href{https://tug.org/texlive/}{TeX Live}. Avant de commencer à travailler avec la classe,
+%	assurez-vous d'avoir minimalement la version 2025 du moteur \TeX\ installée sur votre ordinateur
+%	ou d'avoir configuré Overleaf pour qu'il utilise cette version du moteur\cite{overleaf2026selecting}.
+%	Le développeur de cette classe assure une veille annuelle sur les moteurs \TeX\ et les \emph{packages}
+%	et s'assure que \textsf{hecthese} fonctionne correctement avec les versions les plus récentes
+%	disponibles. Vous ne devriez donc pas rencontrer de problèmes si vous utilisez les gabarits
+%	et que les voitures volent ou que l'être humain a colonisé la Lune.
+%
+%	\subsubsection{Téléchargement des fichiers sources}
+%
+%	Les fichiers sources de la classe \textsf{hecthese} sont disponibles à deux endroits différents,
+%	dépendant de votre besoin.
+%
+%	\textbf{Si vous voulez installer une copie locale du gabarit à partir du code source}, veuillez
+%	vous rendre sur la page du dépôt officiel du code source de la classe à l'adresse 
+%	\href{https://ctan.org/pkg/hecthese}{https://ctan.org/pkg/hecthese}. 
+%	Vous y trouverez la documentation bilingue ainsi qu'une archive |.zip| à télécharger. Une fois
+%	l'archive téléchargée sur votre ordinateur, extrayez son contenu dans un répertoire de travail, 
+%	ouvrez un terminal à partir de ce même répertoire et lancez la commande suivante :
+%
+%	\begin{codeblock}
+%		|latex hecthese-fr.ins|
+%	\end{codeblock}
+%
+%	Tous les fichiers nécessaires à la rédaction de votre mémoire ou thèse seront générés. Le \autoref{tbl:file-list}
+%	dresse la liste de tous les fichiers ainsi que les types de documents auxquels ils sont rattachés.
+%
+%	\begin{table}
+%		\centering
+%		\begin{tabular}{lcccc}
+%			\toprule
+%			\textbf{Fichier}			&	\multicolumn{4}{c}{\textbf{Type de document associé}}	\\
+%										&	\textbf{M.Sc.}	&	\textbf{Ph.D.}	&	\textbf{mono}	&	\textbf{articles}	\\
+%			\midrule
+%			|gabarit-msc-mono.tex|		&	\checkmark		&					&	\checkmark		&	\\
+%			|gabarit-msc-articles.tex|	&	\checkmark		&					&					&	\checkmark	\\
+%			|gabarit-phd-mono.tex|		&					&	\checkmark		&	\checkmark		&	\\
+%			|gabarit-phd-articles.tex|	&					&	\checkmark		&					&	\checkmark	\\
+%			|resume-francais.tex|		&	\checkmark		&	\checkmark		&	\checkmark		&	\checkmark	\\
+%			|resume-anglais.tex|		&	\checkmark		&	\checkmark		&	\checkmark		&	\checkmark	\\
+%			|liste-abreviations.tex|	&	\checkmark		&	\checkmark		&	\checkmark		&	\checkmark	\\
+%			|dedicace.tex|				&					&	\checkmark		&	\checkmark		&	\checkmark	\\
+%			|remerciements.tex|			&	\checkmark		&	\checkmark		&	\checkmark		&	\checkmark 	\\
+%			|avant-propos.tex|			&	\checkmark		&	\checkmark		&	\checkmark		&	\checkmark	\\
+%			|introduction.tex|			&	\checkmark		&	\checkmark		&	\checkmark		&	\checkmark	\\
+%			|cadre-theorique.tex|		&					&	\checkmark		&					&	\checkmark	\\
+%			|revue-litterature.tex|		&	\checkmark		&					&	\checkmark		&	\checkmark	\\
+%			|chapitre-1.tex|			&	\checkmark		&	\checkmark		&	\checkmark		&	\\
+%			|chapitre-2.tex|			&	\checkmark		&	\checkmark		&	\checkmark		&	\\
+%			|chapitre-3.tex|			&	\checkmark		&	\checkmark		&	\checkmark		&	\\
+%			|article-1.tex|				&	\checkmark		&	\checkmark		&					&	\checkmark	\\
+%			|article-2.tex|				&	\checkmark		&	\checkmark		&					&	\checkmark	\\
+%			|article-3.tex|				&	\checkmark		&	\checkmark		&					&	\checkmark	\\
+%			|conclusion.tex|			&	\checkmark		&	\checkmark		&	\checkmark		&	\checkmark	\\
+%			|annexe.tex|				&	\checkmark		&	\checkmark		&	\checkmark		&	\checkmark	\\
+%			\bottomrule
+%		\end{tabular}
+%		\caption{Liste des fichiers générés à l'installation de la classe \textsf{hecthese}}
+%		\label{tbl:file-list}
+%	\end{table}
+%
+%	\textbf{Si vous voulez travailler dans l'application Overleaf}, veuillez vous rendre à l'adresse
+%	\href{https://www.overleaf.com/read/njbvvqtmytqk}{https://www.overleaf.com/read/njbvvqtmytqk}.
+%	Vous y trouverez un gabarit prégénéré que vous pourrez copier dans vos projets Overleaf et que
+%	vous pourrez utiliser immédiatement.
+%
+%	Veuillez noter que vous pouvez également télécharger sur votre ordinateur le gabarit prégénéré 
+%	d'Overleaf pour utilisation immédiate avec votre éditeur \LaTeX\ personnel.
+%
+%	\subsubsection{Choix du gabarit}
+%
+%	La classe \textsf{hecthese} génère quatre gabarits |.tex| différents, comme vous pouvez le voir
+%	dans le \autoref{tbl:file-list}. Ils commencent tous par le 
+%	préfixe |gabarit-|. Le choix du bon gabarit dépend 1) de votre cycle d'étude et 2) du type de
+%	mémoire ou thèse que vous rédigez.
+%
+%	\textbf{Si vous rédigez un mémoire de maîtrise}, choisissez un des deux fichiers |gabarit-msc|. 
+%	\textbf{Si vous	rédigez une thèse de doctorat}, choisissez un des deux fichiers |gabarit-phd|.
+%
+%	\textbf{Si vous rédigez un mémoire ou une thèse classique monographique}, c'est-à-dire avec une succession
+%	de chapitres, choisissez le fichier finissant par |-mono.tex| correspondant à votre cycle.
+%
+%	\textbf{Si vous rédigez un mémoire ou une thèse par articles}, choisissez le fichier finissant par
+%	|-articles.tex| correspondant à votre cycle.
+%
+%	Une fois que vous aurez choisi votre gabarit, vous pourrez supprimer les trois autres, car vous
+%	n'en aurez pas besoin.
+%
+%	\textbf{Le gabarit ne contient que le squelette de votre document}. Vous ne rédigerez pas votre
+%	mémoire ou thèse dans ce fichier, mais dans l'ensemble des autres fichiers qui ont été générés
+%	avec le gabarit.
+%
+%	\textbf{Que retrouve-t-on dans les fichiers gabarits alors?} Comme dans n'importe quel document
+%	\LaTeX, vous retrouverez dans le préambule du fichier la configuration du document complet avec le 
+%	chargement des 
+%	\emph{packages} et leurs commandes de configuration. Vous retrouverez également un bloc de
+%	métadonnées liées à votre mémoire ou votre thèse. Les prochaines sous-sections 
+%	décrivent en détail comment mettre en forme le préambule.
+%
+%	Dans le corps du document du gabarit, entre les commandes |\begin{document}| et |\end{document}|,
+%	vous retrouverez une succession de commandes |\include| qui pointent
+%	vers chaque autre fichier de votre mémoire ou thèse, ainsi que quelques autres commandes de configuration.
+%	\textbf{Vous ne devez en aucun cas modifier cette partie}, sauf si c'est pour supprimer des
+%	portions facultatives que vous n'utilisez pas
+%	\footnote{Les annexes B et C du \emph{Guide de rédaction} indiquent quelles parties des thèses et
+%	mémoires sont obligatoires et quelles parties sont facultatives\cite{cfla2020guide}.} ou pour ajouter
+%	des chapitres ou des articles à votre document.
+%
+%	\subsubsection{Options de classe}
+%
+%	Chaque gabarit de la classe \textsf{hecthese} est généré avec les options de classe qui lui sont
+%	propres. La \autoref{fig:class-options} montre chaque configuration prédéfinie. Vous n'aurez donc
+%	pas à vous soucier de ces options. \textsf{hecthese} définit aussi quelques autres options. Ces dernières,
+%	comme celles prédéfinies dans les gabarits, sont expliquées ci-dessous.
+%
+%	\begin{figure}
+%		\begin{codeblock}
+%			\noindent |% Mémoire classique| \\
+%			|\documentclass[msc,monograph,english,french]{hecthese}|
+%		\end{codeblock}
+%
+%		\begin{codeblock}
+%			\noindent |% Mémoire par articles| \\
+%			|\documentclass[msc,articles,english,french]{hecthese}|
+%		\end{codeblock}
+%	
+%		\begin{codeblock}
+%			\noindent |% Thèse classique| \\
+%			|\documentclass[phd,monograph,english,french]{hecthese}|
+%		\end{codeblock}
+%
+%		\begin{codeblock}
+%			\noindent |% Thèse par articles| \\
+%			|\documentclass[phd,articles,english,french]{hecthese}|
+%		\end{codeblock}
+%		\caption{Options de classe définies par défaut dans les gabarits}
+%		\label{fig:class-options}
+%	\end{figure}
+%
+%	\DescribeOption{msc}
+%	\DescribeOption{phd}
+%	Les options |msc| et |phd| sont assez évidentes pour se passer d'explications. Elles sont
+%	liées à votre cycle d'études. Ces deux options gèrent la production des pages titres. Si
+%	vous êtes à la maîtrise, une seule page titre suffit avec son formatage propre. Si vous êtes
+%	au doctorat, vous avez non seulement besoin d'une page titre, mais aussi d'une page
+%	d'identification du jury. Ces options indiquent au compilateur quelle configuration de pages
+%	titres choisir.
+%
+%	\DescribeOption{monograph}
+%	L'option |monograph| est utilisée lorsque vous rédigez un mémoire ou une thèse monographique
+%	classique, avec une succession de chapitres.
+%
+%	\DescribeOption{articles}
+%	L'option |articles| est utilisée lorsque vous rédigez un mémoire ou une thèse par articles.
+%	Cette option gère les titres des différentes introductions, conclusions et bibliographies.
+%	Dans un mémoire ou thèse par articles, vous devrez rédiger une introduction et une conclusion
+%	générales pour l'ensemble du document et vous devrez également rédiger une introduction et
+%	une conclusion dans chacun de vos articles. Chacun de vos articles devra avoir sa propre
+%	bibliographie et votre mémoire ou thèse devra aussi inclure une bibliographie générale
+%	incluant les références de vos articles de même que celles des autres parties de votre
+%	document. L'option |articles| s'occupe donc de différencier les différentes introductions,
+%	conclusions et bibliographies.
+%
+%	\begin{warningbox}
+%	Ces quatre options ne sont pas interchangeables dans un gabarit! Chaque
+%	type de mémoire ou thèse vient avec ses sections qui lui sont propres! Si vous changez de
+%	type de mémoire ou thèse en cours de route, vous devrez utiliser le fichier gabarit
+%	correspondant à cet autre type!
+%
+%	(Ne craignez pas de perdre votre travail par contre, puisque celui-ci se retrouvera
+%	dans tous les autres fichiers fournis par la classe.)
+%	\end{warningbox}
+%
+%	\DescribeOption{french}
+%	\DescribeOption{english}
+%	Vous avez le choix d'écrire votre mémoire ou thèse en français ou en anglais. La langue
+%	principale de votre document sera votre «langue par défaut». Cependant, vous devrez
+%	minimalement rédiger un résumé en français et l'autre en anglais. Vous citerez probablement
+%	des auteurs dans une autre langue que celle de votre rédaction. C'est pourquoi les deux 
+%	langues |english| et |french| se retrouvent dans les options de classe, la dernière
+%	langue de la liste étant la langue par défaut du document. 
+%	En indiquant à \LaTeX\ que votre document est multilingue, vous pouvez utiliser des commandes
+%	comme |\selectlanguage{<autre langue>}| pour demander au compilateur d'utiliser les normes
+%	typographiques de cette autre langue plutôt que celle de la langue par défaut. Pour plus 
+%	d'informations concernant cette fonctionnalité, veuillez consulter la documentation du 
+%	\pkg{babel}\cite{bezos2026babel}.
+%
+%	\clearpage
+%
+%	\DescribeOption{10pt}
+%	\DescribeOption{11pt}
+%	\DescribeOption{12pt}
+%	À la sous-section \emph{5.1 Présentation graphique et pagination} du \emph{Guide de rédaction},
+%	il est indiqué que «[la] taille des caractères varie généralement entre 10 et 12 points [...]»\cite{cfla2020guide}.
+%	Vous pourrez donc choisir entre les options |10pt|, |11pt| et |12pt| pour la taille de caractères
+%	de votre mémoire ou thèse. La taille par défaut de la classe \textsf{memoir}, et donc de \textsf{hecthese},
+%	est de 10 points. Si vous n'inscrivez pas de taille de caractères dans les options de classe, la
+%	taille par défaut prévaudra.
+%
+%	\DescribeOption{legacy}
+%	Comme nous l'avons mentionné à la \autoref{subsubsec:lualatex}, la présente version de
+%	\textsf{hecthese} est la première à introduire le support au compilateur \textsf{lualatex}. À
+%	l'intérieur de la classe, le support à \textsf{lualatex} se limite à la configuration de 
+%	l'encodage et des polices de caractères. Si, pour une raison ou une autre, vous préférez
+%	utiliser un compilateur plus traditionnel comme \textsf{pdflatex}
+%	\footnote{On peut penser aux personnes qui rédigent leur mémoire ou thèse par articles
+%	à partir de vieux documents \LaTeX, par exemple.}, inscrivez l'option |legacy| dans les
+%	options de classe et des configurations propres à \textsf{pdflatex} remplaceront celles
+%	de \textsf{lualatex}.
+%
+%	\subsubsection{Configuration de la compilation}
+%	\label{subsubsec:compile-config}
+%
+%	Maintenant que vous avez tous les fichiers |.tex| en main, que vous avez choisi votre
+%	gabarit et toutes les options de classe de base, il ne vous reste plus qu'à configurer
+%	la compilation de votre document dans votre application. Une fois que ce sera fait,
+%	la prise en main de votre gabarit \textsf{hecthese} sera complétée et vous pourrez
+%	commencer la rédaction de votre mémoire ou thèse.
+%
+%	Le niveau de configuration à faire dépend de l'application (Overleaf ou un éditeur local) et du
+%	compilateur (\textsf{lualatex} ou \textsf{pdflatex}) que vous voulez utiliser. Nous détaillerons chaque
+%	niveau ci-dessous, du plus simple au plus «complexe». Afin de simplifier la
+%	compréhension, à partir de ce point, lorsque nous parlerons d'éditeur \LaTeX\ local, nous
+%	ferons toujours référence au logiciel \href{https://texstudio.org/}{TeXstudio}, qui a servi
+%	à la programmation et à la rédaction de la documentation de \textsf{hecthese}.
+%	\footnote{Au moment de la rédaction de la documentation, la version de TeXstudio était la 4.9.}
+%	Une fois que la configuration est faite, il ne vous restera plus qu'à compiler votre document.
+%
+%	\paragraph{Rédaction dans Overleaf avec l'option de classe \texttt{legacy}.} Cette combinaison ne
+%	requiert aucune configuration! Elle utilise le compilateur \textsf{pdflatex}, qui est configuré
+%	par défaut dans l'application. Quant au compilateur de bibliographie \textsf{biber}, utilisé par le
+%	\pkg{biblatex}, il est appelé automatiquement par Overleaf sans que cela nécessite une 
+%	intervention de votre part.
+%
+%	\paragraph{Rédaction dans Overleaf sans l'option de classe \texttt{legacy}.} Cette option requiert
+%	que vous configuriez \textsf{lualatex} en tant que compilateur par défaut. Vous trouverez pour ce faire
+%	toutes les instructions détaillées dans la documentation d'Overleaf\cite{overleaf2026selecting},
+%	dont le lien direct se trouve dans la bibliographie.
+%
+%	\paragraph{Rédaction dans TeXstudio avec l'option de classe \texttt{legacy}.} Contrairement à
+%	Overleaf, TeXstudio ne lance pas le compilateur \textsf{biber} à la demande : il faut le configurer
+%	explicitement. Dans l'éditeur, choisissez l'option \emph{Configurer TeXstudio...} du menu \emph{Options}.
+%	Choisissez ensuite la section \emph{Production} de la fenêtre de configuration et, avec la case à cocher
+%	\emph{Afficher les options avancées} décochée, choisissez \textsf{biber} comme moteur de bibliographie par
+%	défaut (voir la \autoref{fig:texstudio-config} pour un visuel de cette explication).
+%
+%	\paragraph{Rédaction dans TeXstudio sans l'option de classe \texttt{legacy}.} Cette option requiert
+%	que vous configuriez non seulement \textsf{biber} comme mentionné au paragraphe précédent, mais que
+%	vous configuriez également la compilation par défaut avec \textsf{LuaLaTeX}. Le changement se fait
+%	au même endroit que pour \textsf{biber}, tel que démontré dans la \autoref{fig:texstudio-config}.
+%
+%	\begin{figure}
+%		\includegraphics[width=\textwidth]{texstudio-config.jpg}
+%		\caption{Configuration de \textsf{lualatex} et \textsf{biber} dans TeXstudio}
+%		\label{fig:texstudio-config}
+%	\end{figure}
+%
+%	\subsubsection{Compilation de votre document}
+%
+%	Pour lancer la compilation de votre document, appuyez sur le bouton \emph{Recompiler} dans
+%	Overleaf ou \emph{Production \& visualisation (F5)} dans TeXstudio.
+%
+%	Sous le capot, l'application va effectuer une
+%	séries de compilations qui vont générer l'ensemble de votre document. Le nombre de
+%	compilations et leur séquence sont les mêmes, que vous utilisiez le compilateur \textsf{lualatex}
+%	ou \textsf{pdflatex}. Seul le compilateur diffère, comme le démontre la \autoref{fig:compile-sequence}.
+%	Si tout se passe bien, un fichier |.pdf| sera généré sans messages d'erreurs. Vous êtes maintenant
+%	prêt(e) à commencer la rédaction de votre mémoire ou thèse!
+%
+%	\begin{figure}
+%		\begin{codeblock}
+%			\centering
+%			\textsf{pdflatex} \textrightarrow\ \textsf{biber} \textrightarrow\ \textsf{pdflatex} \textrightarrow\
+%			\textsf{pdflatex}
+%		\end{codeblock}
+%		\begin{codeblock}
+%			\centering
+%			\textsf{lualatex} \textrightarrow\ \textsf{biber} \textrightarrow\ \textsf{lualatex} \textrightarrow\
+%			\textsf{lualatex}
+%		\end{codeblock}
+%		\caption{Séquence de compilation d'un document \LaTeX}
+%		\label{fig:compile-sequence}
+%	\end{figure}
+%
+%	\subsection{Rédaction de votre mémoire ou thèse}
+%
+%	Dans cette section, vous serez guidé(e) pas à pas à travers chaque portion du gabarit et chaque 
+%	autre fichier que contient votre document afin que vous puissiez travailler avec la
+%	classe \textsf{hecthese} en toute connaissance de cause.
+%
+%	\subsubsection{Fichier gabarit : chargement des packages}
+%
+%	La classe \textsf{hecthese} vient avec plus de cinquante \emph{packages} préchargés, que ce soit
+%	la quarantaine de \emph{packages} chargés ou émulés par la classe \textsf{memoir}
+%	\footnote{Vous pouvez d'ailleurs voir la liste complète de ces \emph{packages} dans le carnet
+%	\href{https://notebooklm.google.com/notebook/0ae7fc08-e280-4975-b605-1f21b408572c}{NotebookLM}.}
+%	ou ceux chargés par \textsf{hecthese} elle-même.
+%
+%	Le fichier de définition de classe |hecthese.cls| charge les \emph{packages} suivants : \textsf{amsmath},
+%	\textsf{inputenc}\footnote{\label{fn:inputenc}Seulement si vous utilisez l'option \texttt{legacy}.},
+%	\textsf{fontenc}\footref{fn:inputenc},
+%	\textsf{fontspec}\footnote{\label{fn:fontspec}Seulement si vous utilisez \textsf{lualatex}.},
+%	\textsf{unicode-math}\footref{fn:fontspec}, \textsf{babel}, \textsf{csquotes}, \textsf{calc},
+%	\textsf{enumitem}. \textsf{biblatex} et \textsf{hyperref} sont quant à eux chargés dans le
+%	gabarit, où vous pourrez retrouver cette liste de \emph{packages} reproduite à
+%	l'identique dans un commentaire. Tous les \emph{packages}
+%	dont vous aurez besoin qui ne sont pas déjà chargés par la classe devront être
+%	chargés à la suite du commentaire.
+%
+%	\subsubsection{Fichier gabarit : configuration de la bibliographie}
+%	\label{subsubsec:bib-config}
+%
+%	Dans cette section du préambule est chargé le \pkg{biblatex} avec toutes les options
+%	et configurations nécessaires à ce que la bibliographie corresponde aux
+%	normes de présentation du \emph{Guide de rédaction}. Ainsi, le style bibliographique
+%	utilisé est celui de l'APA duquel s'inspire le style bibliographique HEC Montréal.
+%	Le format de citation configuré est le format \emph{Auteur-année} et l'ordre de tri
+%	de la bibliographie est \emph{nom des auteurs, année et titre}.
+%	\textbf{Vous ne devez en aucun cas modifier ces configurations!} 
+%
+%	\DescribeMacro{\addbibresource}
+%	La seule exception à cette règle est la commande |\addbibresource{}|, qui
+%	contient un nom par défaut pour votre fichier de références bibliographiques. Vous
+%	pouvez remplacer le nom |biblio.bib| par n'importe quel autre nom que votre fichier
+%	de références aura.
+%
+%	Toutes les autres commandes du bloc de configuration de la bibliographie sont
+%	des commandes de mise en page qu'il faut également laisser telles quelles.
+%
+%	\subsubsection{Fichier gabarit : configuration des hyperliens}
+%
+%	\DescribeMacro{\hypersetup}
+%	C'est ici qu'est chargé le \pkg{hyperref}, le dernier de la liste des
+%	\emph{packages} qui doit être chargé. La commande |\hypersetup| suit tout
+%	de suite après avec comme seuls paramètres l'activation des hyperliens
+%	en noir partout dans le document afin de remplacer le comportement par
+%	défaut de \textsf{hyperref}, qui est d'encadrer en rouge tous les liens
+%	d'un document.
+%
+%	\subsubsection{Fichier gabarit : métadonnées de votre mémoire ou thèse}
+%
+%	Dans la dernière partie du préambule, vous retrouverez toute une série
+%	de commandes qui servent à produire la page titre de votre mémoire ou
+%	thèse et la page d'identification du jury si vous êtes au doctorat.
+%	La présente section vous explique l'ensemble de ces commandes et de
+%	leurs options. Vous pouvez également consulter les figures 
+%	\ref{fig:msc-title-page}, \ref{fig:phd-title-page} et \ref{fig:phd-jury-page}
+%	pour vous aider à mieux les comprendre et les repérer sur les pages
+%	titres.
+%
+%	\begin{figure}
+%		\includegraphics[width=\textwidth]{msc-title-page.jpg}
+%		\caption{Page titre d'un mémoire de maîtrise}
+%		\label{fig:msc-title-page}
+%	\end{figure}
+%
+%	\begin{figure}
+%		\includegraphics[width=\textwidth]{phd-title-page.jpg}
+%		\caption{Page titre d'une thèse de doctorat}
+%		\label{fig:phd-title-page}
+%	\end{figure}
+%
+%	\begin{figure}
+%		\includegraphics[width=\textwidth]{phd-jury-page.jpg}
+%		\caption{Page d'identification du jury du doctorat}
+%		\label{fig:phd-jury-page}
+%	\end{figure}
+%
+%	\DescribeMacro{\title}
+%	\DescribeMacro{\thesissubtitle}
+%	\DescribeMacro{\author}
+%	\DescribeMacro{\date}
+%	\DescribeMacro{\copyrightyear}
+%	\DescribeMacro{\specialization}
+%	Les six commandes que vous voyez dans la marge ci-contre gèrent les
+%	métadonnées qui sont communes à tous les types de documents. |\title|,
+%	|\author| et |\date| sont les commandes de base provenant de \LaTeX\
+%	et n'ont plus besoin de présentation.
+%
+%	La seule particularité a trait à la date et est indiquée dans la
+%	commande elle-même : vous devez utiliser le format \emph{Mois Année}
+%	pour celle-ci («Mars 2026» par exemple). Cette date représente le
+%	mois et l'année du dépôt final de votre document.
+%
+%	La commande |\thesissubtitle| représente le sous-titre de votre
+%	mémoire ou thèse. Le sous-titre est une métadonnée facultative, alors
+%	si votre document n'en contient pas, supprimez la valeur de
+%	l'argument \marg{subtitle}
+%	de la commande et \textsf{hecthese} s'occupera de mettre en forme la page
+%	titre en conséquence.
+%
+%	La commande |\copyrightyear| affichera l'année du dépôt final de votre
+%	document au bas de la page titre, précédée du symbole \copyright.
+%	
+%	Quant à la commande |\specialization|, elle représente la spécialisation
+%	du programme dans laquelle vous étudiez («Ingénierie financière» ou
+%	«Économie appliquée» par exemple).
+%
+%	\DescribeMacro{\mscdirector}
+%	\DescribeOption{gender}
+%	Si vous rédigez un mémoire de maîtrise, vous devrez indiquer le nom de
+%	votre directeur ou directrice de recherche dans la commande |\mscdirector|.
+%	L'argument facultatif de la commande, \oarg{gender}, indique à
+%	\textsf{hecthese} le genre de la personne concernée et la classe accordera
+%	son titre en conséquence. Les deux valeurs acceptées sont |F| et |M| et
+%	si l'argument n'est pas indiqué dans la commande, le masculin prévaudra.
+%
+%	\DescribeMacro{\phdpresidentrapporteur}
+%	\DescribeMacro{\phddirector}
+%	\DescribeMacro{\phdcodirector}
+%	\DescribeMacro{\phdjurymember}
+%	\DescribeMacro{\phdexternalexaminator}
+%	\DescribeMacro{\phddirectorrep}
+%	Si vous rédigez une thèse de doctorat, plusieurs personnes feront partie
+%	d'un jury qui veillera à votre évaluation. Ces personnes sont la
+%	présidente-rapportrice, la directrice de recherche, la codirectrice de
+%	recherche, un membre du jury, une examinatrice externe ainsi que la
+%	représentante du directeur de HEC Montréal
+%	\footnote{Afin d'alléger le texte de cette énumération, seul un genre
+%	sur deux a été utilisé.}.
+%
+%	Pour chacune de ces personnes, vous devrez inscrire son nom ainsi que
+%	son genre, |M| ou |F|, en tant qu'argument facultatif. Pour ce qui est
+%	de l'accord du titre de la personne avec son genre, la même mécanique
+%	que celle de la commande |\mscdirector| prévaut.
+%
+%	Le codirecteur de recherche, le membre du jury et l'examinateur
+%	externe peuvent être affiliés à une institution autre que HEC Montréal.
+%	Lorsque c'est le cas, inscrivez le nom de l'institution dans l'argument
+%	\marg{affiliation} suivant le nom de la personne et \textsf{hecthese} 
+%	l'inscrira dans la page
+%	d'identification du jury. Si une ou plusieurs de ces personnes sont
+%	affiliées à HEC Montréal, supprimez la valeur qui se trouve dans
+%	ce même argument et la classe inscrira «HEC Montréal» par
+%	défaut.
+%
+%	\DescribeMacro{\phdjurylist}
+%	Toutes ces commandes ne servent cependant à rien en elles-mêmes si elles
+%	ne sont pas inscrites dans la commande |\phdjurylist| qui, elle, génère
+%	la liste des membres dans la page d'identification du jury de la thèse.
+%	Comme nous l'avons indiqué dans la \autoref{subsubsec:jury}, cette commande
+%	est une des grandes innovations de la présente version de la classe
+%	\textsf{hecthese}. C'est grâce à cette commande que la liste des membres du
+%	jury peut être personnalisée. 
+%
+%	\begin{figure}
+%		\begin{codeblock}
+%		|\phdjurylist{| \\
+%		|\phdpresidentrapporteur[gender=F]{FirstName LastName}| \\
+%		|\phddirector[gender=M]{FirstName LastName}| \\
+%		|\phdcodirector[gender=M]{FirstName LastName}{affiliation}| \\
+%		|\phdjurymember{FirstName LastName}{affiliation}| \\
+%		|\phdexternalexaminator[gender=F]{FirstName LastName}{affiliation}| \\
+%		|%% Le dernier membre de la liste DOIT AVOIR l'option last=true.| \\
+%		|\phddirectorrep[gender=F,last=true]{FirstName LastName}| \\
+%		|}|
+%		\end{codeblock}
+%		\caption{Le bloc de code de la commande \texttt{phdjurylist} tel que généré par
+%		la classe \textsf{hecthese}}
+%		\label{fig:phdjurylist}
+%	\end{figure}
+%
+%	Lorsque le gabarit et tous ses fichiers d'accompagnement sont générés,
+%	les membres du jury sont inscrits dans un ordre et en nombre prédéterminés.
+%	La \autoref{fig:phdjurylist} en montre la structure.
+%	Si vous avez des modifications à apporter à cette liste, l'ordre «hiérarchique» doit rester le même
+%	\footnote{C'est-à-dire que la présidente-rapportrice doit toujours être inscrite
+%	avant le directeur de recherche, et ainsi de suite.}, mais vous pouvez supprimer
+%	et/ou ajouter d'autres membres en retirant ou ajoutant la commande appropriée
+%	(comme ajouter une deuxième commande |\phdcodirector| sous la première par exemple).
+%
+%	\DescribeOption{last}
+%	Le dernier point à mentionner à propos de la liste des membres du jury concerne
+%	la dernière personne figurant dans la liste. La commande de cette dernière doit absolument
+%	avoir l'argument |[last=true]| dans la liste de ses arguments facultatifs.
+%
+%	Sous le capot, \textsf{hecthese} justifie verticalement la page d'identification du
+%	jury, insérant des commandes |\vfill| entre chaque élément. En indiquant explicitement
+%	à la classe qu'une personne est la dernière de la liste des membres du jury à
+%	l'aide de l'argument |last=true|, celle-ci cessera d'insérer des commandes |\vfill|
+%	et la page sera parfaitement justifiée verticalement. 
+%
+%	\subsubsection{Résumés français et anglais}
+%
+%	Dans votre mémoire ou thèse, vous devez rédiger un résumé en français et un autre
+%	en anglais, que la langue principale de votre document soit l'une ou l'autre
+%	de ces langues.
+%
+%	Comme il est indiqué dans les annexes B et C du \emph{Guide de rédaction}
+%	\cite{cfla2020guide}, chacun de vos résumés doit avoir entre 150 et 250 mots si vous
+%	êtes à la maîtrise et entre 350 et 500 mots si vous êtes au doctorat.
+%
+%	De plus, vous devez accompagner vos résumés d'un maximum de 10 mots-clés pour un
+%	mémoire et d'un maximum de 15 mots-clés pour une thèse.
+%
+%	\DescribeEnv{abstract}
+%	Pour ce faire, rédigez vos résumés dans les environnements |abstract| des fichiers
+%	|resume-francais.tex| et |resume-anglais.tex|. Ces environnements proviennent de
+%	la classe \textsf{memoir} et ont été mis en forme afin de répondre aux normes de
+%	présentation de l'École.
+%
+%	En ce qui a trait à vos mots-clés, inscrivez-les simplement sous la section du
+%	même nom, dans l'environnement |abstract|.
+%
+%	\subsubsection{Liste des abréviations}
+%
+%	\DescribeEnv{description}
+%	Tous les acronymes et abréviations que vous utiliserez au cours de la rédaction
+%	peuvent être recensés dans le fichier |liste-abreviations.tex|. Un environnement
+%	de liste standard |description| est utilisé pour ce faire. La liste est
+%	générée avec quelques items à titre d'exemples et vous n'aurez qu'à les remplacer
+%	par les vôtres.
+%
+%	\DescribeOption{labelwidth}
+%	Une fois que votre liste sera complète, vous pourrez remplacer la valeur
+%	|Your longest label| de l'option |labelwidth| de l'environnement par l'abréviation
+%	la plus longue de votre liste. Cette dernière sera alors parfaitement alignée.
+%
+%	\subsubsection{Remerciements et dédicace}
+%
+%	Vous disposez, à l'intérieur du fichier |remerciements.tex|, d'un endroit
+%	pour remercier toutes les personnes qui vous ont aidé directement ou
+%	indirectement dans la rédaction de votre mémoire ou thèse : votre directeur ou
+%	directrice de recherche, votre institution et ses employé(e)s, les personnes
+%	et organismes qui vous ont aidé sur le terrain et vos proches\cite{beaud2006art}.
+%
+%	Et comme il est indiqué dans le livre de Beaud, Gravier et Toledo, «soyez sobre
+%	et concis»\footnote{\label{fn:beaud}\emph{Loc. cit.}}.
+%
+%	\DescribeMacro{\dedication}
+%	Les doctorants disposent également d'un autre endroit pour «dédier leur travail
+%	à un être cher ou respecté»\footref{fn:beaud} : la dédicace. Vous pourrez inscrire
+%	celle-ci dans le fichier |dedicace.tex|, à l'intérieur de la commande
+%	|\dedication|.
+%
+%	Cette commande est une adaptation de la commande |\epigraph| de la classe
+%	\textsf{memoir}, remise en forme pour les besoins de \textsf{hecthese}. Il vous
+%	suffit de rédiger les quelques mots de votre dédicace dans celle-ci.
+%
+%	\DescribeOption{signed}
+%	Nous avons cependant détourné l'argument \marg{source} de la commande
+%	|\epigraph| pour en faire une signature de l'auteur ou autrice du mémoire
+%	ou de la thèse. Si vous laissez l'option |signed=true| à l'intérieur
+%	de la commande |\dedication|, votre nom figurera en dessous de la dédicace.
+%	Si, au contraire, vous choisissez l'option |signed=false|, seule la
+%	dédicace apparaîtra sur la page.
+%
+%	\subsubsection{Autres parties du document}
+%
+%	Toutes les autres parties de votre mémoire ou thèse qui ne sont pas des
+%	chapitres ou des articles n'ont aucune configuration particulière autre
+%	qu'un fichier attitré à chaque partie et un titre prédéfini. Il vous
+%	suffit donc d'ouvrir chacun d'eux pour en rédiger le contenu. Ces parties
+%	incluent l'introduction, la conclusion, l'avant-propos, le cadre théorique
+%	de la thèse, la revue de littérature du mémoire ainsi que les annexes.
+%
+%	\subsubsection{Chapitres ou articles : lesquels choisir?}
+%	\label{subsubsec:chapter-articles}
+%
+%	Si vous ne savez toujours pas quelle option choisir entre un mémoire ou
+%	une thèse monographique et un mémoire ou une thèse par articles, posez-vous 
+%	la question suivante : allez-vous d'abord rédiger des articles que
+%	vous allez publier dans des revues avant de les colliger dans votre
+%	mémoire ou thèse? Si c'est le cas, choisissez le modèle par articles.
+%	Dans le cas contraire, choisissez le modèle par chapitres.
+%
+%	\paragraph{La rédaction par chapitre.}Cette option est la plus simple. 
+%	Vous ouvrez chaque fichier
+%	|chapitre-n.tex|, vous inscrivez le titre de votre chapitre dans la
+%	commande |\chapter| et vous rédigez votre chapitre.
+%
+%	Si vous avez plus de chapitres à rédiger que le nombre de fichiers qui
+%	vous sont fournis, créez simplement un nouveau fichier, |chapitre-4.tex|
+%	par exemple, reprenez les mêmes deux premières lignes de commandes 
+%	que les chapitres précédents et rédigez vos chapitres supplémentaires.
+%	
+%	Une fois que cela est fait, n'oubliez pas d'inclure vos nouveaux 
+%	chapitres dans votre gabarit à la suite des précédents, en utilisant
+%	la commande |\include|.
+%
+%	\paragraph{La rédaction par articles.} Cette option est la plus
+%	complexe parce qu'elle implique que vous preniez d'anciens documents,
+%	qu'ils soient rédigés avec \LaTeX\ ou non, et que vous les copiez-colliez
+%	dans vos fichiers |article-n.tex| \textbf{en prenant soin de respecter
+%	les normes de présentation de HEC Montréal}.
+%
+%	Vous ne pourrez donc pas simplement tout copier à l'aveugle et
+%	recompiler. Vous aurez très probablement besoin d'adapter votre
+%	code à la réalité de la classe \textsf{hecthese}.
+%
+%	\textbf{Vous devrez d'abord commencer par inclure les \emph{packages}},
+%	les configurations de ceux-ci ainsi que vos commandes et
+%	environnements personnalisés figurant dans vos articles dans le
+%	préambule de votre gabarit
+%	en vous assurant que rien n'entre
+%	en conflit avec la configuration du gabarit de \textsf{hecthese}.
+%
+%	\textbf{Vous devrez ensuite copier les résumés de vos articles} sous
+%	la section du résumé commençant par les deux lignes suivantes dans les
+%	fichiers |article-n.tex|:
+%
+%	\begin{codeblock}
+%		\noindent|\section*{\articleabstract}|\\
+%		|\addcontentsline{toc}{section}{\articleabstract}|
+%	\end{codeblock}
+%
+%	Vous pourrez ensuite copier l'intégralité du reste de votre article
+%	dans le fichier |article-n.tex| sans vous soucier des sections prédéfinies, qui ne servent
+%	que d'emplacements réservés au corps de vos articles.
+%
+%	\textbf{Vous devrez copier chaque référence bibliographique} de votre
+%	fichier |.bib| original dans celui de votre mémoire ou thèse, puis, dans
+%	chaque référence, ajouter une entrée |keywords={article-n}|, le $n$ de
+%	|article-n| devant être remplacé par le numéro de votre article. Si une
+%	référence est présente dans plus d'un article, ajoutez des |article-x|,
+%	|article-y| un à la suite de l'autre, séparés d'une virgule et à l'intérieur
+%	des accolades. Afin de vous aider à comprendre le concept, la 
+%	\autoref{fig:bib-example} montre un exemple d'un livre
+%	cité dans deux chapitres.
+%
+%	\begin{figure}
+%		\begin{codeblock}
+%			|@book{wilsonMemoirClassConfigurable2025,| \\
+%			|title = {| \\
+%			|The {{Memoir Class}} for {{Configurable Typesetting}} : \\|
+%			|{{User Guide}}| \\
+%			|},| \\
+%			|author = {Wilson, Peter and Madsen, Lars},| \\
+%			|date = {2025-11-04},| \\
+%			|edition = {v3.8.4b},| \\
+%			|url = {https://ctan.org/pkg/memoir},| \\
+%			|urldate = {2025-11-11},| \\
+%			|langid = {english},| \\
+%			|pagetotal = {625},| \\
+%			|keywords = {article-1,article-3}| \\
+%			|}|
+%		\end{codeblock}
+%		\caption{Exemple d'un livre cité dans deux articles différents}
+%		\label{fig:bib-example}	
+%	\end{figure}
+%
+%	Finalement, à la fin de votre article, dans la commande
+%	|\printbibliography|, remplacez le $n$ de l'option |keyword=article-n|
+%	par le même numéro de l'article.
+%
+%	Compilez ensuite votre mémoire ou thèse et vérifiez que tout le
+%	transfert a été fait sans problèmes. Si ce n'est pas le cas, 
+%	corrigez votre code et retentez une compilation.
+%
+%	\subsection{Citation de vos sources}
+%
+%	Comme nous l'avons indiqué à la \autoref{subsubsec:biblatex}, \textsf{biblatex}
+%	est à partir de cette version de \textsf{hecthese} le seul \emph{package}
+%	bibliographique à être supporté.
+%
+%	Si vous en êtes à votre première expérience en rédaction avec \LaTeX, cela
+%	ne vous demandera que de consulter la documentation du \emph{package}
+%	\cite{kime2025biblatex}, en particulier la section \emph{3.9 Citation commands}.
+%
+%	Si vous avez de l'expérience en rédaction avec \LaTeX\ et que vous êtes
+%	davantage habitué(e) à travailler avec le \pkg{natbib} par exemple, nous n'aurez
+%	qu'à vous familiariser avec les nouvelles commandes de citation. En plus de la
+%	documentation officielle, citée au paragraphe précédent, vous retrouverez dans
+%	le carnet 
+%	\href{https://notebooklm.google.com/notebook/0ae7fc08-e280-4975-b605-1f21b408572c}{NotebookLM}
+%	un guide de référence sur les équivalences entre les commandes de citation \LaTeX,
+%	\textsf{natbib} et \textsf{biblatex}, de même qu'un tableau présentant la liste de toutes
+%	les commandes de citation \textsf{biblatex}, accompagnées d'une description brève
+%	et d'un exemple concret.
+%
+%	\subsection{La (les) bibliographie(s)}
+%
+%	La production de votre ou vos bibliographies devrait se faire sans problèmes
+%	si vous répondez positivement à toutes ces affirmations :
+%
+%	\begin{itemize}
+%		\item vous avez configuré la compilation de votre document, tel que décrit à la
+%		\autoref{subsubsec:compile-config};
+%		\item la compilation se déroule sans problèmes;
+%		\item vous avez inscrit le bon nom de fichier de références dans la commande
+%		|\addbibresource| tel qu'indiqué à la \autoref{subsubsec:bib-config};
+%		\item vous avez ajouté une entrée |keywords={article-n}| dans les références
+%		de vos articles (mémoire ou thèse par articles seulement), tel que mentionné
+%		à la \autoref{subsubsec:chapter-articles};
+%		\item vous avez remplacé le $n$ de l'option |keyword=article-n| de la commande
+%		|\printbibliography| de chacun de vos articles par le numéro de l'article, aussi
+%		décrit à la \autoref{subsubsec:chapter-articles}.
+%	\end{itemize}
+%
+%	Si, pour une raison ou une autre, la bibliographie ou des références ne s'affichent
+%	pas tel que prévu, assurez-vous que la compilation ne retourne pas des erreurs et
+%	corrigez ces dernières le cas échéant.
+%
+%	Si vous rédigez un mémoire ou une thèse monographique, votre bibliographie s'intitulera
+%	tout simplement «Bibliographie».
+%
+%	Si vous rédigez un mémoire ou une thèse par articles, la bibliographie de votre document
+%	s'intitulera «Bibliographie générale», alors que les bibliographies de chacun de vos
+%	articles s'intituleront «Références».
+%
+%	Ces titres sont tous générés automatiquement avec les commandes de classe |\bibliotitle|
+%	et |\referencestitle|, alors vous n'aurez pas à vous soucier d'avoir à nommer vos
+%	bibliographies correctement et manuellement.	
+%
+%	\froufrou[dinkus]
+%
+%	Ceci complète la portion \emph{Guide de l'utilisateur} de la documentation. Avec ces
+%	informations en poche, vous êtes désormais en mesure de rédiger votre mémoire ou
+%	votre thèse avec les gabarits de la classe \textsf{hecthese}.
+%
+%	Le reste de la documentation est plus technique et explique dans les détails comment
+%	la classe a été conçue. Il n'est pas nécessaire de la lire pour être en mesure
+%	d'utiliser les gabarits, mais les personnes curieuses aimeront certainement la
+%	consulter pour mieux prédire les comportements de la classe.
 %
 % \StopEventually{%
-%	\printbibliography
+% \clearpage
+% \begin{thebibliography}{99}
+%	\bibitem{beaud2006art}Beaud, M., Gravier, M., \& Toledo, A. d. (2006). 
+%		\emph{L’art de la thèse : comment préparer et rédiger un mémoire de master, 
+%		une thèse de doctorat ou tout autre travail universitaire à l’ère du Net}, éd. révisée, 
+%		mise à jour et élargie, coll. La Découverte, 202 p.
+%	\bibitem{bezos2026babel}Bezos, J., \& Braams, J. L. (2026). 
+%		\emph{Babel : Localization and Internationalization. User Guide (Version 26.2)},
+%		Comprehensive TeX Archive Network. Récupéré le 16 mars 2026 de
+%		\href{https://ctan.org/pkg/babel}{https://ctan.org/pkg/babel}
+%	\bibitem{cfla2020guide}Centre de formation en langue en langues des affaires (2020).
+%		\emph{Guide pour la rédaction d'un travail universitaire de 1er, 2e et 3e cycles},
+%		HEC Montréal. Récupéré le 12 mars 2026 de 
+%		\href{https://www.hec.ca/cfla/francais/document/guide-redaction-travail-cycles.pdf}%
+%		{https://www.hec.ca/cfla/francais/document/guide-redaction-travail-cycles.pdf}
+%	\bibitem{kime2025biblatex}Kime, P., Wemheuer, M., \& Lehman, P. (2025). 
+%		\emph{The biblatex Package : Programmable Bibliographies and Citations (3.21)},
+%		Comprehensive TeX Archive Network. Récupéré le 16 mars 2026 de
+%		\href{https://ctan.org/pkg/biblatex}{https://ctan.org/pkg/biblatex}
+%	\bibitem{lualatex2025lualatex} Lua\TeX\ development team (2025).
+%		\emph{Lua\TeX\ Reference Manual (Version 1.24 December 2025)},
+%		Comprehensive TeX Archive Network. Récupéré le 16 mars 2026 de
+%		\href{https://ctan.org/pkg/lualatex}{https://ctan.org/pkg/lualatex}
+%	\bibitem{overleaf2025tex}Overleaf (2025).
+%		\emph{TeX Live 2025 is now available}, Overleaf. Récupéré le 16 mars 2026 de
+%		\href{https://www.overleaf.com/blog/tex-live-2025-is-now-available}%
+%		{https://www.overleaf.com/blog/tex-live-2025-is-now-available}
+%	\bibitem{overleaf2026selecting}Overleaf (2026).
+%		\emph{Selecting a TeX Live version and LaTeX compiler},
+%		Overleaf docs. Récupéré le 30 mars 2026 de
+%		\href{https://docs.overleaf.com/getting-started/recompiling-your-project/selecting-a-tex-live-version-and-latex-compiler}%
+%		{https://docs.overleaf.com/getting-started/recompiling-your-project/selecting-a-tex-live-version-and-latex-compiler}
+%	\bibitem{stack2023bibtex}Stack Exchange contributors (2023).
+%		\emph{bibtex vs. biber and biblatex vs. natbib},
+%		\LaTeX\ Stack Exchange. Récupéré le 16 mars 2026 de
+%		\href{https://tex.stackexchange.com/questions/25701}%
+%		{https://tex.stackexchange.com/questions/25701}
+%	\bibitem{stack2024compatibility}Stack Exchange contributors (2024).
+%		\emph{Compatibility of bibtex and biblatex bibliography files?},
+%		\LaTeX\ Stack Exchange. Récupéré le 16 mars 2026 de
+%		\href{https://tex.stackexchange.com/questions/37095}%
+%		{https://tex.stackexchange.com/questions/37095}
+%	\bibitem{texstudio2022configuring}TeXstudio Team (2022).
+%		\emph{Configuring TeXstudio: Configuring the build system},
+%		TeXstudio 4.9.3 documentation. Récupéré le 30 mars 2026 de
+%		\href{https://texstudio-org.github.io/configuration.html\#configuring-the-build-system}%
+%		{https://texstudio-org.github.io/configuration.html\#configuring-the-build-system}
+%	\bibitem{wiki2026bibtex}Wikipedia contributors (2026). 
+%		\emph{BibTeX}. Wikipedia, The Free Encyclopedia. Récupéré le 16 mars 2026 de	
+%		\href{https://en.wikipedia.org/w/index.php?title=BibTeX\&oldid=1335170059}%
+%		{https://en.wikipedia.org/w/index.php?title=BibTeX\&oldid=1335170059}
+%	\bibitem{wiki2026chatgpt}Wikipedia contributors (2026). 
+%		\emph{ChatGPT}. Wikipedia, The Free Encyclopedia. Récupéré le 16 mars 2026 de
+%		\href{https://en.wikipedia.org/w/index.php?title=ChatGPT\&oldid=1343859269}%
+%		{https://en.wikipedia.org/w/index.php?title=ChatGPT\&oldid=1343859269}
+%	\bibitem{wilson2025memoir}Wilson, P., \& Madsen, L. (2025). 
+%		\emph{The Memoir Class for Configurable Typesetting : User Guide (v3.8.4b)},
+%		Comprehensive TeX Archive Network. Récupéré le 13 mars 2026 de 
+%		\href{https://ctan.org/pkg/memoir}{https://ctan.org/pkg/memoir}
+%	\bibitem{wright2024engine}Wright, J. (2024).
+%		«Engine news from the \LaTeX\ Project» [billet de blogue],
+%		\emph{Some TeX Developments}. Récupéré le 16 mars 2026 de
+%		\href{https://www.texdev.net/2024/11/05/engine-news-from-the-latex-project}%
+%		{https://www.texdev.net/2024/11/05/engine-news-from-the-latex-project}
+% \end{thebibliography}
+%	\clearpage
 %	\PrintChanges
+%	\clearpage
 %	\PrintIndex	
 % }
 %
 % ^^A Start of class source code
 %
-% \appendix
+% \section{Documentation technique}
+%
+% \subsection{Séquences de génération et de compilation des gabarits}
+% \label{subsec:build-workflow}
 %
 %<*class>
+% \iffalse
 \RequirePackage{etoolbox}
 \RequirePackage{xkeyval}
-
+% \fi
+%
+% \subsection{Valeurs booléennes internes}
+% \label{subsec:booleans}
+%
+%    \begin{macrocode}
 %% --- Booleans ----------------------------------
 
-\newbool{HEC@legacy} % Whether the author uses LuaTeX et al. or legacy tech
+\newbool{HEC@legacy} % Whether the author uses lualatex et al. or legacy tech
 \newbool{HEC@phd} % Whether the author is at phd level or not
 \newbool{HEC@articlebased} % Whether the document is a compilation of articles or not
-
+%    \end{macrocode}
+%
+% \subsection{Options de classes}
+% \label{subsec:class-options}
+%
+%    \begin{macrocode}
 %% --- Class options -----------------------------
 
 \DeclareOption{10pt}{%
@@ -150,7 +1150,12 @@
 \ExecuteOptions{12pt} % Default font size
 \ProcessOptions\relax
 \LoadClass{memoir}
-
+%    \end{macrocode}
+%
+% \subsection{\emph{Packages} requis par la classe}
+% \label{subsec:required-pkg}
+%
+%    \begin{macrocode}
 %% --- Required packages -------------------------
 
 \RequirePackage{amsmath}
@@ -158,14 +1163,22 @@
 	\RequirePackage[utf8]{inputenc} % legacy UTF-8 support
 	\RequirePackage[T1]{fontenc} % T1 family fonts
 }{% false	
-	\RequirePackage{fontspec} % Font handling with LuaTeX, loaded after math pkgs
-	\RequirePackage{unicode-math} % Best results for math mode in LuaTeX, must be loaded after math + font pkgs
+	\RequirePackage{fontspec} % Font handling with lualatex, loaded after math pkgs
+	\RequirePackage{unicode-math} % Best results for math mode in lualatex, must be loaded after math + font pkgs
 }
 \RequirePackage{babel}
 \RequirePackage{csquotes} % strongly recommended by biblatex to render quotes in languages other than english
 \RequirePackage{calc} % Mandatory for the list of abreviations' customization
 \RequirePackage{enumitem} % Mandatory for the list of abreviations' customization
-
+%    \end{macrocode}
+%
+% \subsection{Mise en page}
+% \label{subsec:layout}
+%
+% \subsubsection{Marges}
+% \label{subsubsec:margins}
+%
+%    \begin{macrocode}
 %% --- Layout ------------------------------------
 
 %% ------ Margins --------------------------------
@@ -173,13 +1186,23 @@
 \setlrmarginsandblock{4cm}{2.5cm}{*}
 \setulmarginsandblock{2.5cm}{2.5cm}{*}
 \checkandfixthelayout[fixed] % Fixed algorithm for fixed margins
-
+%    \end{macrocode}
+%
+% \subsubsection{Paragraphes}
+% \label{subsubsec:paragraphs}
+%
+%    \begin{macrocode}
 %% ------ Line and paragraph spacing -------------
 
 \OnehalfSpacing
 \setlength{\parskip}{.5\baselineskip}
 \setlength{\parindent}{0pt}
-
+%    \end{macrocode}
+%
+% \subsubsection{Polices de caractères}
+% \label{subsubsec:fonts}
+%
+%    \begin{macrocode}
 %% ------ Fonts ----------------------------------
 
 \ifbool{HEC@legacy}{% true
@@ -193,7 +1216,11 @@
 	\setmonofont{TeX Gyre Cursor}
 	\setmathfont{TeX Gyre Termes Math} % from the unicode-math pkg
 }
-
+%    \end{macrocode}
+%
+% \subsubsection{Métadonnées du document}
+% \label{subsubsec:metadata}
+%    \begin{macrocode}
 %% --- Thesis metadata ---------------------------
 
 \newcommand{\thesubtitle}{}
@@ -210,7 +1237,12 @@
 \newcommand{\copyrightyear}[1]{%
 	\renewcommand{\theyear}{#1}
 }
-
+%    \end{macrocode}
+%
+% \subsubsection{Membres du jury du doctorat}
+% \label{subsubsec:jury-members}
+%
+%    \begin{macrocode}
 %% ------ Key-values for jury list ---------------
 
 \newbool{HEC@islastjury}
@@ -257,7 +1289,7 @@
 \newcommand{\phdcodirector}[3][]{%
 	\setkeys{HEC@jury}{gender=M,last=false,#1}
 	#2 \\ % Name
-	#3 \\ % Affiliation
+	\ifstrempty{#3}{HEC Montréal}{#3} \\ % Affiliation
 	Codirect\ifdefstring{\HEC@jurygender}{F}{rice}{eur} de recherche
 	\ifbool{HEC@islastjury}{}{\vfill}
 }
@@ -265,7 +1297,7 @@
 \newcommand{\phdjurymember}[3][]{%
 	\setkeys{HEC@jury}{gender=M,last=false,#1}
 	#2 \\ % Name
-	#3 \\ % Affiliation
+	\ifstrempty{#3}{HEC Montréal}{#3} \\ % Affiliation
 	Membre du jury
 	\ifbool{HEC@islastjury}{}{\vfill}
 }
@@ -273,7 +1305,7 @@
 \newcommand{\phdexternalexaminator}[3][]{%
 	\setkeys{HEC@jury}{gender=M,last=false,#1}
 	#2 \\ % Name
-	#3 \\ % Affiliation
+	\ifstrempty{#3}{HEC Montréal}{#3} \\ % Affiliation
 	Examinat\ifdefstring{\HEC@jurygender}{F}{rice}{eur} externe
 	\ifbool{HEC@islastjury}{}{\vfill}
 }
@@ -285,7 +1317,15 @@
 	Représentant\ifdefstring{\HEC@jurygender}{F}{e}{} du directeur de HEC Montréal
 	\ifbool{HEC@islastjury}{}{\vfill}
 }
-
+%    \end{macrocode}
+%
+% \subsection{Divisions d'un mémoire ou d'une thèse}
+% \label{subsec:doc-divisions}
+%
+% \subsubsection{Pages de garde}
+% \label{subsubsec:innerpages}
+%
+%    \begin{macrocode}
 %% --- Thesis parts ------------------------------
 
 %% ------ Innerpage ------------------------------
@@ -296,7 +1336,12 @@
 	\mbox{}
 	\cleardoublepage
 }
-
+%    \end{macrocode}
+%
+% \subsubsection{Pages titres}
+% \label{subsubsec:title-pages}
+%
+%    \begin{macrocode}
 %% ------ Title pages ----------------------------
 
 \newcommand{\msctitlepage}{%
@@ -391,7 +1436,12 @@
 		\msctitlepage
 	}
 }
-
+%    \end{macrocode}
+%
+% \subsubsection{Résumés}
+% \label{subsubsec:abstracts}
+%
+%    \begin{macrocode}
 %% ------ Abstracts ------------------------------
 
 \renewcommand{\absnamepos}{flushleft}
@@ -400,7 +1450,12 @@
 \setlength{\absleftindent}{\parindent}
 \setlength{\absrightindent}{\parindent}
 \setlength{\abstitleskip}{\afterchapskip}
-
+%    \end{macrocode}
+%
+% \subsubsection{Table des matières}
+% \label{subsubsec:toc}
+%
+%    \begin{macrocode}
 %% ------ Sectional divisions --------------------
 
 \setsecnumdepth{subsection}
@@ -412,6 +1467,32 @@
 \addto\captionsenglish{%
 	\renewcommand{\contentsname}{Table of Contents}
 }
+%    \end{macrocode}
+%
+% \subsubsection{Dédicace}
+% \label{subsubsec:dedication}
+%
+%    \begin{macrocode}
+% ------ Key-values for dedication section -------
+
+\define@boolkey{HEC@dedication}{signed}[true]{}
+% ------ Dedication section ----------------------
+
+\epigraphtextposition{flushleftright}
+\setlength{\epigraphrule}{0pt}
+\newcommand{\dedication}[2][]{%
+	\setkeys{HEC@dedication}{signed=true,#1}
+	\begin{vplace}
+		\epigraph{#2}{\ifKV@HEC@dedication@signed\theauthor\fi}
+	\end{vplace}
+}
+%    \end{macrocode}
+%
+% \subsection{Titres bilingues}
+% \label{subsec:title-i8n}
+%
+%    \begin{macrocode}
+% --- Bilingual titles ---------------------------
 
 % ------ List of figures -------------------------
 
@@ -427,20 +1508,6 @@
 }
 \addto\captionsenglish{%
 	\renewcommand{\acronymslisttitle}{List of Acronyms}
-}
-
-% ------ Key-values for dedication section -------
-
-\define@boolkey{HEC@dedication}{signed}[true]{}
-% ------ Dedication section ----------------------
-
-\epigraphtextposition{flushleftright}
-\setlength{\epigraphrule}{0pt}
-\newcommand{\dedication}[2][]{%
-	\setkeys{HEC@dedication}{signed=true,#1}
-	\begin{vplace}
-		\epigraph{#2}{\ifKV@HEC@dedication@signed\theauthor\fi}
-	\end{vplace}
 }
 
 % ------ Acknowledgements ------------------------
@@ -462,7 +1529,6 @@
 \addto\captionsenglish{%
 	\renewcommand{\prefacetitle}{Preface}
 }
-
 
 % ------ Introduction ----------------------------
 
@@ -496,8 +1562,7 @@
 	\renewcommand{\literaturereviewtitle}{Literature Review}
 }
 
-
-% ------ Articles --------------------------------
+% ------ Article abstracts -----------------------
 
 \newcommand{\articleabstract}{}
 \addto\captionsfrench{%
@@ -506,7 +1571,6 @@
 \addto\captionsenglish{%
 	\renewcommand{\articleabstract}{Abstract}
 }
-
 
 % ------ Conclusion ------------------------------
 \newcommand{\conclusiontitle}{Conclusion}
@@ -537,6 +1601,8 @@
 \addto\captionsenglish{%
 	\renewcommand{\referencestitle}{References}
 }
+%    \end{macrocode}
+%
 %</class>
 %
 % ^^A End of class source code
@@ -546,14 +1612,14 @@
 % ^^A Start of template files content
 %
 %<*template>
-%<phd&mono&francais>\documentclass[phd,monograph,french]{hecthese}
-%<phd&mono&english>\documentclass[phd,monograph,english]{hecthese}
-%<phd&articles&francais>\documentclass[phd,articles,french]{hecthese}
-%<phd&articles&english>\documentclass[phd,articles,english]{hecthese}
-%<msc&mono&francais>\documentclass[msc,monograph,french]{hecthese}
-%<msc&mono&english>\documentclass[msc,monograph,english]{hecthese}
-%<msc&articles&francais>\documentclass[msc,articles,french]{hecthese}
-%<msc&articles&english>\documentclass[msc,articles,english]{hecthese}
+%<phd&mono&francais>\documentclass[phd,monograph,english,french]{hecthese}
+%<phd&mono&english>\documentclass[phd,monograph,french,english]{hecthese}
+%<phd&articles&francais>\documentclass[phd,articles,english,french]{hecthese}
+%<phd&articles&english>\documentclass[phd,articles,french,english]{hecthese}
+%<msc&mono&francais>\documentclass[msc,monograph,english,french]{hecthese}
+%<msc&mono&english>\documentclass[msc,monograph,french,english]{hecthese}
+%<msc&articles&francais>\documentclass[msc,articles,english,french]{hecthese}
+%<msc&articles&english>\documentclass[msc,articles,french,english]{hecthese}
 
 %<*francais>
 %% --- Chargement des packages --------------------
@@ -738,7 +1804,6 @@
 
 \include{conclusion}
 
-\printindex
 \printbibliography[heading=bibintoc,title={\protect\bibliotitle}]
 
 \appendix
@@ -746,6 +1811,9 @@
 
 %<francais>\include{annexe}
 %<english>\include{appendix}
+
+\cleardoublepage
+\printindex
 
 %<francais>%% --- Page de garde arrière ----------------------
 %<english>%% --- Back cover page ------------------------
