@@ -27,11 +27,10 @@
 %<class>\NeedsTeXFormat{LaTeX2e}
 %<class>\ProvidesClass{hecthese}[2026/02/26 v3.0 Class for dissertations and theses at HEC Montreal]
 %<*driver>
-\documentclass[10pt,french]{ltxdoc}
+\documentclass[10pt,french,english]{ltxdoc}
 \usepackage{amssymb}
 \usepackage{fontspec}
 \usepackage{babel}
-\usepackage{iflang}
 \usepackage{enumitem}
 \usepackage{tcolorbox}
 \usepackage{xcolor}
@@ -44,6 +43,9 @@
 \CodelineIndex
 \RecordChanges
 
+\expandafter\newif\csname ifFrenchDoc\endcsname
+\iflanguage{french}{\FrenchDoctrue}{\FrenchDocfalse}
+
 \NewDocElement[
 	macrolike=false,
 	toplevel=true,
@@ -51,11 +53,14 @@
 	idxgroup={Options},
 	printtype={\textit{opt}}
 ]{Option}{option}
+\newcommand{\warningboxtitle}{%
+	\iflanguage{french}{ATTENTION!}{WARNING!}
+}
 \newtcolorbox{warningbox}{%
 	colback=orange!5!white,
 	colframe=orange,
 	fonttitle=\bfseries,
-	title={ATTENTION!},
+	title={\warningboxtitle},
 	grow sidewards by=12pt
 }
 \newtcolorbox{codeblock}{%
@@ -74,7 +79,13 @@
 	pdfauthor={Benoit Hamel, HEC Montr\'{e}al}
 }
 
-\newcommand{\pkg}[1]{\emph{package} \textsf{#1}}
+\newcommand{\pkg}[1]{%
+	\iflanguage{french}{%
+		\emph{package} \textsf{#1}%	
+	}{%
+		\textsf{#1} package%
+	}
+}
 
 \begin{document}
 	\DocInput{hecthese.dtx}
@@ -134,9 +145,10 @@
 % \DoNotIndex{\setsansfont,\setsecnumdepth,\settocdepth,\setulmarginsandblock}
 % \DoNotIndex{\textbf,\theauthor,\thedate,\vfill,\ifstrempty}
 %
+% \ifFrenchDoc
 % \title{\textsf{hecthese} : \\ une classe de documents pour la rédaction des thèses et mémoires à HEC Montréal}
 % \author{Benoit Hamel, Bibliothèque, HEC Montréal
-%	\thanks{\textsf{hecthese} version \fileversion, \filedate}}
+%		\thanks{\textsf{hecthese} version \fileversion, \filedate}}
 % \date{\today}
 % \maketitle
 %
@@ -192,7 +204,8 @@
 %	d'identification du jury ne pouvant être modifiée qu'à l'intérieur du fichier |.cls| de
 %	définition de classe, il apparaissait nécessaire d'ajouter dans la nouvelle version une
 %	fonctionnalité à l'intérieur des gabarits eux-mêmes, d'où la conception de la nouvelle 
-%	commande |\phdjurylist|.
+%	commande |\phdjurylist| Vous trouverez tous les détails de cette nouvelle fonctionnalité
+%	à la \autoref{subsubsec:user-guide-metadata}.
 %
 % 	\subsubsection{Intégration optimisée à la classe de documents \textsf{memoir}}
 %
@@ -214,7 +227,7 @@
 %	\textsf{hecthese} a introduit le \pkg{biblatex} et le compilateur
 %	\textsf{biber} comme gestionnaires des bibliographies par défaut afin de
 %	palier à une incompatibilité entre le \pkg{chapterbib} et la classe
-%	\textsf{memoir}. Cette incompatibilité affectait les personnes rédigerant une thèse 
+%	\textsf{memoir}. Cette incompatibilité affectait les personnes rédigeant une thèse 
 %	ou un mémoire par articles.
 %
 %	La présente version reconduit ce changement et confirme \textsf{biblatex} et \textsf{biber}
@@ -262,9 +275,10 @@
 %		\cite{lualatex2025lualatex}
 % 	\end{itemize}
 %
-%	Plusieurs projets logiciels, comme \href{https://github.com/quarto-dev/quarto-cli/issues/11321}{Quarto} 
-%	et \href{https://github.com/rstudio/tinytex/issues/454}{TinyTeX} considèrent passer à \textsf{lualatex}
-%	comme compilateur par défaut. Overleaf a également pris acte de cette recommandation et a
+%	Plusieurs projets logiciels considèrent passer à \textsf{lualatex}
+%	comme compilateur par défaut, comme \href{https://github.com/quarto-dev/quarto-cli/issues/11321}{Quarto} 
+%	et \href{https://github.com/rstudio/tinytex/issues/454}{TinyTeX}. 
+%	Overleaf a également pris acte de cette recommandation et a
 %	fait des PDF accessibles l'un de ses développements clés de 2025\cite{overleaf2025tex}. Compte tenu
 %	de cette évolution dans le monde de \LaTeX, le support à \textsf{lualatex} a été ajouté à \textsf{hecthese}.
 %
@@ -329,7 +343,7 @@
 %	Tous les fichiers nécessaires à la rédaction de votre mémoire ou thèse seront générés. Le \autoref{tbl:file-list}
 %	dresse la liste de tous les fichiers ainsi que les types de documents auxquels ils sont rattachés.
 %
-%	\begin{table}
+%	\begin{table}[h]
 %		\centering
 %		\begin{tabular}{lcccc}
 %			\toprule
@@ -399,7 +413,7 @@
 %	chargement des 
 %	\emph{packages} et leurs commandes de configuration. Vous retrouverez également un bloc de
 %	métadonnées liées à votre mémoire ou votre thèse. Les prochaines sous-sections 
-%	décrivent en détail comment mettre en forme le préambule.
+%	décrivent en détails comment mettre en forme le préambule.
 %
 %	Dans le corps du document du gabarit, entre les commandes |\begin{document}| et |\end{document}|,
 %	vous retrouverez une succession de commandes |\include| qui pointent
@@ -512,6 +526,12 @@
 %	options de classe et des configurations propres à \textsf{pdflatex} remplaceront celles
 %	de \textsf{lualatex}.
 %
+%	\begin{figure}
+%		\includegraphics[width=\textwidth]{texstudio-config.jpg}
+%		\caption{Configuration de \textsf{lualatex} et \textsf{biber} dans TeXstudio}
+%		\label{fig:texstudio-config}
+%	\end{figure}
+%
 %	\subsubsection{Configuration de la compilation}
 %	\label{subsubsec:compile-config}
 %
@@ -552,12 +572,6 @@
 %	que vous configuriez non seulement \textsf{biber} comme mentionné au paragraphe précédent, mais que
 %	vous configuriez également la compilation par défaut avec \textsf{LuaLaTeX}. Le changement se fait
 %	au même endroit que pour \textsf{biber}, tel que démontré dans la \autoref{fig:texstudio-config}.
-%
-%	\begin{figure}
-%		\includegraphics[width=\textwidth]{texstudio-config.jpg}
-%		\caption{Configuration de \textsf{lualatex} et \textsf{biber} dans TeXstudio}
-%		\label{fig:texstudio-config}
-%	\end{figure}
 %
 %	\subsubsection{Compilation de votre document}
 %
@@ -604,7 +618,7 @@
 %	\textsf{inputenc}\footnote{\label{fn:inputenc}Seulement si vous utilisez l'option \texttt{legacy}.},
 %	\textsf{fontenc}\footref{fn:inputenc},
 %	\textsf{fontspec}\footnote{\label{fn:fontspec}Seulement si vous utilisez \textsf{lualatex}.},
-%	\textsf{unicode-math}\footref{fn:fontspec}, \textsf{babel}, \textsf{csquotes}, \textsf{calc},
+%	\textsf{unicode-math}\footref{fn:fontspec}, \textsf{babel}, \textsf{csquotes}, \textsf{calc} et
 %	\textsf{enumitem}. \textsf{biblatex} et \textsf{hyperref} sont quant à eux chargés dans le
 %	gabarit, où vous pourrez retrouver cette liste de \emph{packages} reproduite à
 %	l'identique dans un commentaire. Tous les \emph{packages}
@@ -617,7 +631,8 @@
 %	Dans cette section du préambule est chargé le \pkg{biblatex} avec toutes les options
 %	et configurations nécessaires à ce que la bibliographie corresponde aux
 %	normes de présentation du \emph{Guide de rédaction}. Ainsi, le style bibliographique
-%	utilisé est celui de l'APA duquel s'inspire le style bibliographique HEC Montréal.
+%	utilisé est celui de l'APA duquel s'inspire le style bibliographique HEC Montréal
+%	\cite{biblio2026style}.
 %	Le format de citation configuré est le format \emph{Auteur-année} et l'ordre de tri
 %	de la bibliographie est \emph{nom des auteurs, année et titre}.
 %	\textbf{Vous ne devez en aucun cas modifier ces configurations!} 
@@ -642,6 +657,7 @@
 %	d'un document.
 %
 %	\subsubsection{Fichier gabarit : métadonnées de votre mémoire ou thèse}
+%	\label{subsubsec:user-guide-metadata}
 %
 %	Dans la dernière partie du préambule, vous retrouverez toute une série
 %	de commandes qui servent à produire la page titre de votre mémoire ou
@@ -706,7 +722,7 @@
 %	votre directeur ou directrice de recherche dans la commande |\mscdirector|.
 %	L'argument facultatif de la commande, \oarg{gender}, indique à
 %	\textsf{hecthese} le genre de la personne concernée et la classe accordera
-%	son titre en conséquence. Les deux valeurs acceptées sont |F| et |M| et
+%	son titre en conséquence. Les deux valeurs acceptées sont |F| et |M|, et
 %	si l'argument n'est pas indiqué dans la commande, le masculin prévaudra.
 %
 %	\DescribeMacro{\phdpresidentrapporteur}
@@ -822,7 +838,7 @@
 %
 %	\subsubsection{Remerciements et dédicace}
 %
-%	Vous disposez, à l'intérieur du fichier |remerciements.tex|, d'un endroit
+%	À l'intérieur du fichier |remerciements.tex|, vous disposez d'un endroit
 %	pour remercier toutes les personnes qui vous ont aidé directement ou
 %	indirectement dans la rédaction de votre mémoire ou thèse : votre directeur ou
 %	directrice de recherche, votre institution et ses employé(e)s, les personnes
@@ -922,7 +938,7 @@
 %	\autoref{fig:bib-example} montre un exemple d'un livre
 %	cité dans deux chapitres.
 %
-%	\begin{figure}
+%	\begin{figure}[b]
 %		\begin{codeblock}
 %			|@book{wilsonMemoirClassConfigurable2025,| \\
 %			|title = {| \\
@@ -1004,7 +1020,7 @@
 %
 %	Ces titres sont tous générés automatiquement avec les commandes de classe |\bibliotitle|
 %	et |\referencestitle|, alors vous n'aurez pas à vous soucier d'avoir à nommer vos
-%	bibliographies correctement et manuellement.	
+%	bibliographies correctement et manuellement.
 %
 %	\froufrou[dinkus]
 %
@@ -1017,6 +1033,922 @@
 %	d'utiliser les gabarits, mais les personnes curieuses aimeront certainement la
 %	consulter pour mieux prédire les comportements de la classe.
 %
+% \else
+% \title{\textsf{hecthese} : \\ a document class for dissertations and theses at HEC Montréal}
+% \author{Benoit Hamel, Library, HEC Montréal
+%		\thanks{\textsf{hecthese} version \fileversion, \filedate}}
+% \date{\today}
+% \maketitle
+% \begin{abstract}
+%   The \textsf{hecthese} class was designed to allow graduate students at HEC
+%   Montréal to write their master's thesis or doctoral dissertation using the
+%   \LaTeX\ document preparation system while complying with the presentation
+%   standards in effect at the School. As such, the class fully meets the
+%   presentation standards set out in the \emph{Guide pour la rédaction d'un
+%   travail universitaire de 1er, 2e et 3e cycles} \cite{cfla2020guide},
+%   hereinafter referred to as the \emph{Writing Guide}.
+% 
+%   Thanks to this class, students will have the choice of writing their
+%   master's thesis or doctoral dissertation either in the classic monograph
+%   form---that is, as a succession of chapters---or as a collection of
+%   articles. This documentation serves as a step-by-step guide covering all
+%   aspects of the writing process, from getting started with the template to
+%   the final compilation of the document, including a technical reference for
+%   the class features.
+% \end{abstract}
+% 
+% \section{User Guide}
+% 
+% \subsection{Design Decisions}\label{subsec:choix-conception}
+% 
+% This third version of the class is the first major revision since 2023.
+% It is also the first to make full use of the potential of the
+% \textsf{memoir} class \cite{wilson2025memoir} from which it is derived
+% \footnote{That is, it is the first time the author has taken the effort to read
+% the 625 pages of its documentation.}.
+% 
+% The source code has therefore been reviewed, simplified and completely
+% rewritten from scratch. The following is a list of the major changes
+% that distinguish this version of \textsf{hecthese} from the previous one.
+% 
+% \subsubsection{Removal of French Versions of Commands and Environments}
+% 
+% The French commands and environments were nothing more than empty wrappers
+% that called their English equivalents. Given that all other standard
+% \LaTeX\ code and packages are in English, and given that the primary goal
+% of this new version of the class is to reduce the code as much as possible
+% and to facilitate its maintenance, the French commands and environments
+% have been removed.
+% 
+% \subsubsection{Customizable Doctoral Jury Member List}
+% \label{subsubsec:jury}
+% 
+% The first versions of \textsf{hecthese} included a doctoral jury
+% identification page that was fixed. All members listed in the class
+% definition \textbf{had to} appear there and \textbf{had to} be listed in
+% a predetermined order.
+% 
+% Over the years, there have been several requests to remove or add jury
+% members (a co-director, for example). Since the jury identification page
+% could only be modified within the |.cls| class definition file, it became
+% necessary to add a customization feature in the templates themselves in
+% the new version, hence the design of the new command |\phdjurylist|. You
+% will find all the details of this new feature in
+% \autoref{subsubsec:user-guide-metadata}.
+% 
+% \subsubsection{Optimized Integration with the \textsf{memoir} Document Class}
+% 
+% As mentioned at the beginning of \autoref{subsec:choix-conception}, the
+% primary goal of this redesign was to make full use of the features provided
+% by the \textsf{memoir} class, in contrast to previous versions which merely
+% loaded it without really taking advantage of it.
+% 
+% For example, the page layout, title pages, abstracts and dedication are now
+% handled using commands and environments from the \textsf{memoir} class.
+% Before adding anything to this new version, the overriding question that
+% was always asked was "does a \textsf{memoir} class feature exist that can
+% do this?" If so, it was used.
+% 
+% \subsubsection{Definitive Adoption of \textsf{biblatex} for Bibliographies}
+% \label{subsubsec:biblatex}
+% 
+% The \href{https://github.com/metalogueur/hecthese/releases/tag/v2.0}{version
+% 2.0} of \textsf{hecthese} introduced the \pkg{biblatex} and the \textsf{biber}
+% compiler as default bibliography managers in order to address an
+% incompatibility between the \pkg{chapterbib} and the \textsf{memoir} class.
+% This incompatibility affected users writing an article-based thesis or 
+% dissertation.
+% 
+% The present version perpetuates this change and confirms \textsf{biblatex}
+% and \textsf{biber} as the sole bibliography managers for all document
+% types, not only for the reason mentioned in the previous paragraph, but
+% also for the following reasons:
+% 
+% \begin{itemize}
+%   \item \textsf{biblatex} and \textsf{biber} offer more advanced
+%   bibliographic features than \textsf{natbib} and \textsf{bibtex},
+%   including the ability to have more than one bibliography per document
+%   (a requirement for article-based theses and dissertations), full
+%   Unicode character support (including accented characters), a richer data
+%   model for references, and finer-grained citation commands
+%   \cite{kime2025biblatex}. \textsf{biblatex} is also
+%   \href{https://github.com/plk/biblatex}{actively maintained}.
+%   \item \textsf{bibtex}, on the other hand, offers a more limited data
+%   model for references, supports accented characters only through
+%   \LaTeX\ commands, does not support multiple bibliographies
+%   \cite{stack2023bibtex}, and has not been developed since 1988, apart
+%   from a few minor revisions \cite{wiki2026bibtex}.
+%   \item Users writing their thesis or dissertation with articles are likely
+%   to have old |.bib| reference files written for \textsf{bibtex} that
+%   they will need to reuse. In such cases, know that \textsf{biblatex} is
+%   99.9\% compatible with \textsf{bibtex} \cite{stack2024compatibility}
+%   and that section~\emph{2.3 Usage Notes} of the \textsf{biblatex}
+%   documentation explains in detail how it handles the few rare cases where
+%   there are differences \cite{kime2025biblatex}. So, with few exceptions,
+%   the transition to \textsf{biblatex} will be completely transparent and
+%   problem-free.
+% \end{itemize}
+% 
+% \subsubsection{Introduction of \textsf{lualatex} as the Default Compiler}
+% \label{subsubsec:lualatex}
+% 
+% Since 2024, the \textsf{lualatex} compilation engine has become the
+% recommended engine for all new documents \cite{wright2024engine}. It
+% replaces \textsf{pdflatex} for many users.
+% 
+% Similar to \textsf{biblatex} and \textsf{biber}, using
+% \textsf{lualatex} gives access to modern features:
+% 
+% \begin{itemize}
+%   \item full Unicode character support;
+%   \item full support for \emph{OpenType} and \emph{TrueType} fonts;
+%   \item the ability to embed Lua scripts directly in projects;
+%   \item access to universal accessibility features such as PDF/UA-2, etc.
+%   \cite{lualatex2025lualatex}
+% \end{itemize}
+% 
+% Several software projects are considering switching to \textsf{lualatex}
+% as their default compiler, such as
+% \href{https://github.com/quarto-dev/quarto-cli/issues/11321}{Quarto} and
+% \href{https://github.com/rstudio/tinytex/issues/454}{TinyTeX}. Overleaf
+% has also taken note of this recommendation and made accessible PDFs one
+% of its key developments of 2025 \cite{overleaf2025tex}. In light of this
+% evolution in the \LaTeX\ world, support for \textsf{lualatex} has been
+% added to \textsf{hecthese}.
+% 
+% However, since this version of the class is the first to support this
+% compiler, alternative features have been put in place to preserve
+% support for \textsf{pdflatex}, notably through the |legacy| option.
+% 
+% If you are using \textsf{xelatex}, be aware that \textsf{hecthese} is
+% compatible with this engine to the same extent as it is with
+% \textsf{lualatex}.
+% 
+% \subsubsection{\textsf{hecthese} in a World of Artificial Intelligence}
+% 
+% When the previous version of this class was published, ChatGPT had itself
+% been publicly available for only eleven months \cite{wiki2026chatgpt}.
+% Since then, artificial intelligence has infiltrated everything, and the
+% thinking process behind the development of the code and documentation of the
+% present version of the class has not been immune to this. Everything has
+% been reformatted to make it easier not only for a human to navigate, but
+% also for an artificial intelligence model to reference.
+% \footnote{Rest assured, however, that everything was coded very naturally
+% with two hands and a human brain.} To this end, a
+% \href{https://notebooklm.google.com/notebook/0ae7fc08-e280-4975-b605-1f21b408572c}%
+% {NotebookLM}
+% notebook has been designed to facilitate the use of \textsf{hecthese}. It
+% contains documentation for the main packages used by the class as well as
+% various notes. Its purpose is to serve as technical support. Use it as is,
+% or create a similar tool that better targets your specific needs!
+% 
+% \subsection{Getting Started}
+% 
+% In this section, you will learn how to obtain the class and template files
+% and how to install them on your workstation or copy them into Overleaf. You
+% will also be guided on which template to choose from among the options
+% available, which class options to configure based on your particular needs,
+% and how to perform a first compilation of your document to ensure that
+% everything works correctly.
+% 
+% \subsubsection{Checking Your \TeX\ Version}
+% 
+% This version of \textsf{hecthese} was developed and tested using the 2025
+% version of \href{https://tug.org/texlive/}{TeX Live}. Before 
+% working with the class, make sure you have at least version 2025 of the \TeX\
+% engine installed on your computer, or that Overleaf has been configured to
+% use this version of the engine \cite{overleaf2026selecting}. The developer
+% of this class performs an annual review of \TeX\ engines and packages and
+% ensures that \textsf{hecthese} works correctly with the latest available
+% versions. You should therefore not encounter any problems if you use the
+% templates, provided that flying cars have not arrived or that humans have
+% not yet colonized the Moon.
+% 
+% \subsubsection{Downloading the Source Files}
+% 
+% The source files for the \textsf{hecthese} class are available in two
+% different places, depending on your needs.
+% 
+% \textbf{If you want to install a local copy of the template from the
+% source code}, please go to the official repository page at
+% \href{https://ctan.org/pkg/hecthese}{https://ctan.org/pkg/hecthese}. You
+% will find the bilingual documentation as well as a |.zip| archive to
+% download. Once the archive has been downloaded to your computer, extract
+% its contents into a working directory, open a terminal from that same
+% directory and run the following command:
+% 
+% \begin{codeblock}
+%   |latex hecthese-en.ins|
+% \end{codeblock}
+% 
+% All the files needed to write your thesis or dissertation will be
+% generated. \autoref{tbl:file-list} lists all the files along with the
+% document types they are associated with.
+% 
+% \begin{table}
+%   \centering
+%   \begin{tabular}{lcccc}
+%     \toprule
+%     \textbf{File}                  & \multicolumn{4}{c}{\textbf{Associated document type}} \\
+%                                    & \textbf{M.Sc.} & \textbf{Ph.D.} & \textbf{mono} & \textbf{articles} \\
+%     \midrule
+%     |template-msc-mono.tex|        & \checkmark &            & \checkmark &            \\
+%     |template-msc-articles.tex|    & \checkmark &            &            & \checkmark \\
+%     |template-phd-mono.tex|        &            & \checkmark & \checkmark &            \\
+%     |template-phd-articles.tex|    &            & \checkmark &            & \checkmark \\
+%     |french-abstract.tex|          & \checkmark & \checkmark & \checkmark & \checkmark \\
+%     |english-abstract.tex|         & \checkmark & \checkmark & \checkmark & \checkmark \\
+%     |abbreviations-list.tex|       & \checkmark & \checkmark & \checkmark & \checkmark \\
+%     |dedication.tex|               &            & \checkmark & \checkmark & \checkmark \\
+%     |acknowledgements.tex|         & \checkmark & \checkmark & \checkmark & \checkmark \\
+%     |foreword.tex|                 & \checkmark & \checkmark & \checkmark & \checkmark \\
+%     |introduction.tex|             & \checkmark & \checkmark & \checkmark & \checkmark \\
+%     |theoretical-framework.tex|    &            & \checkmark &            & \checkmark \\
+%     |literature-review.tex|        & \checkmark &            & \checkmark & \checkmark \\
+%     |chapter-1.tex|                & \checkmark & \checkmark & \checkmark &            \\
+%     |chapter-2.tex|                & \checkmark & \checkmark & \checkmark &            \\
+%     |chapter-3.tex|                & \checkmark & \checkmark & \checkmark &            \\
+%     |article-1.tex|                & \checkmark & \checkmark &            & \checkmark \\
+%     |article-2.tex|                & \checkmark & \checkmark &            & \checkmark \\
+%     |article-3.tex|                & \checkmark & \checkmark &            & \checkmark \\
+%     |conclusion.tex|               & \checkmark & \checkmark & \checkmark & \checkmark \\
+%     |appendix.tex|                 & \checkmark & \checkmark & \checkmark & \checkmark \\
+%     \bottomrule
+%   \end{tabular}
+%   \caption{List of generated files when installing the \textsf{hecthese} class}
+%   \label{tbl:file-list}
+% \end{table}
+% 
+% \textbf{If you want to work in the Overleaf application}, please go to
+% \href{https://www.overleaf.com/read/njbvvqtmytqk}{https://www.overleaf.com/read/njbvvqtmytqk}.
+% There you will find a pre-generated template that you can copy into your
+% Overleaf projects and use immediately.
+% 
+% Please note that you can also download the pre-generated Overleaf template
+% to your computer for immediate use with your personal \LaTeX\ editor.
+% 
+% \subsubsection{Choosing Your Template}
+% 
+% The \textsf{hecthese} class generates four different |.tex| templates, as
+% you can see in \autoref{tbl:file-list}. They all begin with the
+% |template-| prefix. The choice of the right template depends on 1) your
+% degree level and 2) the type of thesis or dissertation you are writing.
+% 
+% \textbf{If you are writing a master's thesis}, choose one of the two
+% |template-msc| files. \textbf{If you are writing a doctoral dissertation},
+% choose one of the two |template-phd| files.
+% 
+% \textbf{If you are writing a classic monograph thesis or dissertation}---that
+% is, with a succession of chapters---choose the file ending in |-mono.tex|
+% corresponding to your degree level.
+% 
+% \textbf{If you are writing a thesis or dissertation by articles}, choose
+% the file ending in |-articles.tex| corresponding to your degree level.
+% 
+% Once you have chosen your template, you can delete the other three, as
+% you will not need them.
+% 
+% \textbf{The template file only contains the skeleton of your document}. You
+% will not write your thesis or dissertation in this file, but in all the
+% other files that were generated along with the template.
+% 
+% \textbf{What does the template file contain then?} As in any \LaTeX\
+% document, you will find in the file's preamble the complete document
+% configuration, including the loading of packages and their configuration
+% commands. You will also find a block of metadata related to your thesis
+% or dissertation. The following subsections describe in detail how to
+% configure the preamble.
+% 
+% In the body of the template file, between the |\begin{document}| and
+% |\end{document}| commands, you will find a series of |\include| commands
+% pointing to every other file of your thesis or dissertation, as well as a
+% few other configuration commands. \textbf{You must not modify this section
+% under any circumstances}, except to remove optional portions that you are
+% not using
+% \footnote{Appendices B and C of the \emph{Writing Guide} indicate which
+% parts of theses and dissertations are mandatory and which are optional
+% \cite{cfla2020guide}.} or to add chapters or articles to your document.
+% 
+% \subsubsection{Class Options}
+% 
+% Each template generated by the \textsf{hecthese} class comes with its
+% appropriate class options. \autoref{fig:class-options} shows each
+% predefined configuration. You will therefore not need to worry about these
+% options. \textsf{hecthese} also defines a few additional options. These,
+% like the ones predefined in the templates, are explained below.
+% 
+% \begin{figure}
+%   \begin{codeblock}
+%     \noindent |% Classic master's thesis| \\
+%     |\documentclass[msc,monograph,french,english]{hecthese}|
+%   \end{codeblock}
+% 
+%   \begin{codeblock}
+%     \noindent |% Article-based master's thesis| \\
+%     |\documentclass[msc,articles,french,english]{hecthese}|
+%   \end{codeblock}
+% 
+%   \begin{codeblock}
+%     \noindent |% Classic doctoral dissertation| \\
+%     |\documentclass[phd,monograph,french,english]{hecthese}|
+%   \end{codeblock}
+% 
+%   \begin{codeblock}
+%     \noindent |% Article-based doctoral dissertation| \\
+%     |\documentclass[phd,articles,french,english]{hecthese}|
+%   \end{codeblock}
+%   \caption{Default class options defined in the templates}
+%   \label{fig:class-options}
+% \end{figure}
+% 
+% \DescribeOption{msc}
+% \DescribeOption{phd}
+% The |msc| and |phd| options are self-explanatory. They correspond to your
+% degree level. These two options govern the production of the title pages.
+% If you are at the master's level, a single title page with its own
+% formatting is sufficient. If you are at the doctoral level, you need not
+% only a title page but also a jury identification page. These options tell
+% the compiler which title page configuration to use.
+% 
+% \DescribeOption{monograph}
+% The |monograph| option is used when you are writing a classic monograph
+% thesis or dissertation, with a succession of chapters.
+% 
+% \DescribeOption{articles}
+% The |articles| option is used when you are writing an article-based thesis 
+% or dissertation. This option manages the titles of the various introductions,
+% conclusions and bibliographies. In an article-based thesis or dissertation,
+% you will need to write a general introduction and a general conclusion for
+% the entire document, and you will also need to write an introduction and a
+% conclusion in each of your articles. Each of your articles will need its
+% own bibliography, and your thesis or dissertation will also need to include
+% a general bibliography covering the references from your articles as well
+% as those from the other parts of your document. The |articles| option
+% therefore differentiates between the various introductions, conclusions
+% and bibliographies.
+% 
+% \begin{warningbox}
+% These four options are not interchangeable within a template! Each type of
+% thesis or dissertation comes with its own specific sections! If you change
+% the type of thesis or dissertation midway through, you will need to use
+% the template file corresponding to the other type!
+% 
+% (Do not worry about losing your work, however, since it will be found in
+% all the other files provided by the class.)
+% \end{warningbox}
+% 
+% \DescribeOption{french}
+% \DescribeOption{english}
+% You have the choice of writing your thesis or dissertation in French or in
+% English. The main language of your document will be your ``default
+% language.'' However, you will need to write at minimum one abstract in
+% French and one in English. You will likely cite authors in a language
+% other than the one you are writing in. This is why both |english| and
+% |french| appear in the class options, with the last language in the list
+% being the document's default language. By telling \LaTeX\ that your
+% document is multilingual, you can use commands such as
+% |\selectlanguage{<other language>}| to ask the compiler to use the
+% typographic conventions of that other language instead of those of the
+% default language. For more information about this feature, please consult
+% the \pkg{babel} documentation \cite{bezos2026babel}.
+% 
+% \DescribeOption{10pt}
+% \DescribeOption{11pt}
+% \DescribeOption{12pt}
+% In subsection \emph{5.1 Présentation graphique et pagination} of the
+% \emph{Writing Guide}, it is stated that ``[the] character size generally
+% varies between 10 and 12 points [\ldots]'' \cite{cfla2020guide}. You may
+% therefore choose between the |10pt|, |11pt| and |12pt| options for the
+% font size of your thesis or dissertation. The default font size of the
+% \textsf{memoir} class, and therefore of \textsf{hecthese}, is 10 points.
+% If you do not specify a font size in the class options, the default size
+% will prevail.
+% 
+% \DescribeOption{legacy}
+% As mentioned in \autoref{subsubsec:lualatex}, this version of
+% \textsf{hecthese} is the first to introduce support for the
+% \textsf{lualatex} compiler. Within the class, support for
+% \textsf{lualatex} is limited to the configuration of encoding and fonts.
+% If, for any reason, you prefer to use a more traditional compiler such as
+% \textsf{pdflatex}
+% \footnote{This might apply to users writing an article-based thesis or
+% dissertation from older \LaTeX\ documents, for example.}, include the
+% |legacy| option in the class options and configurations specific to
+% \textsf{pdflatex} will replace those for \textsf{lualatex}.
+% 
+% \begin{figure}
+%   \includegraphics[width=\textwidth]{texstudio-config.jpg}
+%   \caption{Configuring \textsf{lualatex} and \textsf{biber} in TeXstudio}
+%   \label{fig:texstudio-config}
+% \end{figure}
+% 
+% \subsubsection{Compilation Configuration}
+% \label{subsubsec:compile-config}
+% 
+% Now that you have all the |.tex| files in hand, have chosen your template
+% and all the basic class options, all that remains is to configure the
+% compilation of your document in your application. Once this is done, your
+% setup of the \textsf{hecthese} template will be complete and you can begin
+% writing your thesis or dissertation.
+% 
+% The level of configuration required depends on the application (Overleaf
+% or a local editor) and the compiler (\textsf{lualatex} or
+% \textsf{pdflatex}) you wish to use. Each level will be detailed below,
+% from simplest to most ``complex.'' To simplify understanding, from this
+% point onward, when we refer to a local \LaTeX\ editor, we will always mean
+% the \href{https://texstudio.org/}{TeXstudio} software, which was used to
+% program and write the documentation for \textsf{hecthese}.
+% \footnote{At the time of writing the documentation, the version of
+% TeXstudio was 4.9.}
+% Once the configuration is done, all you need to do is compile your
+% document.
+% 
+% \paragraph{Writing in Overleaf with the \texttt{legacy} class option.}
+% This combination requires no configuration! It uses the \textsf{pdflatex}
+% compiler, which is configured by default in the application. As for the
+% \textsf{biber} bibliography compiler, used by \pkg{biblatex}, it is
+% called automatically by Overleaf without any intervention on your part.
+% 
+% \paragraph{Writing in Overleaf without the \texttt{legacy} class option.}
+% This option requires you to configure \textsf{lualatex} as the default
+% compiler. You will find all the detailed instructions in the Overleaf
+% documentation \cite{overleaf2026selecting}, for which you will find
+% the direct link in the bibliography.
+% 
+% \paragraph{Writing in TeXstudio with the \texttt{legacy} class option.}
+% Unlike Overleaf, TeXstudio does not launch the \textsf{biber} compiler on
+% demand---it must be configured explicitly. In the editor, choose the
+% \emph{Configure TeXstudio\ldots} option from the \emph{Options} menu.
+% Then choose the \emph{Build} section of the configuration window and,
+% with the \emph{Show Advanced Options} checkbox unchecked, choose
+% \textsf{biber} as the default bibliography engine (see
+% \autoref{fig:texstudio-config} for a visual illustration of this
+% explanation).
+% 
+% \paragraph{Writing in TeXstudio without the \texttt{legacy} class option.}
+% This option requires you to configure not only \textsf{biber} as mentioned
+% in the previous paragraph, but also to set the default compilation to
+% \textsf{LuaLaTeX}. The change is made in the same place as for
+% \textsf{biber}, as shown in \autoref{fig:texstudio-config}.
+% 
+% \subsubsection{Compiling Your Document}
+% 
+% To launch the compilation of your document, press the \emph{Recompile}
+% button in Overleaf or the \emph{Build \& View (F5)} button in TeXstudio.
+% 
+% Under the hood, the application will perform a series of compilations
+% that will generate your complete document. The number of compilations and
+% their sequence are the same whether you use the \textsf{lualatex} or
+% \textsf{pdflatex} compiler. Only the compiler differs, as shown in
+% \autoref{fig:compile-sequence}. If everything goes well, a |.pdf| file
+% will be generated without error messages. You are now ready to begin
+% writing your thesis or dissertation!
+% 
+% \begin{figure}
+%   \begin{codeblock}
+%     \centering
+%     \textsf{pdflatex} \textrightarrow\ \textsf{biber} \textrightarrow\
+%     \textsf{pdflatex} \textrightarrow\ \textsf{pdflatex}
+%   \end{codeblock}
+%   \begin{codeblock}
+%     \centering
+%     \textsf{lualatex} \textrightarrow\ \textsf{biber} \textrightarrow\
+%     \textsf{lualatex} \textrightarrow\ \textsf{lualatex}
+%   \end{codeblock}
+%   \caption{Compilation sequence for a \LaTeX\ document}
+%   \label{fig:compile-sequence}
+% \end{figure}
+% 
+% \subsection{Writing Your Thesis or Dissertation}
+% 
+% In this section, you will be guided step by step through each part of the
+% template and each other file in your document so that you can work with
+% the \textsf{hecthese} class with full understanding.
+% 
+% \subsubsection{Template File: Loading Packages}
+% 
+% The \textsf{hecthese} class comes with more than fifty pre-loaded
+% packages, including the forty or so packages loaded or emulated by the
+% \textsf{memoir} class
+% \footnote{You can find the complete list of these packages in the
+% \href{https://notebooklm.google.com/notebook/0ae7fc08-e280-4975-b605-1f21b408572c}{NotebookLM}
+% notebook.}
+% and those loaded by \textsf{hecthese} itself.
+% 
+% The class definition file |hecthese.cls| loads the following packages:
+% \textsf{amsmath},
+% \textsf{inputenc}\footnote{\label{fn:inputenc}Only if you use the \texttt{legacy} option.},
+% \textsf{fontenc}\footref{fn:inputenc},
+% \textsf{fontspec}\footnote{\label{fn:fontspec}Only if you use \textsf{lualatex}.},
+% \textsf{unicode-math}\footref{fn:fontspec}, \textsf{babel},
+% \textsf{csquotes}, \textsf{calc} and \textsf{enumitem}. \textsf{biblatex}
+% and \textsf{hyperref} are loaded in the template, where you will find
+% this list of packages reproduced in full in a comment. Any additional
+% packages you need that are not already loaded by the class must be loaded
+% after the comment.
+% 
+% \subsubsection{Template File: Bibliography Configuration}
+% \label{subsubsec:bib-config}
+% 
+% In this section of the preamble, \pkg{biblatex} is loaded with all the
+% options and configurations necessary for the bibliography to conform to
+% the presentation standards of the \emph{Writing Guide}. The
+% bibliographic style used is that of APA, from which is based the HEC Montréal
+% bibliographic style \cite{biblio2026style}. The citation format configured
+% is the \emph{Author-year} format, and the bibliography sort order is
+% \emph{author name, year, and title}. \textbf{You must not modify these
+% configurations under any circumstances!}
+% 
+% \DescribeMacro{\addbibresource}
+% The only exception to this rule is the |\addbibresource{}| command, which
+% contains a default name for your bibliographic references file. You may
+% replace the name |biblio.bib| with any other name that your references
+% file will have.
+% 
+% All other commands in the bibliography configuration block are layout
+% commands that must also be left as they are.
+% 
+% \subsubsection{Template File: Hyperlink Configuration}
+% 
+% \DescribeMacro{\hypersetup}
+% This is where the \pkg{hyperref} is loaded, the last package in the list
+% that must be loaded. The |\hypersetup| command follows immediately, with
+% the only parameters being the activation of black hyperlinks throughout
+% the document, in order to replace the default behavior of
+% \textsf{hyperref}, which is to surround all links in a document with a
+% red box.
+% 
+% \subsubsection{Template File: Thesis or Dissertation Metadata}
+% \label{subsubsec:user-guide-metadata}
+% 
+% In the last part of the preamble, you will find a series of commands used
+% to produce the title page of your thesis or dissertation and the jury
+% identification page if you are at the doctoral level. This section
+% explains all of these commands and their options. You can also refer to
+% figures \ref{fig:msc-title-page}, \ref{fig:phd-title-page} and
+% \ref{fig:phd-jury-page} to better understand and locate them on the
+% title pages.
+% 
+% \begin{figure}
+%   \includegraphics[width=\textwidth]{msc-title-page.jpg}
+%   \caption{Master's thesis title page}
+%   \label{fig:msc-title-page}
+% \end{figure}
+% 
+% \begin{figure}
+%   \includegraphics[width=\textwidth]{phd-title-page.jpg}
+%   \caption{Doctoral dissertation title page}
+%   \label{fig:phd-title-page}
+% \end{figure}
+% 
+% \begin{figure}
+%   \includegraphics[width=\textwidth]{phd-jury-page.jpg}
+%   \caption{Doctoral jury identification page}
+%   \label{fig:phd-jury-page}
+% \end{figure}
+% 
+% \DescribeMacro{\title}
+% \DescribeMacro{\thesissubtitle}
+% \DescribeMacro{\author}
+% \DescribeMacro{\date}
+% \DescribeMacro{\copyrightyear}
+% \DescribeMacro{\specialization}
+% The six commands shown in the margin manage the metadata that is common to
+% all document types. |\title|, |\author| and |\date| are the standard
+% \LaTeX\ commands and need no further introduction.
+% 
+% The only particularity concerns the date and is noted in the command
+% itself: you must use the \emph{Month Year} format (``March 2026'', for
+% example). This date represents the month and year of the final submission
+% of your document.
+% 
+% The |\thesissubtitle| command represents the subtitle of your thesis or
+% dissertation. The subtitle is optional metadata, so if your document does
+% not have one, remove the value of the \marg{subtitle} argument from the
+% command and \textsf{hecthese} will format the title page accordingly.
+% 
+% The |\copyrightyear| command will display the year of the final submission
+% of your document at the bottom of the title page, preceded by the
+% \copyright\ symbol.
+% 
+% As for the |\specialization| command, it represents the specialization of
+% the program you are studying in (``Financial Engineering'' or ``Applied
+% Economics'', for example).
+% 
+% \DescribeMacro{\mscdirector}
+% \DescribeOption{gender}
+% If you are writing a master's thesis, you will need to enter the name of
+% your research supervisor in the |\mscdirector| command. The optional
+% argument of the command, \oarg{gender}, tells \textsf{hecthese} the gender
+% of the person concerned and the class will inflect their title accordingly.
+% The two accepted values are |F| and |M|, and if the argument is not
+% provided in the command, the masculine form will prevail.
+% 
+% \DescribeMacro{\phdpresidentrapporteur}
+% \DescribeMacro{\phddirector}
+% \DescribeMacro{\phdcodirector}
+% \DescribeMacro{\phdjurymember}
+% \DescribeMacro{\phdexternalexaminator}
+% \DescribeMacro{\phddirectorrep}
+% If you are writing a doctoral dissertation, several people will be part of
+% a jury that will oversee your evaluation. These people are the
+% \emph{président-rapporteur}, the research director, the research co-director,
+% a jury member, an external examiner, and the representative of the HEC
+% Montréal director
+% \footnote{In order to keep this list readable, only one gender has been
+% used for each title.}.
+% 
+% For each of these people, you will need to enter their name as well as
+% their gender, |M| or |F|, as an optional argument. The same mechanism as
+% the |\mscdirector| command applies for the gender inflection of the
+% person's title.
+% 
+% The co-director, jury member and external examiner may be affiliated with
+% an institution other than HEC Montréal. When this is the case, enter the
+% name of the institution in the \marg{affiliation} argument following the
+% person's name and \textsf{hecthese} will include it on the jury
+% identification page. If one or more of these people are affiliated with
+% HEC Montréal, remove the value from that same argument and the class will
+% write ``HEC Montréal'' by default.
+% 
+% \DescribeMacro{\phdjurylist}
+% All these commands are useless on their own, however, unless they are
+% written inside the |\phdjurylist| command, which generates the member
+% list on the jury identification page of the dissertation. As indicated in
+% \autoref{subsubsec:jury}, this command is one of the major innovations of
+% the present version of the \textsf{hecthese} class. It is thanks to this
+% command that the jury member list can be customized.
+% 
+% \begin{figure}
+%   \begin{codeblock}
+%   |\phdjurylist{| \\
+%   |\phdpresidentrapporteur[gender=F]{FirstName LastName}| \\
+%   |\phddirector[gender=M]{FirstName LastName}| \\
+%   |\phdcodirector[gender=M]{FirstName LastName}{affiliation}| \\
+%   |\phdjurymember{FirstName LastName}{affiliation}| \\
+%   |\phdexternalexaminator[gender=F]{FirstName LastName}{affiliation}| \\
+%   |%% The last member of the list MUST HAVE the last=true option.| \\
+%   |\phddirectorrep[gender=F,last=true]{FirstName LastName}| \\
+%   |}|
+%   \end{codeblock}
+%   \caption{The code block for the \texttt{phdjurylist} command as
+%   generated by the \textsf{hecthese} class}
+%   \label{fig:phdjurylist}
+% \end{figure}
+% 
+% When the template and all its accompanying files are generated, the jury
+% members are listed in a predetermined order and number.
+% \autoref{fig:phdjurylist} shows the structure. If you need to make
+% changes to this list, the ``hierarchical'' order must remain the same
+% \footnote{That is, the \emph{président-rapporteur} must always be listed before
+% the research director, and so on.}, but you may remove and/or add other
+% members by removing or adding the appropriate command (such as adding a
+% second |\phdcodirector| command below the first, for example).
+% 
+% \DescribeOption{last}
+% The final point to mention about the jury member list concerns the last
+% person in the list. The command for this last person must absolutely
+% include the |[last=true]| argument among its optional arguments.
+% 
+% Under the hood, \textsf{hecthese} vertically justifies the jury
+% identification page by inserting |\vfill| commands between each element.
+% By explicitly telling the class that a person is the last in the jury
+% member list using the |last=true| argument, it will stop inserting
+% |\vfill| commands and the page will be perfectly vertically justified.
+% 
+% \subsubsection{French and English Abstracts}
+% 
+% In your thesis or dissertation, you must write one abstract in French and
+% one in English, regardless of which of these two languages is the main
+% language of your document.
+% 
+% As indicated in appendices B and C of the \emph{Writing Guide}
+% \cite{cfla2020guide}, each of your abstracts must be between 150 and 250
+% words if you are at the master's level and between 350 and 500 words if
+% you are at the doctoral level.
+% 
+% In addition, you must accompany your abstracts with a maximum of 10
+% keywords for a master's thesis and a maximum of 15 keywords for a doctoral
+% dissertation.
+%
+% \clearpage
+% 
+% \DescribeEnv{abstract}
+% To do so, write your abstracts in the |abstract| environments in the
+% |french-abstract.tex| and |english-abstract.tex| files. These environments
+% come from the \textsf{memoir} class and have been formatted to meet the
+% School's presentation standards.
+% 
+% As for your keywords, simply write them under the section of the same
+% name, within the |abstract| environment.
+% 
+% \subsubsection{List of Abbreviations}
+% 
+% \DescribeEnv{description}
+% All acronyms and abbreviations that you will use in the course of your
+% writing can be listed in the |abbreviations-list.tex| file. A standard
+% |description| list environment is used for this purpose. The list is
+% generated with a few example items and you need only replace them with
+% your own.
+% 
+% \DescribeOption{labelwidth}
+% Once your list is complete, you can replace the |Your longest label|
+% value in the |labelwidth| option of the environment with the longest
+% abbreviation in your list. The list will then be perfectly aligned.
+% 
+% \subsubsection{Acknowledgements and Dedication}
+% 
+% In the |acknowledgements.tex| file, you have a place to thank all the
+% people who helped you directly or indirectly in writing your thesis or
+% dissertation: your research supervisor, your institution and its staff,
+% the people and organizations who helped you in the field, and your loved
+% ones \cite{beaud2006art}.
+% 
+% And as noted in the book by Beaud, Gravier and Toledo, ``be sober and
+% concise''\footnote{\label{fn:beaud}\emph{Loc. cit.}}.
+% 
+% \DescribeMacro{\dedication}
+% Doctoral students also have another place to ``dedicate their work to a
+% cherished or respected person''\footref{fn:beaud}: the dedication. You
+% may enter it in the file |dedication.tex|, inside the |\dedication|
+% command.
+% 
+% This command is an adaptation of the |\epigraph| command from the
+% \textsf{memoir} class, reformatted for the needs of \textsf{hecthese}.
+% You simply write the few words of your dedication inside it.
+% 
+% \DescribeOption{signed}
+% We have repurposed the \marg{source} argument of the
+% |\epigraph| command, however, to make it a signature of the thesis or dissertation
+% author. If you leave the |signed=true| option inside the |\dedication|
+% command, your name will appear below the dedication. If, on the other
+% hand, you choose the |signed=false| option, only the dedication will
+% appear on the page.
+% 
+% \subsubsection{Other Document Sections}
+% 
+% All other parts of your thesis or dissertation that are not chapters or
+% articles have no particular configuration other than a dedicated file for
+% each section and a predefined title. You simply need to open each one and
+% write its content. These sections include the introduction, the
+% conclusion, the foreword, the theoretical framework of the dissertation,
+% the literature review of the master's thesis, and the appendices.
+% 
+% \subsubsection{Chapters or Articles: Which to Choose?}
+% \label{subsubsec:chapter-articles}
+% 
+% If you are still unsure whether to choose a monograph thesis or
+% dissertation or an article-based one, ask yourself the following question:
+% will you first write articles that will be published in journals before compiling
+% them into your thesis or dissertation? If so, choose the article-based
+% model. Otherwise, choose the chapter-based model.
+% 
+% \paragraph{Writing chapters.} This option is the simplest. You open
+% each |chapter-n.tex| file, enter the title of your chapter in the
+% |\chapter| command, and write your chapter.
+% 
+% If you have more chapters to write than the number of files provided,
+% simply create a new file, |chapter-4.tex| for example, reproduce the
+% same first two lines of commands as in the previous chapters, and write
+% your additional chapters.
+% 
+% Once this is done, do not forget to include your new chapters in your
+% template after the previous ones, using the |\include| command.
+% 
+% \paragraph{Writing articles.} This option is the most complex because
+% it requires you to take existing documents, whether written in \LaTeX\
+% or not, and copy and paste them into your |article-n.tex| files
+% \textbf{while making sure you respect HEC Montréal's presentation
+% standards}.
+% 
+% You will therefore not be able to simply copy everything blindly and
+% recompile. You will very likely need to adapt your code to the reality
+% of the \textsf{hecthese} class.
+% 
+% \textbf{You will first need to include the packages}, their
+% configurations, and your custom commands and environments from your
+% articles in the preamble of your template, making sure that nothing
+% conflicts with the configuration of the \textsf{hecthese} template.
+% 
+% \textbf{You will then need to copy the abstracts of your articles} under
+% the abstract section beginning with the following two lines in the
+% |article-n.tex| files:
+% 
+% \begin{codeblock}
+%   \noindent|\section*{\articleabstract}|\\
+%   |\addcontentsline{toc}{section}{\articleabstract}|
+% \end{codeblock}
+% 
+% You can then copy the entirety of the rest of your article into the
+% |article-n.tex| file without worrying about the predefined sections,
+% which serve only as placeholder locations for the body of your articles.
+% 
+% \textbf{You will need to copy each bibliographic reference} from your
+% original |.bib| file into that of your thesis or dissertation, then, in
+% each reference, add a |keywords={article-n}| entry, where the $n$ in
+% |article-n| must be replaced by the number of your article. If a
+% reference appears in more than one article, add |article-x|, |article-y|
+% one after the other, separated by commas and within the braces. To help
+% you understand the concept, \autoref{fig:bib-example} shows an example
+% of a book cited in two articles.
+% 
+% \begin{figure}[b]
+%   \begin{codeblock}
+%     |@book{wilsonMemoirClassConfigurable2025,| \\
+%     |title = {| \\
+%     |The {{Memoir Class}} for {{Configurable Typesetting}} : \\|
+%     |{{User Guide}}| \\
+%     |},| \\
+%     |author = {Wilson, Peter and Madsen, Lars},| \\
+%     |date = {2025-11-04},| \\
+%     |edition = {v3.8.4b},| \\
+%     |url = {https://ctan.org/pkg/memoir},| \\
+%     |urldate = {2025-11-11},| \\
+%     |langid = {english},| \\
+%     |pagetotal = {625},| \\
+%     |keywords = {article-1,article-3}| \\
+%     |}|
+%   \end{codeblock}
+%   \caption{Example of a book cited in two different articles}
+%   \label{fig:bib-example}
+% \end{figure}
+% 
+% Finally, at the end of your article, in the |\printbibliography|
+% command, replace the $n$ in the |keyword=article-n| option with the
+% same article number.
+% 
+% Then compile your thesis or dissertation and verify that the entire
+% transfer was done without problems. If not, correct your code and attempt
+% another compilation.
+% 
+% \subsection{Citing Your Sources}
+% 
+% As indicated in \autoref{subsubsec:biblatex}, \textsf{biblatex} is from
+% this version of \textsf{hecthese} onwards the only bibliographic package
+% to be supported.
+% 
+% If this is your first experience writing with \LaTeX, you will only need
+% to consult the package documentation \cite{kime2025biblatex}, in
+% particular section \emph{3.9 Citation commands}.
+% 
+% If you have experience writing with \LaTeX\ and are more accustomed to
+% working with \pkg{natbib} for example, you will only need to familiarize
+% yourself with the new citation commands. In addition to the official
+% documentation cited in the previous paragraph, you will find in the
+% \href{https://notebooklm.google.com/notebook/0ae7fc08-e280-4975-b605-1f21b408572c}{NotebookLM}
+% notebook a reference guide on the equivalences between \LaTeX,
+% \textsf{natbib} and \textsf{biblatex} citation commands, as well as a
+% table listing all \textsf{biblatex} citation commands accompanied by a
+% brief description and a concrete example.
+% 
+% \subsection{The Bibliography or Bibliographies}
+% 
+% The production of your bibliography or bibliographies should proceed
+% without problems if you can answer positively to all of the following
+% statements:
+% 
+% \begin{itemize}
+%   \item you have configured the compilation of your document as described
+%   in \autoref{subsubsec:compile-config};
+%   \item compilation proceeds without problems;
+%   \item you have entered the correct reference file name in the
+%   |\addbibresource| command as indicated in \autoref{subsubsec:bib-config};
+%   \item you have added a |keywords={article-n}| entry in the references
+%   of your articles (article-based thesis or dissertation only), as
+%   mentioned in \autoref{subsubsec:chapter-articles};
+%   \item you have replaced the $n$ in the |\printbibliography| command's
+%	|keyword=| |article-n| option in each of your articles with the
+%   article number, also described in \autoref{subsubsec:chapter-articles}.
+% \end{itemize}
+% 
+% If, for any reason, the bibliography or references do not display as
+% expected, make sure the compilation does not return errors and correct
+% them if needed.
+% 
+% If you are writing a monograph thesis or dissertation, your bibliography
+% will simply be titled ``Bibliography.''
+% 
+% If you are writing an article-based thesis or dissertation, the
+% bibliography of your document will be titled ``General Bibliography,''
+% while the bibliographies of each of your articles will be titled
+% ``References.''
+% 
+% These titles are all generated by the
+% |\bibliotitle| and |\referencestitle| class commands, so you will not have to worry
+% about naming your bibliographies correctly and manually.
+% 
+% \froufrou[dinkus]
+% 
+% This concludes the \emph{User Guide} portion of the documentation. With
+% this information in hand, you are now able to write your thesis or
+% dissertation using the \textsf{hecthese} class templates.
+% 
+% The rest of the documentation is more technical and explains in detail
+% how the class was designed. It is not necessary to read it in order to
+% use the templates, but curious readers will certainly enjoy consulting
+% it to better predict the class's behavior.
+% \fi
+%
 % \StopEventually{%
 % \clearpage
 % \begin{thebibliography}{99}
@@ -1028,6 +1960,10 @@
 %		\emph{Babel : Localization and Internationalization. User Guide (Version 26.2)},
 %		Comprehensive TeX Archive Network. Récupéré le 16 mars 2026 de
 %		\href{https://ctan.org/pkg/babel}{https://ctan.org/pkg/babel}
+%	\bibitem{biblio2026style}Bibliothèque HEC Montréal (2026).
+%		\emph{Bibliographie selon le style HEC Montréal}.
+%		Guides at HEC Montréal. Récupéré le 7 avril 2026 de
+%		\href{https://libguides.hec.ca/style-hec}{https://libguides.hec.ca/style-hec}
 %	\bibitem{cfla2020guide}Centre de formation en langue en langues des affaires (2020).
 %		\emph{Guide pour la rédaction d'un travail universitaire de 1er, 2e et 3e cycles},
 %		HEC Montréal. Récupéré le 12 mars 2026 de 
@@ -1219,7 +2155,7 @@
 %    \end{macrocode}
 %
 % \subsubsection{Métadonnées du document}
-% \label{subsubsec:metadata}
+% \label{subsubsec:tech-doc-metadata}
 %    \begin{macrocode}
 %% --- Thesis metadata ---------------------------
 
