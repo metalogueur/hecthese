@@ -80,11 +80,7 @@
 }
 
 \newcommand{\pkg}[1]{%
-	\iflanguage{french}{%
-		\emph{package} \textsf{#1}%	
-	}{%
-		\textsf{#1} package%
-	}
+	\iflanguage{french}{\emph{package} \textsf{#1}}{\textsf{#1} package}%
 }
 
 \begin{document}
@@ -425,6 +421,7 @@
 %	des chapitres ou des articles à votre document.
 %
 %	\subsubsection{Options de classe}
+%	\label{subsubsec:user-guide-class-options}
 %
 %	Chaque gabarit de la classe \textsf{hecthese} est généré avec les options de classe qui lui sont
 %	propres. La \autoref{fig:class-options} montre chaque configuration prédéfinie. Vous n'aurez donc
@@ -989,6 +986,7 @@
 %	et d'un exemple concret.
 %
 %	\subsection{La (les) bibliographie(s)}
+%	\label{subsec:user-guide-biblio}
 %
 %	La production de votre ou vos bibliographies devrait se faire sans problèmes
 %	si vous répondez positivement à toutes ces affirmations :
@@ -1977,6 +1975,10 @@
 %		\emph{Lua\TeX\ Reference Manual (Version 1.24 December 2025)},
 %		Comprehensive TeX Archive Network. Récupéré le 16 mars 2026 de
 %		\href{https://ctan.org/pkg/lualatex}{https://ctan.org/pkg/lualatex}
+%	\bibitem{oqlf2026garde}Office québécois de la langue française (2026).
+%		\emph{Garde}. Grand dictionnaire terminologique. Récupéré le 9 avril 2026 de
+%		\href{https://vitrinelinguistique.oqlf.gouv.qc.ca/fiche-gdt/fiche/2077009/garde}%
+%		{https://vitrinelinguistique.oqlf.gouv.qc.ca/fiche-gdt/fiche/2077009/garde}
 %	\bibitem{overleaf2025tex}Overleaf (2025).
 %		\emph{TeX Live 2025 is now available}, Overleaf. Récupéré le 16 mars 2026 de
 %		\href{https://www.overleaf.com/blog/tex-live-2025-is-now-available}%
@@ -1986,6 +1988,14 @@
 %		Overleaf docs. Récupéré le 30 mars 2026 de
 %		\href{https://docs.overleaf.com/getting-started/recompiling-your-project/selecting-a-tex-live-version-and-latex-compiler}%
 %		{https://docs.overleaf.com/getting-started/recompiling-your-project/selecting-a-tex-live-version-and-latex-compiler}
+%	\bibitem{robertson2025fontspec}Robertson, W. et al. (2025). 
+%		\emph{The fontspec package Font selection for XELATEX and LuaLATEX (v2.9g)},
+%		Comprehensive TeX Archive Network. Récupéré le 9 avril 2026 de
+%		\href{https://ctan.org/pkg/fontspec}{https://ctan.org/pkg/fontspec}
+%	\bibitem{schmidt2020using}Schmidt, W. (2020).
+%		\emph{Using common PostScript fonts with LaTeX},
+%		Comprehensive TeX Archive Network. Récupéré le 9 avril 2026 de
+%		\href{https://ctan.org/pkg/mathptmx}{https://ctan.org/pkg/mathptmx}
 %	\bibitem{stack2023bibtex}Stack Exchange contributors (2023).
 %		\emph{bibtex vs. biber and biblatex vs. natbib},
 %		\LaTeX\ Stack Exchange. Récupéré le 16 mars 2026 de
@@ -2027,31 +2037,87 @@
 %
 % ^^A Start of class source code
 %
+% \ifFrenchDoc
 % \section{Documentation technique}
 %
-% \subsection{Séquences de génération et de compilation des gabarits}
-% \label{subsec:build-workflow}
-%
-%<*class>
-% \iffalse
-\RequirePackage{etoolbox}
-\RequirePackage{xkeyval}
-% \fi
+%	Cette partie de la documentation explique le contenu du fichier de 
+%	définition de classe |hecthese.cls|.
 %
 % \subsection{Valeurs booléennes internes}
 % \label{subsec:booleans}
 %
+%	Afin de bien gérer les options de la classe \textsf{hecthese},
+%	trois variables booléennes ont été créées : |HEC@legacy|,
+%	|HEC@phd| et |HEC@articlebased|. Le
+% 	\pkg{etoolbox} est requis pour utiliser la commande
+%	|\newbool| permettant la création des variables
+%	booléennes.
+%
+% \else
+% \section{Technical Documentation}
+%
+%	This part of the documentation explains the contents of the class
+%	definition file |hecthese.cls|.
+%
+% \subsection{Internal Boolean Values}
+% \label{subsec:booleans}
+%
+%	In order to properly manage the options of the \textsf{hecthese}
+%	class, three boolean variables have been created: |HEC@legacy|,
+%	|HEC@phd|, and |HEC@articlebased|. The
+% 	\pkg{etoolbox} package is required to use the |\newbool|
+%	command, which enables the creation of boolean variables.
+%
+% \fi
+% \iffalse
+%<*class>
+% \fi
 %    \begin{macrocode}
 %% --- Booleans ----------------------------------
 
-\newbool{HEC@legacy} % Whether the author uses lualatex et al. or legacy tech
-\newbool{HEC@phd} % Whether the author is at phd level or not
-\newbool{HEC@articlebased} % Whether the document is a compilation of articles or not
+\RequirePackage{etoolbox}
+% Whether the author uses lualatex et al. or legacy tech
+\newbool{HEC@legacy} 
+% Whether the author is at phd level or not
+\newbool{HEC@phd} 
+% Whether the document is a compilation of articles or not
+\newbool{HEC@articlebased}
+ 
 %    \end{macrocode}
 %
+% \ifFrenchDoc
 % \subsection{Options de classes}
 % \label{subsec:class-options}
 %
+%	Il y a quatre catégories d'options de classe définies
+%	dans la classe \textsf{hecthese} : les tailles
+%	de caractères, le cycle d'études, le type de document et
+%	le type de compilateur utilisé.
+%
+%	Les trois options de tailles de caractères acceptées à
+%	HEC Montréal, |10pt|, |11pt| et |12pt|, sont passées
+%	directement à la classe \textsf{memoir}. Cette dernière
+%	peut accepter des tailles de caractères allant de |4pt|
+%	à |132pt|, alors il importe de circonscrire les options
+%	de tailles de caractères à celles acceptées par l'École
+%	afin d'empêcher la production d'horreurs typographiques.
+%
+% \else
+% \subsection{Class Options}
+% \label{subsec:class-options}
+%
+%	There are four categories of class options defined in the
+%	\textsf{hecthese} class: font sizes, degree level, document
+%	type, and the type of compiler used.
+%
+%	The three font size options accepted at HEC Montréal, |10pt|,
+%	|11pt|, and |12pt|, are passed directly to the \textsf{memoir}
+%	class. The latter can accept font sizes ranging from |4pt| to
+%	|132pt|, so it is important to restrict the font size options to
+%	those accepted by the School in order to prevent the production
+%	of typographic horrors.
+% 
+% \fi
 %    \begin{macrocode}
 %% --- Class options -----------------------------
 
@@ -2064,9 +2130,61 @@
 \DeclareOption{12pt}{%
 	\PassOptionsToClass{12pt}{memoir}
 }
+%    \end{macrocode}
+%
+% \ifFrenchDoc
+%	Lorsque des variables booléennes sont créées par le
+%	\pkg{etoolbox}, elles sont créées avec la valeur |false|
+%	par défaut. C'est pourquoi l'option de classe |legacy|
+%	bascule la valeur booléenne |HEC@legacy| à |true| lorsqu'elle
+%	est déclarée dans les options de la commande |\documentclass|
+%	et c'est pourquoi il n'y a pas d'autres commandes pour retourner la
+%	variable à |false|.
+%
+% \else
+%	When boolean variables are created by \pkg{etoolbox}, they are
+%	created with the value |false| by default. This is why the
+%	|legacy| class option switches the |HEC@legacy| boolean to
+%	|true| when it is declared in the options of the |\documentclass|
+%	command, and why there are no other commands to return the
+%	variable to |false|.
+% 
+% \fi
+%    \begin{macrocode}
 \DeclareOption{legacy}{%
 	\booltrue{HEC@legacy}
 }
+%    \end{macrocode}
+%
+% \ifFrenchDoc
+%	Considérant le comportement par défaut des variables booléennes,
+%	nous aurions pu déclarer la moitié seulement des options ci-dessous,
+%	soit une seule pour le cycle d'études et une seule pour le type
+% 	de document, |phd| et |articles| en occurrence.
+%
+%	Cependant, il nous apparaissait plus convivial du point de vue
+%	de l'utilisateur de fournir une option par cycle d'études et
+%	une autre par type de documents.
+%
+%	Ainsi, en ajoutant les options |msc| et |monograph|, nous nous assurons
+%	que les personnes utilisant les gabarits n'auront pas à chercher
+%	à savoir si toutes les options sont déclarées adéquatement
+%	dans leur document.
+%
+% \else
+%	Considering the default behavior of boolean variables, we could
+%	have declared only half of the options below — one for the degree
+%	level and one for the document type, namely |phd| and |articles|.
+%
+%	However, it seemed more user-friendly to provide one option per
+%	degree level and another per document type.
+%
+%	Thus, by adding the |msc| and |monograph| options, we ensure
+%	that users of the templates will not have to wonder whether all
+%	options are properly declared in their document.
+%
+% \fi
+%    \begin{macrocode}
 \DeclareOption{msc}{%
 	\boolfalse{HEC@phd}
 }
@@ -2079,41 +2197,218 @@
 \DeclareOption{articles}{%
 	\booltrue{HEC@articlebased}
 }
-
+%    \end{macrocode}
+%
+% \ifFrenchDoc
+% \subsection{Chargement de la classe \textsf{memoir}}
+%
+%	Une fois que toutes les options de classe sont déclarées,
+%	on passe toutes les autres options à la classe \textsf{memoir}
+%	et on la charge afin de profiter de ses fonctionnalités.
+%
+% \else
+% \subsection{Loading the \textsf{memoir} Class}
+%
+%	Once all class options have been declared, all remaining options
+%	are passed to the \textsf{memoir} class and it is loaded to take
+%	advantage of its features.
+%
+% \fi
+%    \begin{macrocode}
 % All undeclared options are passed to memoir without warnings
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{memoir}}
-
-\ExecuteOptions{12pt} % Default font size
+\ExecuteOptions{10pt} % Default font size
 \ProcessOptions\relax
 \LoadClass{memoir}
 %    \end{macrocode}
 %
+% \ifFrenchDoc
 % \subsection{\emph{Packages} requis par la classe}
 % \label{subsec:required-pkg}
 %
+%	Depuis sa version initiale, le but de la classe \textsf{hecthese}
+%	est avant tout d'être un environnement «bac à sable» que n'importe
+%	qui peut adapter à ses propres besoins de recherche et de rédaction.
+%
+%	C'est pourquoi très peu de \emph{packages} sont requis par
+%	la classe. En fait, les seuls \emph{packages} chargés par celle-ci 
+%	ne servent qu'à gérer ses fonctionnalités.
+%
+%	Le premier de ceux-ci est le \pkg{xkeyval}. Ce \emph{package} permet
+%	de créer des commandes dans lesquelles on peut insérer des options
+%	sous la forme |clé=valeur|. Cette fonctionnalité est utilisée dans
+%	toutes les commandes comprises dans la liste des membres du jury
+%	du doctorat ainsi que dans la commande |\mscdirector|.
+%
+%	Cette fonctionnalité est aussi utilisée dans la commande |\dedication|
+%	avec son option |signed|.
+%
+% \else
+% \subsection{Packages Required by the Class}
+% \label{subsec:required-pkg}
+%
+%	Since its initial version, the goal of the \textsf{hecthese}
+%	class has been first and foremost to be a sandbox environment
+%	that anyone can adapt to their own research and writing needs.
+%
+%	This is why very few packages are required by the class. In
+%	fact, the only packages loaded by the class serve solely to
+%	manage its own features.
+%
+%	The first of these is \pkg{xkeyval}. This package allows the
+%	creation of commands that accept options in |key=value| form.
+%	This feature is used in all commands included in the doctoral
+%	jury member list, as well as in the |\mscdirector| command.
+%
+%	This feature is also used in the |\dedication| command with its
+%	|signed| option.
+%
+% \fi
 %    \begin{macrocode}
 %% --- Required packages -------------------------
 
-\RequirePackage{amsmath}
-\ifbool{HEC@legacy}{% true
-	\RequirePackage[utf8]{inputenc} % legacy UTF-8 support
-	\RequirePackage[T1]{fontenc} % T1 family fonts
-}{% false	
-	\RequirePackage{fontspec} % Font handling with lualatex, loaded after math pkgs
-	\RequirePackage{unicode-math} % Best results for math mode in lualatex, must be loaded after math + font pkgs
-}
-\RequirePackage{babel}
-\RequirePackage{csquotes} % strongly recommended by biblatex to render quotes in languages other than english
-\RequirePackage{calc} % Mandatory for the list of abreviations' customization
-\RequirePackage{enumitem} % Mandatory for the list of abreviations' customization
+\RequirePackage{xkeyval}
 %    \end{macrocode}
 %
+% \ifFrenchDoc
+%	Les deux \emph{packages} suivants sont le \pkg{amsmath} et son aidant
+%	naturel, le \pkg{mathtools}. Pourquoi sont-ils chargés si tôt dans la
+%	classe? Tout simplement parce qu'ils doivent être chargés avant les
+%	\emph{packages} liés à \textsf{lualatex}. Ce faisant, on s'assure que
+%	la gestion des caractères mathématiques dans le document est optimale.
+%
+% \else
+%	The next two packages are \pkg{amsmath} and its natural
+%	companion, \pkg{mathtools}. Why are they loaded so early in the
+%	class? Simply because they must be loaded before the
+%	\textsf{lualatex}-related packages. In doing so, we ensure
+%	optimal handling of mathematical characters in the document.
+%
+% \fi
+%    \begin{macrocode}
+\RequirePackage{amsmath}
+\RequirePackage{mathtools}
+%    \end{macrocode}
+%
+% \ifFrenchDoc
+% 	Parlant de \textsf{lualatex}, c'est ici que sa prise en charge s'effectue.
+%	En fonction de la valeur booléenne |HEC@legacy|, la classe va soit charger
+%	les \emph{packages} nécessaires à l'encodage des polices de caractères
+%	pour le compilateur \textsf{pdflatex}, soit charger les \emph{packages}
+%	nécessaires à la gestion des polices et des mathématiques sous
+%	\textsf{lualatex}.
+%
+% \else
+% 	Speaking of \textsf{lualatex}, this is where its support is
+%	implemented. Depending on the value of the |HEC@legacy| boolean,
+%	the class will either load the packages required for font
+%	encoding with the \textsf{pdflatex} compiler, or load the
+%	packages required for font and math management under
+%	\textsf{lualatex}.
+%
+% \fi
+%    \begin{macrocode}
+\ifbool{HEC@legacy}{% true
+	% legacy UTF-8 support
+	\RequirePackage[utf8]{inputenc} 
+	% T1 family fonts
+	\RequirePackage[T1]{fontenc} 
+}{% false
+	% Font handling with lualatex, loaded after math pkgs
+	\RequirePackage{fontspec}
+	% Best results for math mode in lualatex, 
+	% must be loaded after math + font pkgs 
+	\RequirePackage{unicode-math} 
+}
+%    \end{macrocode}
+%
+% \ifFrenchDoc
+%	Viennent ensuite le chargement des \emph{packages} gérant les langues
+%	autres que l'anglais dans \LaTeX. Dans le cas de la classe \textsf{hecthese},
+%	on ne fait que charger deux «classiques», \textsf{babel} pour les langues
+%	et \textsf{csquotes} pour la gestion des guillemets français.
+%
+% \else
+%	Next come the packages managing non-English languages in \LaTeX.
+%	In the case of the \textsf{hecthese} class, we simply load two
+%	``classics'': \textsf{babel} for languages and \textsf{csquotes}
+%	for handling French quotation marks.
+%
+% \fi
+%    \begin{macrocode}
+\RequirePackage{babel}
+% strongly recommended by biblatex to render quotes 
+% in languages other than english
+\RequirePackage{csquotes}
+%    \end{macrocode}
+%
+% \ifFrenchDoc
+%	Finalement, la classe charge deux \emph{packages} nécessaires à la
+%	personnalisation de la liste des abréviations. Tout le monde aime avoir
+%	des listes bien ordonnées et alignées et c'est ce que \textsf{calc} et
+%	\textsf{enumitem} nous permettent d'accomplir dans l'environnement
+%	|description| de \LaTeX.
+%
+% \else
+%	Finally, the class loads two packages required for customizing
+%	the list of abbreviations. Everyone appreciates well-ordered,
+%	aligned lists, and that is precisely what \textsf{calc} and
+%	\textsf{enumitem} allow us to achieve within the |description|
+%	environment of \LaTeX.
+%
+% \fi
+%    \begin{macrocode}
+ % Mandatory for the list of abreviations' customization
+\RequirePackage{calc}
+ % Mandatory for the list of abreviations' customization
+\RequirePackage{enumitem}
+%    \end{macrocode}
+%
+% \ifFrenchDoc
 % \subsection{Mise en page}
 % \label{subsec:layout}
+%
+%	La configuration qui suit répond en tous points à la section
+%	\emph{5.1 Présentation graphique et pagination} du
+%	\emph{Guide de rédaction}\cite{cfla2020guide}.
 %
 % \subsubsection{Marges}
 % \label{subsubsec:margins}
 %
+%	Dans cette section du \emph{Guide de rédaction}, il est indiqué
+%	que « les marges du haut, du bas et celle de droite sont standards
+%	(2 à 3cm); celle de gauche est de 4 à 5cm.»\footnote{\emph{Loc. cit.}}
+%
+%	Les deux commandes |\set*marginsandblock| fixent donc la marge de la
+%	reliure à 4cm et toutes les autres à 2.5cm. La commande
+%	|\checkandfixthelayout| prend ces deux commandes et en fixe la mise en
+%	forme dans le gabarit, et l'algorithme |fixed| fait en sorte que rien
+%	ne bouge d'une page à l'autre et que les blocs de texte soient de la
+%	même dimension tout au long du document.
+%
+% \else
+% \subsection{Page Layout}
+% \label{subsec:layout}
+%
+%	The following configuration fully complies with section
+%	\emph{5.1 Présentation graphique et pagination} of the
+%	\emph{Guide de rédaction}\cite{cfla2020guide}.
+%
+% \subsubsection{Margins}
+% \label{subsubsec:margins}
+%
+%	In this section of the \emph{Guide de rédaction}, it is stated
+%	that ``the top, bottom, and right margins are standard (2 to
+%	3~cm); the left margin is 4 to 5~cm.''\footnote{\emph{Loc. cit.}}
+%
+%	The two |\set*marginsandblock| commands therefore set the binding
+%	margin to 4~cm and all others to 2.5~cm. The
+%	|\checkandfixthelayout| command takes these two commands and
+%	fixes the layout in the template, and the |fixed| algorithm
+%	ensures that nothing shifts from one page to the next and that
+%	text blocks remain the same size throughout the document.
+%
+% \fi
 %    \begin{macrocode}
 %% --- Layout ------------------------------------
 
@@ -2124,9 +2419,114 @@
 \checkandfixthelayout[fixed] % Fixed algorithm for fixed margins
 %    \end{macrocode}
 %
+% \ifFrenchDoc
+%	Avec cette configuration, la classe \textsf{memoir} utilise la
+%	commande |\flushbottom| pour étirer tous les blocs de texte de
+%	sorte qu'ils prennent tout l'espace qu'ils \textbf{doivent}
+%	prendre, les marges étant fixes.
+%
+%	Historiquement, cette configuration a convenu à la plupart des
+%	gens. Dans quelques rares cas, \LaTeX\ a produit des portions de
+%	thèses ou mémoires dont l'espacement entre les paragraphes d'une
+%	page était beaucoup trop grand, du fait de cet étirement du bloc
+%	de texte. Dans tous les cas sauf un, décrit ci-dessous, une simple
+%	restructuration des paragraphes a suffi à remettre la typographie
+%	de la page à l'ordre\footnote{En ce sens, la lecture de la section
+%	\emph{3. Le texte : de la phrase au paragraphe} du 
+%	\emph{Guide de rédaction} est très recommandé si vous voulez
+%	bien organiser vos blocs de texte.}.
+%	
+%	\DescribeMacro{\raggedbottom}
+%	Dans un seul cas, par contre, il a été impossible de restructurer
+%	le texte de sorte que la page en question n'ait l'air d'une
+%	horreur typographique. Si vous vous retrouvez dans une telle
+%	situation où, malgré tous vos efforts, vous n'arrivez
+%	pas à obtenir des espacements décents entre vos paragraphes,
+%	inscrivez simplement la commande |\raggedbottom| dans le préambule
+%	de votre gabarit. Avec cette commande, \LaTeX\ ne fera pas d'efforts
+%	pour maintenir une hauteur constante entre les blocs de texte. Vous
+%	vous retrouverez donc avec des marges inférieures pas tout à fait identiques
+%	d'une page à l'autre (à quelques points près), mais vous aurez un espacement
+%	entre les paragraphes plus constant.
+%
 % \subsubsection{Paragraphes}
 % \label{subsubsec:paragraphs}
 %
+%	Toujours dans la même section du \emph{Guide de rédaction}, il est indiqué
+%	que «le texte est généralement écrit à interligne et demie (1,5) avec un
+%	espacement d'au moins 6 points entre les paragraphes.»
+%	\footnote{\emph{Loc. cit.}} La commande |\OnehalfSpacing| de la classe
+%	\textsf{memoir} s'occupe de l'interligne, tandis que la configuration
+%	de |\parskip| à la demie de la valeur de |\baselineskip| répond à
+%	l'exigence de l'espacement minimal entre les paragraphes :
+%
+%	\begin{itemize}
+%		\item Lorsque la police de caractères est configurée à |10pt|, la
+%		valeur de la longueur |\baselineskip| est de |15pt| à interligne et demie.
+%		L'espacement entre les paragraphes est donc de |7.5pt|.
+%		\item Lorsque la police de caractères est configurée à |12pt|, la
+%		valeur de la longueur |\baselineskip| est de |18pt| à interligne et demie.
+%		L'espacement entre les paragraphes est donc de |9pt|.
+%	\end{itemize}
+%
+%	Plus loin, il est aussi indiqué «[qu'on] ne recommande [généralement] pas
+%	le retrait d'alinéa.»\footnote{\emph{Loc. cit.}} C'est pourquoi la
+%	valeur de |\parindent| est configurée à |0pt|.
+%
+% \else
+%	With this configuration, the \textsf{memoir} class uses the
+%	|\flushbottom| command to stretch all text blocks so that they
+%	take up all the space they \textbf{must} occupy, the margins
+%	being fixed.
+%
+%	Historically, this configuration has suited most users. In a
+%	few rare cases, \LaTeX\ has produced sections of theses or
+%	dissertations in which the inter-paragraph spacing on a page
+%	was far too large, due to this text block stretching. In all
+%	but one case, described below, a simple restructuring of the
+%	paragraphs was sufficient to restore the page's typographic
+%	order\footnote{In this regard, reading section \emph{3.~Le
+		%	texte~: de la phrase au paragraphe} of the \emph{Guide de
+		%	rédaction} is highly recommended if you wish to properly
+	%	organize your text blocks.}.
+%
+%	\DescribeMacro{\raggedbottom}
+%	In one case, however, it was impossible to restructure the text
+%	so that the page in question would not look like a typographic
+%	horror. If you find yourself in such a situation where, despite
+%	all your efforts, you cannot achieve decent spacing between your
+%	paragraphs, simply add the |\raggedbottom| command to the
+%	preamble of your template. With this command, \LaTeX\ will not
+%	attempt to maintain a constant height between text blocks. You
+%	will therefore end up with bottom margins that are not quite
+%	identical from one page to the next (off by a few points), but
+%	you will have more consistent inter-paragraph spacing.
+%
+% \subsubsection{Paragraphs}
+% \label{subsubsec:paragraphs}
+%
+%	Still in the same section of the \emph{Guide de rédaction}, it
+%	is stated that ``text is generally written with one-and-a-half
+%	line spacing (1.5), with a spacing of at least 6 points between
+%	paragraphs.''\footnote{\emph{Loc. cit.}} The |\OnehalfSpacing|
+%	command of the \textsf{memoir} class handles line spacing, while
+%	setting |\parskip| to half the value of |\baselineskip| meets
+%	the minimum inter-paragraph spacing requirement:
+%
+%	\begin{itemize}
+	%		\item When the font size is set to |10pt|, the value of the
+	%		|\baselineskip| length is |15pt| at one-and-a-half line
+	%		spacing. The inter-paragraph spacing is therefore |7.5pt|.
+	%		\item When the font size is set to |12pt|, the value of the
+	%		|\baselineskip| length is |18pt| at one-and-a-half line
+	%		spacing. The inter-paragraph spacing is therefore |9pt|.
+	%	\end{itemize}
+%
+%	Further on, it is also stated that ``[paragraph] indentation is
+%	[generally] not recommended.''\footnote{\emph{Loc. cit.}} This
+%	is why the value of |\parindent| is set to |0pt|.
+%
+% \fi
 %    \begin{macrocode}
 %% ------ Line and paragraph spacing -------------
 
@@ -2135,9 +2535,68 @@
 \setlength{\parindent}{0pt}
 %    \end{macrocode}
 %
+% \ifFrenchDoc
 % \subsubsection{Polices de caractères}
 % \label{subsubsec:fonts}
 %
+%	Comme il l'a été dit dans les sections \ref{subsubsec:lualatex}
+%	et \ref{subsubsec:user-guide-class-options}, la gestion des
+%	polices de caractères se fait différemment que vous utilisiez
+%	\textsf{pdflatex} ou \textsf{lualatex}.
+%
+%	Avec l'option |legacy| et son compilateur associé \textsf{pdflatex},
+%	la police de caractères de base pour tout le document est la
+%	classique \emph{Computer Modern}. Pour l'impression des équations
+%	mathématiques, une police équivalente à \emph{Adobe Times Roman}
+%	est fournie par le \pkg{mathptmx}\cite{schmidt2020using}.
+%
+%	Si vous utilisez \textsf{lualatex} à titre de compilateur par
+%	défaut, les polices de la famille \emph{TeX Gyre} sont activées
+%	par défaut parce qu'elles sont disponibles dans toutes les
+%	distributions de TeX Live de même que dans Overleaf.
+%
+%	Cependant, il vous est possible d'utiliser n'importe quelle
+%	police de caractères locale de type \emph{Open Type} ou
+%	\emph{True Type}, dans la mesure où la police choisie est
+%	de facture classique, comme le sont les polices \emph{Arial},
+%	\emph{Colibri} et \emph{Times New Roman} par exemple.
+%
+%	Assurez-vous cependant que la police choisie accepte tous les
+%	symboles mathématiques que vous utiliserez, à défaut de quoi
+%	vous devrez minimalement conserver la police \emph{TeX Gyre Termes Math}
+%	fournie avec la classe \textsf{hecthese.}
+%
+% \else
+% \subsubsection{Fonts}
+% \label{subsubsec:fonts}
+%	As discussed in sections \ref{subsubsec:lualatex} and
+%	\ref{subsubsec:user-guide-class-options}, font management
+%	differs depending on whether you use \textsf{pdflatex} or
+%	\textsf{lualatex}.
+%
+%	With the |legacy| option and its associated compiler
+%	\textsf{pdflatex}, the base font for the entire document is
+%	the classic \emph{Computer Modern}. For typesetting
+%	mathematical equations, a font equivalent to \emph{Adobe Times
+	%	Roman} is provided by the \pkg{mathptmx}
+%	package\cite{schmidt2020using}.
+%
+%	If you use \textsf{lualatex} as the default compiler, fonts
+%	from the \emph{TeX Gyre} family are enabled by default because
+%	they are available across all TeX Live distributions as well as
+%	on Overleaf.
+%
+%	However, you may use any locally installed \emph{OpenType} or
+%	\emph{TrueType} font, provided the chosen font is of a
+%	classical design, such as \emph{Arial}, \emph{Calibri}, and
+%	\emph{Times New Roman}, for example.
+%
+%	Make sure, however, that the chosen font supports all the
+%	mathematical symbols you will use; otherwise, you will need to
+%	at least keep the \emph{TeX Gyre Termes Math} font provided
+%	with the \textsf{hecthese} class.
+%
+% \fi
 %    \begin{macrocode}
 %% ------ Fonts ----------------------------------
 
@@ -2154,8 +2613,75 @@
 }
 %    \end{macrocode}
 %
+% \ifFrenchDoc
+%	\DescribeMacro{\setmainfont}
+%	Pour changer la police de caractères par défaut, utilisez la commande
+%	|\setmainfont| du \pkg{fontspec} et saisissez le nom de la police ou
+%	le nom du fichier contenant la police, tel qu'indiqué dans la documentation
+%	du \emph{package}
+%	\cite{robertson2025fontspec}.
+%
 % \subsubsection{Métadonnées du document}
 % \label{subsubsec:tech-doc-metadata}
+%
+%	La \autoref{subsubsec:user-guide-metadata} a introduit les six
+%	métadonnées de base communes à tous les types de documents
+%	fournis avec la classe. Les trois commandes |\title|, |\author|
+%	et |\date| provenant de \LaTeX\ demeurent inchangées dans
+%	\textsf{hecthese}. La présente classe ajoute à celles-ci le
+%	sous-titre, la spécialisation du programme d'études ainsi que
+%	l'année de droits d'auteur.
+%
+%	Il y a deux dimensions à chacune de ces trois nouvelles métadonnées:
+%
+%	\begin{enumerate}
+%		\item elles ont chacune une commande publique dans laquelle
+%		l'étudiant(e) saisit la métadonnées : |\thesissubtitle|, 
+%		|\specialization| et |\copyrightyear|;
+%		\item chaque commande publique a une commande interne associée
+%		qui réutilise la métadonnée inscrite par l'étudiant(e) pour
+%		l'afficher sur la page titre : |\thesubtitle|, |\thespecialization|
+%		et |\theyear|.
+% 	\end{enumerate}
+%
+%	Lorsque vous saisissez vos métadonnées dans les commandes publiques,
+%	les commandes internes sont redéfinies par la classe pour contenir ces
+%	nouvelles informations.
+%
+% \else
+%%	\DescribeMacro{\setmainfont}
+%	To change the default font, use the |\setmainfont| command from
+%	\pkg{fontspec} and enter the name of the font or the name of
+%	the file containing the font, as described in the package
+%	documentation\cite{robertson2025fontspec}.
+%
+% \subsubsection{Document Metadata}
+% \label{subsubsec:tech-doc-metadata}
+%
+%	\autoref{subsubsec:user-guide-metadata} introduced the six
+%	basic metadata fields common to all document types provided
+%	with the class. The three commands |\title|, |\author|, and
+%	|\date| from \LaTeX\ remain unchanged in \textsf{hecthese}.
+%	The present class adds to these the subtitle, the study program
+%	specialization, and the copyright year.
+%
+%	Each of these three new metadata fields has two dimensions:
+%
+%	\begin{enumerate}
+	%		\item each has a public command in which the student enters
+	%		the metadata: |\thesissubtitle|, |\specialization|, and
+	%		|\copyrightyear|;
+	%		\item each public command has an associated internal command
+	%		that reuses the metadata entered by the student to display
+	%		it on the title page: |\thesubtitle|, |\thespecialization|,
+	%		and |\theyear|.
+	% 	\end{enumerate}
+%
+%	When you enter your metadata in the public commands, the
+%	internal commands are redefined by the class to hold this new
+%	information.
+%
+% \fi
 %    \begin{macrocode}
 %% --- Thesis metadata ---------------------------
 
@@ -2175,9 +2701,77 @@
 }
 %    \end{macrocode}
 %
-% \subsubsection{Membres du jury du doctorat}
+% \ifFrenchDoc
+% \subsubsection{Directeurs et autres évaluateurs de recherche}
 % \label{subsubsec:jury-members}
 %
+%	La \autoref{subsubsec:user-guide-metadata} a introduit les
+%	commandes liées aux personnes qui supervisent ou évaluent
+%	les mémoires et thèses des étudiant(e)s, ainsi
+%	que la mécanique de l'accord du titre avec le genre de la
+%	personne grâce à l'option |gender|.
+%
+%	Cette même section a mentionné comment la liste des membres
+%	du jury s'alignait dans la page d'identification du jury du
+%	doctorat grâce à l'option |last| du dernier membre de la liste
+%	du jury.
+%
+%	Cette mécanique d'options est rendue possible grâce au
+%	\pkg{xkeyval}, comme nous l'avons déjà mentionné.
+%
+%	La classe définit pour ce faire deux clés, l'une booléenne
+%	(|last|) et l'autre à choix de valeurs (|gender|). Ces deux
+%	clés sont contenues dans un groupe de clés appelé |HEC@jury|.
+%
+%	La clé |last| est définie à |false| par défaut tandis que la
+%	clé |gender| est définie à |M| par défaut, avec un choix de
+%	valeurs prédéfinies de |M| ou |F|.
+%
+%	Une variable booléenne |HEC@islastjury| ainsi qu'une commande
+%	interne |\HEC@jurygender| ont aussi été créées afin de contenir
+%	les valeurs de ces clés au moment de l'évaluation des commandes
+%	publiques par le compilateur afin que les titres des personnes
+%	soient bien accordés au moment de l'appel des commandes des
+% 	pages titres
+%	\footnote{Sans ces commandes, tous les membres de jury se
+%	retrouvaient avec le genre de la dernière personne de la liste.
+%	L'auteur de ces lignes vous épargnera un mal de tête inutile en
+%	omettant de vous expliquer le pourquoi du comment...}.
+%
+% \else
+% \subsubsection{Directors and Other Research Evaluators}
+% \label{subsubsec:jury-members}
+%
+%	\autoref{subsubsec:user-guide-metadata} introduced the commands
+%	related to the people who supervise or evaluate student
+%	dissertations and theses, as well as the mechanism for matching
+%	the title to the person's gender using the |gender| option.
+%
+%	That same section described how the jury member list aligns on
+%	the doctoral jury identification page using the |last| option
+%	on the last member of the jury list.
+%
+%	This option mechanism is made possible by \pkg{xkeyval}, as
+%	already mentioned.
+%
+%	To this end, the class defines two keys: one boolean (|last|)
+%	and one with a choice of values (|gender|). Both keys belong to
+%	a key group called |HEC@jury|.
+%
+%	The |last| key defaults to |false|, while the |gender| key
+%	defaults to |M|, with a predefined set of values |M| or |F|.
+%
+%	A boolean variable |HEC@islastjury| and an internal command
+%	|\HEC@jurygender| were also created to hold the values of these
+%	keys at the time the public commands are evaluated by the
+%	compiler, so that titles are properly gender-matched when the
+%	title page commands are called\footnote{Without these commands,
+%	all jury members would end up with the gender of the last person
+%	in the list. The author of these lines will spare you a needless
+%	headache by omitting to explain the why and the
+%	how\ldots}.
+%
+% \fi
 %    \begin{macrocode}
 %% ------ Key-values for jury list ---------------
 
@@ -2193,8 +2787,44 @@
 \define@choicekey{HEC@jury}{gender}{M,F}[M]{%
 	\renewcommand{\HEC@jurygender}{#1}
 }
-
-%% ------ Jury list ------------------------------
+%    \end{macrocode}
+%
+% \ifFrenchDoc
+%	Pour les mémoires de maîtrise, la seule personne supervisant
+%	l'étudiant(e) est le directeur ou la directrice de
+%	recherche. Les informations de cette dernière s'insèrent 
+%	dans la commande |\mscdirector|
+%	du préambule du gabarit.
+%
+%	Cette commande est construite comme toutes celles des membres
+%	du jury du doctorat. Lorsqu'elle est appelée, elle évalue la
+%	valeur de l'option |gender| saisie par l'étudiant(e)
+%	et l'insère dans la clé du même nom du groupe |HEC@jury|.
+%	Elle génère ensuite le nom, l'affiliation et le titre du directeur
+%	ou de la directrice sur trois lignes distinctes.
+%
+%	Ces données sont inscrites à l'intérieur de la commande interne
+%	|\themscdirector| qui, elle, est appelée par la commande
+%	|\msctitlepage|, qu'on verra plus loin.
+%
+% \else
+%	For master's dissertations, the only person supervising the
+%	student is the research director. Their information is entered
+%	in the |\mscdirector| command in the template preamble.
+%
+%	This command is built like all those for doctoral jury members.
+%	When called, it evaluates the value of the |gender| option
+%	entered by the student and inserts it into the key of the same
+%	name in the |HEC@jury| group. It then generates the name,
+%	affiliation, and title of the director on three separate lines.
+%
+%	This data is stored inside the internal command
+%	|\themscdirector|, which is in turn called by the
+%	|\msctitlepage| command, discussed further below.
+%
+% \fi
+%    \begin{macrocode}
+%% ------ M.Sc. Director ------------------------------
 
 \newcommand{\themscdirector}{}
 \newcommand{\mscdirector}[2][]{%
@@ -2205,9 +2835,57 @@
 		Direct\ifdefstring{\HEC@jurygender}{F}{rice}{eur} de recherche%
 	}
 }
+%    \end{macrocode}
+%
+% \ifFrenchDoc
+%	Comme nous l'avons mentionné au paragraphe précédent, les commandes
+%	liées au membres du jury du doctorat sont construites de la même
+%	manière que la commande |\mscdirector|. La seule différence est 
+%	que les informations ne sont pas retranscrites dans une commande
+%	interne, mais plutôt dans la commande publique |\phdjurylist|, qu'on
+%	verra plus loin.
+%
+%	Certaines commandes permettent à l'étudiant(e) d'inscrire une
+%	affiliation autre que HEC Montréal. Ce sont les commandes
+%	|\phdcodirector|, |\phdjurymember| et |\phdexternalexaminator|.
+%	À l'intérieur de celle-ci est évaluée la valeur de l'argument
+%	\marg{affiliation}. Si celui-ci est vide, l'affiliation par
+%	défaut «HEC Montréal» est inscrite. Dans le cas contraire, c'est
+%	l'affiliation inscrite par l'étudiant(e) qui est utilisée.
+%
+%	Étant donné que la liste des membres du jury est maintenant
+%	personnalisable, chaque commande de cette liste accepte l'argument
+%	optionnel |last|. La commande évalue la présence de cette option
+%	et insère la commande |\vfill| dans le bloc de texte du membre du
+%	jury si elle ne s'y trouve pas.
+%
+% \else
+%	As mentioned in the preceding paragraph, the commands related
+%	to doctoral jury members are constructed in the same manner as
+%	the |\mscdirector| command. The only difference is that the
+%	information is not stored in an internal command but rather
+%	appended directly to the public |\phdjurylist| command,
+%	discussed further below.
+%
+%	Certain commands allow the student to enter an affiliation other
+%	than HEC Montréal. These are the |\phdcodirector|,
+%	|\phdjurymember|, and |\phdexternalexaminator| commands. Within
+%	each of these, the value of the \marg{affiliation} argument is
+%	evaluated. If it is empty, the default affiliation
+%	``HEC Montréal'' is used; otherwise, the affiliation entered by
+%	the student is used.
+%
+%	Since the jury member list is now customizable, each command in
+%	this list accepts the |last| optional argument. The command
+%	evaluates the presence of this option and inserts the |\vfill|
+%	command in the jury member's text block if it is not present.
+%
+% \fi
+%    \begin{macrocode}
+%% ------ Jury list ------------------------------
 
 \newcommand{\phddirector}[2][]{%
-	\setkeys{HEC@jury}{gender=M,#1}
+	\setkeys{HEC@jury}{gender=M,last=false,#1}
 	#2 \\ % Name
 	HEC Montréal \\
 	Direct\ifdefstring{\HEC@jurygender}{F}{rice}{eur} de recherche%
@@ -2255,12 +2933,78 @@
 }
 %    \end{macrocode}
 %
+% \ifFrenchDoc
 % \subsection{Divisions d'un mémoire ou d'une thèse}
 % \label{subsec:doc-divisions}
+%
+%	Dans cette section, nous vous présenterons toutes les commandes
+%	permettant de formater les différentes parties de votre mémoire
+%	ou thèse.
+%
+%	Avant d'aborder le sujet, par contre, vous nous permettrez une
+%	petite anecdote liée au support technique offert depuis les
+%	débuts de la classe \textsf{hecthese}.
+%
+%	Année après année, session après session, les mêmes questions reviennent :
+%	pourquoi y a-t-il une page blanche au début et à la fin de ma thèse? Pourquoi
+%	est-ce que les marges changent entre les pages paires et les pages impaires?
+%	Pourquoi y a-t-il des pages blanches après certains chapitres?
+%
+%	À toutes ces questions, nous pouvons répondre par la même réponse : malgré le
+%	fait que nous vivions dans une ère numérique et que les étudiant(e)s
+%	aient à remettre leur mémoire ou thèse en format PDF, il faut savoir que
+%	\textbf{l'actuelle mise en page sert à la version imprimée du document} et
+%	qu'il faut donc suivre les conventions d'édition papier.
 %
 % \subsubsection{Pages de garde}
 % \label{subsubsec:innerpages}
 %
+%	La première de ces conventions est la page de garde qu'on retrouve au début
+%	et à la fin de votre document. Le but de ces pages est de «protéger la première
+%	et la dernière page imprimée»\cite{oqlf2026garde}.
+%
+%	La première page de garde est contenue à l'intérieur de la commande
+%	|\frontinnerpage|. Cette commande ne se retrouve nulle part dans les gabarits
+%	puisqu'elle est imbriquée dans les commandes de pages titres, qu'on verra plus
+% 	loin.
+%
+% \else
+% \subsection{Divisions of a Dissertation or Thesis}
+% \label{subsec:doc-divisions}
+%
+%	In this section, we will present all the commands used to format
+%	the various parts of your dissertation or thesis.
+%
+%	Before addressing the subject, however, we will share a brief
+%	anecdote related to the technical support provided since the
+%	\textsf{hecthese} class was first released.
+%
+%	Year after year, semester after semester, the same questions
+%	come up: why is there a blank page at the beginning and at the
+%	end of my thesis? Why do the margins change between even and odd
+%	pages? Why are there blank pages after some chapters?
+%
+%	To all these questions, we can give the same answer: despite the
+%	fact that we live in a digital age and that students must submit
+%	their dissertation or thesis in PDF format, it is important to
+%	understand that \textbf{the current page layout is designed for
+	%	the printed version of the document}, and that the conventions
+%	of print publishing must therefore be followed.
+%
+% \subsubsection{Flyleaves}
+% \label{subsubsec:innerpages}
+%
+%	The first of these conventions is the flyleaf found at the
+%	beginning and at the end of your document. The purpose of these
+%	pages is to ``protect the first and last printed
+%	page''\cite{oqlf2026garde}.
+%
+%	The front flyleaf is contained within the |\frontinnerpage|
+%	command. This command does not appear anywhere in the templates
+%	as it is nested within the title page commands, discussed
+%	further below.
+% 
+% \fi
 %    \begin{macrocode}
 %% --- Thesis parts ------------------------------
 
@@ -2274,9 +3018,153 @@
 }
 %    \end{macrocode}
 %
+% \ifFrenchDoc
+%	La dernière page de garde, quant à elle, est inscrite à la toute fin du fichier
+%	gabarit, tout juste avant la commande |\end{document}| :
+%
+%	\begin{codeblock}
+%		|%% --- Page de garde arrière ----------------------| \\
+%		|\mbox{}| \\
+%		|\thispagestyle{empty}|
+%	\end{codeblock}
+%
+% \subsubsection{Ouverture des chapitres}
+%
+%	La deuxième convention typographique est que \textbf{tous les chapitres doivent
+%	commencer sur la face recto d'une feuille}, donc sur une page impaire.
+%
+%	Dans ce cas-ci, la classe \textsf{hecthese} utilise les options de classe
+%	par défaut de la classe \textsf{memoir} :
+%
+%	\begin{itemize}
+%		\item |twoside| pour imprimer le document en recto-verso ;
+%		\item |openright| pour démarrer les chapitres sur une page impaire
+%		\footnote{Voir la section \emph{1.3 Printing Options} de la classe \textsf{memoir}
+%		\cite{wilson2025memoir}}.
+%	\end{itemize}
+%
+%	Si un de vos chapitres se termine à la page 10, par exemple, le chapitre suivant
+%	commencera à la page 11. Il n'y aura donc pas de page blanche entre les deux.
+%
+%	Si un autre de vos chapitres se termine à la page 41, par exemple, le chapitre
+%	suivant commencera à la page 43 parce qu'il doit commencer sur une page impaire.
+%	La page 42 apparaîtra blanche entre les deux parce qu'elle ne doit pas être
+%	numérotée. En consultant votre document dans sa version numérique, cela pourrait
+%	vous donner l'impression que le compilateur a sauté un numéro de page, mais
+%	si vous imprimez ce même document, en recto-verso évidemment, la logique de 
+%	l'ouverture de chapitres sur les faces recto des feuilles fera plus de sens.
+%
+% \subsubsection{La reliure du document}
+%
+%	La dernière des conventions est la reliure du document. Qu'un document soit
+%	relié par une couverture souple ou une couverture rigide, une partie du côté
+%	de la feuille qui est relié se trouve à être perdue. C'est pourquoi la marge
+%	intérieure, celle qui est du côté relié, est plus grande que la marge
+%	extérieure.
+%
+%	Encore une fois, si vous consultez la version numérique de votre document,
+%	vous constaterez que la marge la plus large passe de gauche à droite et
+%	inversement entre les pages impaires et paires. Cela peut vous donner l'impression
+%	que votre document «zigzague», mais lorsque ce même document est imprimé puis
+%	relié, toutes les marges se retrouvent identiques.
+%
 % \subsubsection{Pages titres}
 % \label{subsubsec:title-pages}
 %
+%	La classe \textsf{hecthese} utilise deux pages titres différentes,
+%	une pour les mémoires et une pour les thèses, et une page
+%	d'identification du jury du doctorat.
+%
+%	Chacune de ces pages utilisent l'environnement |titlingpage*| de
+%	la classe \textsf{memoir}. La version étoilée de l'environnement
+%	est utilisée pour faire en sorte que le numéro de page ne soit pas
+%	remis à 1 à la suite de la page titre, car, comme il est indiqué
+%	dans l'Annexe K du \emph{Guide de rédaction}, «[toutes] les pages
+%	sont comptées dans l'ordre numérique, sauf les deux pages de garde»
+%	\cite{cfla2020guide}.
+%
+%	La commande |\msctitlepage| gère la page titre d'un mémoire. Elle
+%	commence par appeler la commande |\frontinnerpage| afin de générer
+%	la page de garde puis génère la page titre avec les six métadonnées
+%	communes vues dans la \autoref{subsubsec:user-guide-metadata} ainsi
+%	que le nom du directeur ou de la directrice de recherche.
+%
+% \else
+%	The back flyleaf, for its part, is written at the very end of
+%	the template file, just before the |\end{document}| command:
+%
+%	\begin{codeblock}
+%		|%% --- Back flyleaf -------------------------| \\
+%		|\mbox{}| \\
+%		|\thispagestyle{empty}|
+%	\end{codeblock}
+%
+% \subsubsection{Chapter Openings}
+%
+%	The second typographic convention is that \textbf{all chapters
+%	must begin on the recto side of a sheet}, that is, on an
+%	odd-numbered page.
+%
+%	In this case, the \textsf{hecthese} class uses the default class
+%	options of the \textsf{memoir} class:
+%
+%	\begin{itemize}
+%		\item |twoside| to print the document double-sided;
+%		\item |openright| to start chapters on an odd-numbered
+%		page\footnote{See section \emph{1.3 Printing Options} of
+	%		the \textsf{memoir} class\cite{wilson2025memoir}}.
+%	\end{itemize}
+%
+%	If one of your chapters ends on page 10, for example, the next
+%	chapter will begin on page 11. There will therefore be no blank
+%	page between them.
+%
+%	If another of your chapters ends on page 41, for example, the
+%	next chapter will begin on page 43 because it must start on an
+%	odd-numbered page. Page 42 will appear blank between them
+%	because it must not be numbered. When viewing your document in
+%	its digital version, this might give the impression that the
+%	compiler skipped a page number, but if you print the same
+%	document double-sided, the logic of opening chapters on the
+%	recto sides of sheets will make more sense.
+%
+% \subsubsection{Document Binding}
+%
+%	The last convention concerns the binding of the document.
+%	Whether a document is bound with a soft cover or a hard cover,
+%	part of the bound edge of the sheet is lost. This is why the
+%	inner margin, the one on the binding side, is larger than the
+%	outer margin.
+%
+%	Again, if you view the digital version of your document, you
+%	will notice that the wider margin alternates from left to right
+%	between odd and even pages. This may give the impression that
+%	your document ``zigzags'', but when that same document is
+%	printed and bound, all margins will appear identical.
+%
+% \subsubsection{Title Pages}
+% \label{subsubsec:title-pages}
+%
+%	The \textsf{hecthese} class uses two different title
+%	pages --- one for master's dissertations and one for doctoral
+%	theses --- along with a doctoral jury identification page.
+%
+%	Each of these pages uses the |titlingpage*| environment from
+%	the \textsf{memoir} class. The starred version of the
+%	environment is used to prevent the page number from being reset
+%	to 1 after the title page, since, as stated in Appendix~K of
+%	the \emph{Guide de rédaction}, ``[all] pages are counted in
+%	numerical order, except for the two
+%	flyleaves''\cite{cfla2020guide}.
+%
+%	The |\msctitlepage| command handles the title page for a
+%	master's dissertation. It begins by calling the
+%	|\frontinnerpage| command to generate the flyleaf, then
+%	produces the title page with the six common metadata fields
+%	seen in \autoref{subsubsec:user-guide-metadata}, along with
+%	the name of the research director.
+%
+% \fi
 %    \begin{macrocode}
 %% ------ Title pages ----------------------------
 
@@ -2310,7 +3198,24 @@
 		\end{SingleSpace}
 	\end{titlingpage*}
 }
-
+%    \end{macrocode}
+%
+% \ifFrenchDoc
+%	La page titre de la thèse est gérée par la commande |\phdtitlepage|.
+%	Cette page est à peu près identique à celle du mémoire, à la différence
+%	qu'elle ne contient pas les informations du directeur ou de la directrice
+%	de recherche. Ces informations se retrouvent plutôt dans la page
+%	d'identification du jury.
+%
+% \else
+%	The doctoral thesis title page is handled by the
+%	|\phdtitlepage| command. This page is nearly identical to that
+%	of the master's dissertation, except that it does not contain
+%	the research director's information. That information appears
+%	instead on the jury identification page.
+%
+% \fi
+%    \begin{macrocode}
 \newcommand{\phdtitlepage}{%
 	\frontinnerpage
 	\begin{titlingpage*}
@@ -2335,11 +3240,53 @@
 		\end{SingleSpace}
 	\end{titlingpage*}
 }
-
+%    \end{macrocode}
+%
+% \ifFrenchDoc	
+%	Avant de discuter de la page d'identification du jury,
+%	il importe de parler de l'implémentation de la liste personnalisable
+%	dont il a été fait mention dans les sections \ref{subsubsec:jury} et 
+%	\ref{subsubsec:user-guide-metadata}.
+%
+%	Cette implémentation est assez simple : elle consiste en une commande
+%	publique, |\phdjurylist|, que nous connaissons déjà, et une commande
+%	interne, |\thejury|, qui est insérée à la fin de la commande
+%	|\phdjurypage| et qui est redéfinie par le contenu de |\phdjurylist|.
+%
+% \else
+%	Before discussing the jury identification page, it is important
+%	to address the implementation of the customizable list mentioned
+%	in sections \ref{subsubsec:jury} and
+%	\ref{subsubsec:user-guide-metadata}.
+%
+%	This implementation is fairly straightforward: it consists of a
+%	public command, |\phdjurylist|, which we already know, and an
+%	internal command, |\thejury|, which is inserted at the end of
+%	the |\phdjurypage| command and is redefined by the content of
+%	|\phdjurylist|.
+%
+% \fi
+%    \begin{macrocode}
 \newcommand{\thejury}{}
 \newcommand{\phdjurylist}[1]{%
 	\renewcommand{\thejury}{#1}
 }
+%    \end{macrocode}
+%
+% \ifFrenchDoc
+%	Dans la page d'identification du jury ne sont reprises comme métadonnées
+%	que le titre et le sous-titre de la thèse, ainsi que le nom de l'auteur
+%	ou de l'autrice. La commande |\thejury| vient à la toute fin insérer la
+%	liste des membres du jury.
+%
+% \else
+%	The jury identification page includes only the title and
+%	subtitle of the thesis as metadata, along with the name of the
+%	author. The |\thejury| command inserts the jury member list at
+%	the very end.
+%
+% \fi
+%    \begin{macrocode}
 \newcommand{\phdjurypage}{%
 	\begin{titlingpage*}
 		\centering
@@ -2363,7 +3310,34 @@
 		\end{SingleSpace}
 	\end{titlingpage*}
 }
-
+%    \end{macrocode}
+%
+% \ifFrenchDoc
+%	\DescribeMacro{\titlepageblock}
+%	Malgré leur nombre, aucune des commandes assignées aux pages titres
+%	dans cette classe n'est publique. Ce sont toutes des commandes internes
+%	appelées par la seule commande publique du lot : |\titlepageblock|.
+%
+%	Cette commande est la première appelée par les gabarits dans le corps
+%	du document. Elle évalue d'abord la valeur de la variable booléenne
+%	|HEC@phd| et, en fonction de celle-ci, va appeler la ou les commandes
+%	associées au type de document qui doit être généré.
+%
+% \else
+%	\DescribeMacro{\titlepageblock}
+%	Despite their number, none of the commands assigned to title
+%	pages in this class are public. They are all internal commands
+%	called by the single public command in the set:
+%	|\titlepageblock|.
+%
+%	This command is the first one called by the templates in the
+%	document body. It first evaluates the value of the |HEC@phd|
+%	boolean variable and, depending on its value, calls the command
+%	or commands associated with the type of document to be
+%	generated.
+%
+% \fi
+%    \begin{macrocode}
 \newcommand{\titlepageblock}{%
 	\ifbool{HEC@phd}{%
 		\phdtitlepage
@@ -2374,9 +3348,37 @@
 }
 %    \end{macrocode}
 %
+% \ifFrenchDoc
 % \subsubsection{Résumés}
 % \label{subsubsec:abstracts}
 %
+%	La classe \textsf{hecthese} utilise l'environnement |abstract| de la
+%	classe \textsf{memoir} afin de produire les résumés français et anglais
+%	dans le document. Cependant, la mise en forme de cet environnement est
+%	en tous points identique à celle de la classe \textsf{article} : des 
+%	paragraphes en retrait, une police de caractères plus petite ainsi qu'un
+%	titre centré plus petit que les titres normaux.
+%
+%	La classe reconfigure l'environnement de fond en comble de sorte qu'il
+%	produise une section non numérotée plutôt que le bloc de texte que nous
+%	sommes habitués de voir avec l'environnement |abstract|.
+%
+% \else
+% \subsubsection{Abstracts}
+% \label{subsubsec:abstracts}
+%
+%	The \textsf{hecthese} class uses the |abstract| environment
+%	from the \textsf{memoir} class to produce the French and English
+%	abstracts in the document. However, the formatting of this
+%	environment is identical in every respect to that of the
+%	\textsf{article} class: indented paragraphs, a smaller font
+%	size, and a centered title smaller than normal headings.
+%
+%	The class reconfigures the environment from the ground up so
+%	that it produces an unnumbered section rather than the text
+%	block we are used to seeing with the |abstract| environment.
+%
+% \fi
 %    \begin{macrocode}
 %% ------ Abstracts ------------------------------
 
@@ -2388,9 +3390,51 @@
 \setlength{\abstitleskip}{\afterchapskip}
 %    \end{macrocode}
 %
+% \ifFrenchDoc
 % \subsubsection{Table des matières}
 % \label{subsubsec:toc}
 %
+%	À la section \emph{2.2 Organisation en sections et sous-sections 
+%	titrées et numérotées} du \emph{Guide de rédaction}, il est indiqué
+%	qu'«[on] ne devrait pas dépasser trois niveaux chiffrés» dans la
+%	table des matières\cite{cfla2020guide}. Les commandes
+%	|\setsecnumdepth| et |\maxsecnumdepth| fixent donc la numérotation
+%	aux sous-sections, toutes les sections de niveaux inférieurs se
+%	retrouvant non numérotées. La commande |\settocdepth| utilise le
+%	même type de mécanique pour exclure tous les niveaux inférieurs
+%	aux sous-sections de la table des matières.
+%
+%	Vous noterez qu'il est écrit «on ne \textbf{devrait} pas» et non
+%	«on ne \textbf{doit} pas» dans le \emph{Guide de rédaction}. Le
+%	niveau de numérotation n'est donc pas une exigence, mais une
+%	recommandation. Si, pour une raison ou pour une autre, vous avez
+%	besoin d'un niveau supplémentaire de numérotation de vos titres,
+%	reprenez les trois commandes ci-dessous dans le préambule de votre
+%	gabarit et remplacez l'argument |subsection| par |subsubsection|.
+%
+% \else
+% \subsubsection{Table of Contents}
+% \label{subsubsec:toc}
+%
+%	In section \emph{2.2 Organisation en sections et sous-sections
+	%	titrées et numérotées} of the \emph{Guide de rédaction}, it is
+%	stated that ``[one] should not exceed three numbered levels'' in
+%	the table of contents\cite{cfla2020guide}. The
+%	|\setsecnumdepth| and |\maxsecnumdepth| commands therefore
+%	restrict numbering to the subsection level, leaving all
+%	lower-level sections unnumbered. The |\settocdepth| command
+%	uses the same mechanism to exclude all levels below subsections
+%	from the table of contents.
+%
+%	Note that the \emph{Guide de rédaction} says ``one
+%	\textbf{should} not'' rather than ``one \textbf{must} not.''
+%	The numbering depth is therefore a recommendation, not a
+%	requirement. If, for one reason or another, you need an
+%	additional level of heading numbering, copy the three commands
+%	below into the preamble of your template and replace the
+%	|subsection| argument with |subsubsection|.
+%
+% \fi
 %    \begin{macrocode}
 %% ------ Sectional divisions --------------------
 
@@ -2400,22 +3444,104 @@
 %% ------ Table of contents ----------------------
 
 \settocdepth{subsection}
+%    \end{macrocode}
+%
+% \ifFrenchDoc
+%	Le nom anglais par défaut d'une table des matières dans \LaTeX\
+%	est \emph{Contents}. La classe \textsf{hecthese} remplace ce nom
+%	par \emph{Table of Contents}, plus explicite que le nom de base.
+%
+% \else
+%	The default English name for a table of contents in \LaTeX\ is
+%	\emph{Contents}. The \textsf{hecthese} class replaces this name
+%	with \emph{Table of Contents}, which is more explicit than the
+%	base name.
+%
+% \fi
+%    \begin{macrocode}
 \addto\captionsenglish{%
 	\renewcommand{\contentsname}{Table of Contents}
 }
 %    \end{macrocode}
 %
+% \ifFrenchDoc
 % \subsubsection{Dédicace}
 % \label{subsubsec:dedication}
 %
+%	La dédicace de la thèse du doctorat est le dernier endroit
+%	de la classe \textsf{hecthese} où les fonctionnalités du
+%	\pkg{xkeyval} sont utilisées.
+%
+%	Une clé booléenne |signed| est créée dans un groupe
+%	appelé |HEC@dedication| et est activée avec la valeur |true|
+%	par défaut.
+%
+% \else
+% \subsubsection{Dedication}
+% \label{subsubsec:dedication}
+%
+%	The dedication is the last place in the \textsf{hecthese} class
+%	where the features of \pkg{xkeyval} are used.
+%
+%	A boolean key |signed| is created in a group called
+%	|HEC@dedication| and is set to |true| by default.
+%
+% \fi
 %    \begin{macrocode}
 % ------ Key-values for dedication section -------
 
 \define@boolkey{HEC@dedication}{signed}[true]{}
+%    \end{macrocode}
+%
+% \ifFrenchDoc
+%	La classe reconfigure ensuite la commande |\epigraph| de la
+%	classe \textsf{memoir} afin que le texte qu'elle contient
+%	soit justifié horizontalement. Une ligne pleine sépare
+%	normalement le texte de sa source. \textsf{hecthese} supprime
+%	cette ligne en lui assignant une épaisseur de |0pt|.
+%
+% \else
+%	The class then reconfigures the |\epigraph| command of the
+%	\textsf{memoir} class so that the text it contains is fully
+%	justified horizontally. A full rule normally separates the text
+%	from its source. \textsf{hecthese} removes this rule by setting
+%	its thickness to |0pt|.
+%
+% \fi	
+%    \begin{macrocode}
 % ------ Dedication section ----------------------
 
 \epigraphtextposition{flushleftright}
 \setlength{\epigraphrule}{0pt}
+%    \end{macrocode}
+%
+% \ifFrenchDoc
+%	L'étudiant(e) utilisera la commande publique
+%	|\dedication| pour rédiger sa dédicace. Celle-ci
+%	commencera par récupérer la valeur de son argument
+%	optionnel |signed| puis inscrira la dédicace dans
+%	la commande |\epigraph|, elle-même inscrite dans
+%	l'environnement |vplace| de la classe \textsf{memoir}.
+%	Ce faisant, la dédicace se retrouvera centrée verticalement
+%	dans sa page.
+%
+%	Finalement, si l'étudiant(e) souhaite signer
+%	sa dédicace, la signature sera affichée tout juste
+%	en-dessous.
+%
+% \else
+%	The student will use the public |\dedication| command to write
+%	their dedication. The command begins by retrieving the value of
+%	the |signed| optional argument, then places the dedication text
+%	within the |\epigraph| command, which is itself nested inside
+%	the |vplace| environment of the \textsf{memoir} class. In doing
+%	so, the dedication is vertically centered on its page.
+%
+%	Finally, if the student wishes to sign their dedication, the
+%	signature will be displayed just below.
+%
+% \fi
+%    \begin{macrocode}
 \newcommand{\dedication}[2][]{%
 	\setkeys{HEC@dedication}{signed=true,#1}
 	\begin{vplace}
@@ -2424,9 +3550,33 @@
 }
 %    \end{macrocode}
 %
+% \ifFrenchDoc
 % \subsection{Titres bilingues}
 % \label{subsec:title-i8n}
 %
+%	La gestion des titres dans les deux langues de
+%	rédaction acceptées est la dernière des fonctionnalités
+%	de la classe. Afin de préserver l'uniformité des titres
+%	des sections obligatoires entre tous les mémoires et les
+%	thèses, la classe définit une commande de titre
+%	pour chacune de ces	parties et utilise les commandes
+%	|\addto\captionsfrench| et |\addto\captionsenglish| du
+%	\pkg{babel} afin de générer le titre adéquat en fonction
+%	de la langue du document.
+%
+% \else
+% \subsection{Bilingual Titles}
+% \label{subsec:title-i8n}
+%
+%	The management of titles in both accepted writing languages is
+%	the last feature of the class. In order to preserve the
+%	uniformity of headings for mandatory sections across all
+%	dissertations and theses, the class defines a title command for
+%	each of these sections and uses the |\addto\captionsfrench| and
+%	|\addto\captionsenglish| commands from \pkg{babel} to generate
+%	the appropriate heading based on the document's language.
+%
+% \fi
 %    \begin{macrocode}
 % --- Bilingual titles ---------------------------
 
@@ -2465,7 +3615,47 @@
 \addto\captionsenglish{%
 	\renewcommand{\prefacetitle}{Preface}
 }
-
+%    \end{macrocode}
+%
+% \ifFrenchDoc
+%	À la \autoref{subsec:user-guide-biblio}, nous avons fait
+%	mention que les mémoires et thèses rédigés avec des articles
+%	ont une introduction générale pour tout le document et une
+%	introduction par articles. Il en va de même pour les conclusions
+%	et les bibliographies.
+%
+%	Le premier exemple de gestion des multiples se trouve ci-dessous,
+%	dans la commande |\introductiontitle|. La valeur par défaut de
+%	celle-ci est \emph{Introduction}.
+%
+%	Par la suite, la classe évalue la valeur de la variable booléenne
+%	|HEC@articlebased|. Si la valeur est |true|, elle change la valeur
+%	de la commande |\introductiontitle| pour \emph{Introduction générale}
+%	en français ou \emph{General Introduction} dans la langue de
+%	Shakespeare.
+%
+%	Vous retrouverez ce même comportement plus loin avec les commandes
+%	|\conclusiontitle| et |\bibliotitle|.
+% \else
+%	In \autoref{subsec:user-guide-biblio}, we noted that
+%	dissertations and theses written with articles have a general
+%	introduction for the entire document and one introduction per
+%	article. The same applies to conclusions and bibliographies.
+%
+%	The first example of managing multiples appears below, in the
+%	|\introductiontitle| command. Its default value is
+%	\emph{Introduction}.
+%
+%	The class then evaluates the value of the |HEC@articlebased|
+%	boolean variable. If the value is |true|, it changes the value
+%	of |\introductiontitle| to \emph{Introduction générale} in
+%	French or \emph{General Introduction} in English.
+%
+%	You will find this same behavior further below with the
+%	|\conclusiontitle| and |\bibliotitle| commands.
+%
+% \fi
+%    \begin{macrocode}
 % ------ Introduction ----------------------------
 
 \newcommand{\introductiontitle}{Introduction}
@@ -2539,7 +3729,34 @@
 }
 %    \end{macrocode}
 %
+% \ifFrenchDoc
+%	\froufrou[dinkus]
+%
+%	Ici se termine la documentation technique de la classe
+%	\textsf{hecthese}. À partir de ce point, la classe et les
+%	gabarits vous appartiennent! Apprivoisez-les bien et adaptez-les
+%	en fonction de vos besoins! Votre seule contrainte demeurera
+%	de toujours respecter les règles de présentation du
+%	\emph{Guide de rédaction}.
+%
+%	Bonne rédaction!
+% 
+% \else
+%	\froufrou[dinkus]
+%
+%	This concludes the technical documentation of the
+%	\textsf{hecthese} class. From this point on, the class and the
+%	templates are yours! Make them your own and adapt them to your
+%	needs! Your only constraint will always be to comply with the
+%	presentation rules of the \emph{Guide de rédaction}.
+%
+%	Happy writing!
+%
+% \fi
+%
+% \iffalse
 %</class>
+% \fi
 %
 % ^^A End of class source code
 % \Finale
