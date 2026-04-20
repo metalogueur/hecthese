@@ -16,16 +16,16 @@
 % The Current Maintainer of this work is Benoit Hamel
 % <benoit.2.hamel@hec.ca>.
 %
-% This work consists of the files hecthese.dtx and hecthese.ins
-% and the derived files listed in the README file.
+% This work consists of the files hecthese.dtx, hecthese-fr.ins,
+% hecthese-en.ins and the derived files listed in the README file.
 %
 % \fi
 % \iffalse
 %<*dtx>
-\ProvidesFile{hecthese.dtx}
+\ProvidesFile{hecthese.dtx}[2026/04/20 v3.0 Class for dissertations and theses at HEC Montreal]
 %</dtx>
 %<class>\NeedsTeXFormat{LaTeX2e}
-%<class>\ProvidesClass{hecthese}[2026/02/26 v3.0 Class for dissertations and theses at HEC Montreal]
+%<class>\ProvidesClass{hecthese}[2026/04/20 v3.0 Class for dissertations and theses at HEC Montreal]
 %<*driver>
 \documentclass[10pt,french,english]{ltxdoc}
 \usepackage{amssymb}
@@ -56,11 +56,11 @@
 \newcommand{\warningboxtitle}{%
 	\iflanguage{french}{ATTENTION!}{WARNING!}
 }
-\newtcolorbox{warningbox}{%
+\newtcolorbox{warningbox}[1]{%
 	colback=orange!5!white,
 	colframe=orange,
 	fonttitle=\bfseries,
-	title={\warningboxtitle},
+	title={\ifstrempty{#1}{\warningboxtitle}{#1}},
 	grow sidewards by=12pt
 }
 \newtcolorbox{codeblock}{%
@@ -71,6 +71,23 @@
 \setlength{\parskip}{6pt}
 \setlist[itemize, 1]{label=$\bullet$}
 \setlocalecaption{french}{table}{Tableau}
+\addto\captionsfrench{
+	\renewcommand{\glossaryname}{Historique des versions}
+}
+\addto\captionsenglish{
+	\renewcommand{\glossaryname}{Version History}
+}
+\GlossaryPrologue{\section*{\glossaryname}}
+\ifFrenchDoc
+	\IndexPrologue{%
+		\section*{\indexname}
+		
+		Les nombres en italique renvoient à la page où l'entrée correspondante est décrite ; 
+		les nombres soulignés renvoient à la ligne de code de la définition ; 
+		les nombres en caractères droits renvoient aux lignes de code 
+		où l'entrée est utilisée.
+	}		
+\fi
 \graphicspath{{img/}}
 \hypersetup{
 	colorlinks=true,
@@ -88,7 +105,7 @@
 \end{document}
 %</driver>
 % \fi
-% \CheckSum{0}
+% \CheckSum{442}
 % \CharacterTable 
 % {Upper-case \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z 
 % Lower-case \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z 
@@ -105,7 +122,7 @@
 % Grave accent 	\` 		Left brace		\{ 		Vertical bar	\| 
 % Right brace 	\} 		Tilde			\~}
 %
-% \changes{3.0}{2026-MM-DD}{Complete code refactoring}
+% \changes{3.0}{2026-04-20}{Complete code refactoring}
 % \changes{2.0}{2023-10-17}{Added biblatex and dropped chapterbib}
 % \changes{1.5.1}{2023-10-13}{Corrected typos in phantomsections}
 % \changes{1.5}{2021-09-07}{Fixed the chapterbib implementation}
@@ -139,12 +156,13 @@
 % \DoNotIndex{\relax,\renewcommand,\RequirePackage,\setkeys,\setlength}
 % \DoNotIndex{\setlrmarginsandblock,\setmainfont,\setmathfont,\setmonofont}
 % \DoNotIndex{\setsansfont,\setsecnumdepth,\settocdepth,\setulmarginsandblock}
-% \DoNotIndex{\textbf,\theauthor,\thedate,\vfill,\ifstrempty}
+% \DoNotIndex{\textbf,\theauthor,\thedate,\vfill,\ifstrempty,\@ifclasslater}
+% \DoNotIndex{\ClassError,\memversion,\roman,\setcounter}
 %
 % \ifFrenchDoc
 % \title{\textsf{hecthese} : \\ une classe de documents pour la rédaction des thèses et mémoires à HEC Montréal}
 % \author{Benoit Hamel, Bibliothèque, HEC Montréal
-%		\thanks{\textsf{hecthese} version \fileversion, \filedate}}
+%		\thanks{Cette documentation couvre la classe \textsf{hecthese} version \fileversion, \filedate}}
 % \date{\today}
 % \maketitle
 %
@@ -320,6 +338,44 @@
 %	disponibles. Vous ne devriez donc pas rencontrer de problèmes si vous utilisez les gabarits
 %	et que les voitures volent ou que l'être humain a colonisé la Lune.
 %
+%	\subsubsection{Vérification de la version de la classe \textsf{memoir}}
+%	\label{subsubsec:memoir-version}
+%
+%	Dépendamment du moment où vous avez installé la version 2025 de TeX Live, vous pourriez ne pas
+%	avoir la même version de la classe \textsf{memoir} que celle utilisée pour développer 
+%	\textsf{hecthese}. Celle qui a servi à concevoir la version actuelle de la classe est la version
+%	2025/10/02 v3.8.4, qui a introduit la commande 
+%	|\settitlingpagenumbering|. Cette dernière est utilisée dans le formatage des pages titres. Si votre
+%	version de la classe \textsf{memoir} est antérieure à la v3.8.4, \textsf{hecthese} vous retournera
+%	une erreur au moment de la compilation.
+%
+%	Afin de vérifier votre version de la classe \textsf{memoir}, créez un document |.tex| simple
+%	configuré avec |memoir| dans la commande |\documentclass| et inscrivez la commande |\memversion|
+%	dans le corps du document. Compilez ensuite votre document pour voir quelle version de la classe
+%	vous avez. La \autoref{fig:memoir-version} montre un exemple d'un document simple pour votre test.
+%
+%	\begin{figure}
+%		\begin{codeblock}
+%			|\documentclass{memoir}| \\[10pt]
+%			|\begin{document}| \\
+%			|    \memversion| \\
+%			|\end{document}|
+%		\end{codeblock}
+%		\caption{Exemple de document pour tester la version de la classe \textsf{memoir}}
+%		\label{fig:memoir-version}
+%	\end{figure}
+%
+%	\begin{warningbox}{}
+%	La version de la classe \textsf{memoir} dans la version 2025 du moteur TeX Live d'Overleaf
+%	est la 2025/03/10 v3.8.3b. C'est en testant les gabarits dans l'application que nous nous sommes
+%	rendus compte de cet élément important. La version 2025/11/04 v3.8.4b sera disponible dans la version
+%	2026 de TeX Live, qui devrait être disponible au grand public vers la fin de l'été 2026, si on se
+%	fie \href{https://www.overleaf.com/blog/tagged/tex%20live}%
+%	{aux anciennes mises à jour d'Overleaf}. D'ici ce temps, vous pouvez vous inscrire au programme
+%	\href{https://www.overleaf.com/labs/participate}{Overleaf Labs} pour avoir accès à la version
+%	expérimentale de TeX Live 2026\cite{overleaf2026tex}.
+%	\end{warningbox}
+%
 %	\subsubsection{Téléchargement des fichiers sources}
 %
 %	Les fichiers sources de la classe \textsf{hecthese} sont disponibles à deux endroits différents,
@@ -476,7 +532,7 @@
 %	document. L'option |articles| s'occupe donc de différencier les différentes introductions,
 %	conclusions et bibliographies.
 %
-%	\begin{warningbox}
+%	\begin{warningbox}{}
 %	Ces quatre options ne sont pas interchangeables dans un gabarit! Chaque
 %	type de mémoire ou thèse vient avec ses sections qui lui sont propres! Si vous changez de
 %	type de mémoire ou thèse en cours de route, vous devrez utiliser le fichier gabarit
@@ -500,7 +556,6 @@
 %	d'informations concernant cette fonctionnalité, veuillez consulter la documentation du 
 %	\pkg{babel}\cite{bezos2026babel}.
 %
-%	\clearpage
 %
 %	\DescribeOption{10pt}
 %	\DescribeOption{11pt}
@@ -935,7 +990,7 @@
 %	\autoref{fig:bib-example} montre un exemple d'un livre
 %	cité dans deux chapitres.
 %
-%	\begin{figure}[b]
+%	\begin{figure}
 %		\begin{codeblock}
 %			|@book{wilsonMemoirClassConfigurable2025,| \\
 %			|title = {| \\
@@ -1034,7 +1089,7 @@
 % \else
 % \title{\textsf{hecthese} : \\ a document class for dissertations and theses at HEC Montréal}
 % \author{Benoit Hamel, Library, HEC Montréal
-%		\thanks{\textsf{hecthese} version \fileversion, \filedate}}
+%		\thanks{This documentation covers \textsf{hecthese} version \fileversion, \filedate}}
 % \date{\today}
 % \maketitle
 % \begin{abstract}
@@ -1221,6 +1276,44 @@
 % versions. You should therefore not encounter any problems if you use the
 % templates, provided that flying cars have not arrived or that humans have
 % not yet colonized the Moon.
+%
+%	\subsubsection{Checking your \textsf{memoir} class version}
+%	\label{subsubsec:memoir-version}
+%
+%	Depending on when you've installed TeX Live 2025 on your computer, you may not have the same
+%	version of the \textsf{memoir} class as the one that was used to develop \textsf{hecthese}.
+%	The one that was used to code the actual version of \textsf{hecthese} was version
+%	2025/10/02 v3.8.4 of the \textsf{memoir} class, which introduced the 
+%	|\settitlingpagenumbering| command. This command is used in the title pages' formatting. If
+%	you have a previous version of the \textsf{memoir} class, \textsf{hecthese} will raise an
+%	error on compilation.
+%
+%	To check your version of the \textsf{memoir} class, create a simple |.tex| file configured with
+%	|\documentclass{memoir}|. Write the |\memversion| command inside the document body and compile
+%	your document. You'll see the version of the \textsf{memoir} class in the output. 
+%	\autoref{fig:memoir-version} shows an example of a simple test file.
+%
+%	\begin{figure}
+%		\begin{codeblock}
+%			|\documentclass{memoir}| \\[10pt]
+%			|\begin{document}| \\
+%			|    \memversion| \\
+%			|\end{document}|
+%		\end{codeblock}
+%		\caption{Sample file for testing the \textsf{memoir} class version}
+%		\label{fig:memoir-version}
+%	\end{figure}
+%
+%	\begin{warningbox}{}
+%	Overleaf's current \textsf{memoir} class version in its TeX Live 2025 engine is the 
+%	2025/03/10 v3.8.3b version. It is when the \textsf{hecthese} templates were tested in the
+%	application that this breaking element was discovered. Version 2025/11/04 v3.8.4b will
+%	be available in the TeX Live 2026 engine, which should be released by Summer's end of 2026,
+%	based on \href{https://www.overleaf.com/blog/tagged/tex%20live}%
+%	{Overleaf previous TeX Live releases}. Until then, you can enroll in the
+%	\href{https://www.overleaf.com/labs/participate}{Overleaf Labs program} to access the
+%	experimental version of TeX Live 2026\cite{overleaf2026tex}. 
+%	\end{warningbox}
 % 
 % \subsubsection{Downloading the Source Files}
 % 
@@ -1256,7 +1349,7 @@
 %     |template-phd-articles.tex|    &            & \checkmark &            & \checkmark \\
 %     |french-abstract.tex|          & \checkmark & \checkmark & \checkmark & \checkmark \\
 %     |english-abstract.tex|         & \checkmark & \checkmark & \checkmark & \checkmark \\
-%     |abbreviations-list.tex|       & \checkmark & \checkmark & \checkmark & \checkmark \\
+%     |acronyms-list.tex|	         & \checkmark & \checkmark & \checkmark & \checkmark \\
 %     |dedication.tex|               &            & \checkmark & \checkmark & \checkmark \\
 %     |acknowledgements.tex|         & \checkmark & \checkmark & \checkmark & \checkmark \\
 %     |foreword.tex|                 & \checkmark & \checkmark & \checkmark & \checkmark \\
@@ -1328,6 +1421,7 @@
 % \cite{cfla2020guide}.} or to add chapters or articles to your document.
 % 
 % \subsubsection{Class Options}
+% \label{subsubsec:user-guide-class-options}
 % 
 % Each template generated by the \textsf{hecthese} class comes with its
 % appropriate class options. \autoref{fig:class-options} shows each
@@ -1385,7 +1479,7 @@
 % therefore differentiates between the various introductions, conclusions
 % and bibliographies.
 % 
-% \begin{warningbox}
+% \begin{warningbox}{}
 % These four options are not interchangeable within a template! Each type of
 % thesis or dissertation comes with its own specific sections! If you change
 % the type of thesis or dissertation midway through, you will need to use
@@ -1435,7 +1529,7 @@
 % \textsf{pdflatex} will replace those for \textsf{lualatex}.
 % 
 % \begin{figure}
-%   \includegraphics[width=\textwidth]{texstudio-config.jpg}
+%   \includegraphics[width=\textwidth]{texstudio-config-en.jpg}
 %   \caption{Configuring \textsf{lualatex} and \textsf{biber} in TeXstudio}
 %   \label{fig:texstudio-config}
 % \end{figure}
@@ -1551,8 +1645,8 @@
 % In this section of the preamble, \pkg{biblatex} is loaded with all the
 % options and configurations necessary for the bibliography to conform to
 % the presentation standards of the \emph{Writing Guide}. The
-% bibliographic style used is that of APA, from which is based the HEC Montréal
-% bibliographic style \cite{biblio2026style}. The citation format configured
+% bibliographic style used is that of APA, from which the HEC Montréal
+% bibliographic style  is based\cite{biblio2026style}. The citation format configured
 % is the \emph{Author-year} format, and the bibliography sort order is
 % \emph{author name, year, and title}. \textbf{You must not modify these
 % configurations under any circumstances!}
@@ -1652,9 +1746,7 @@
 % a jury that will oversee your evaluation. These people are the
 % \emph{président-rapporteur}, the research director, the research co-director,
 % a jury member, an external examiner, and the representative of the HEC
-% Montréal director
-% \footnote{In order to keep this list readable, only one gender has been
-% used for each title.}.
+% Montréal director.
 % 
 % For each of these people, you will need to enter their name as well as
 % their gender, |M| or |F|, as an optional argument. The same mechanism as
@@ -1728,8 +1820,6 @@
 % In addition, you must accompany your abstracts with a maximum of 10
 % keywords for a master's thesis and a maximum of 15 keywords for a doctoral
 % dissertation.
-%
-% \clearpage
 % 
 % \DescribeEnv{abstract}
 % To do so, write your abstracts in the |abstract| environments in the
@@ -1740,13 +1830,13 @@
 % As for your keywords, simply write them under the section of the same
 % name, within the |abstract| environment.
 % 
-% \subsubsection{List of Abbreviations}
+% \subsubsection{List of Acronyms}
 % 
 % \DescribeEnv{description}
 % All acronyms and abbreviations that you will use in the course of your
-% writing can be listed in the |abbreviations-list.tex| file. A standard
+% writing can be listed in the |acronym-list.tex| file. A standard
 % |description| list environment is used for this purpose. The list is
-% generated with a few example items and you need only replace them with
+% generated with a few example items and all you have to do is to replace them with
 % your own.
 % 
 % \DescribeOption{labelwidth}
@@ -1768,7 +1858,7 @@
 % \DescribeMacro{\dedication}
 % Doctoral students also have another place to ``dedicate their work to a
 % cherished or respected person''\footref{fn:beaud}: the dedication. You
-% may enter it in the file |dedication.tex|, inside the |\dedication|
+% may enter it in the |dedication.tex| file, inside the |\dedication|
 % command.
 % 
 % This command is an adaptation of the |\epigraph| command from the
@@ -1777,7 +1867,7 @@
 % 
 % \DescribeOption{signed}
 % We have repurposed the \marg{source} argument of the
-% |\epigraph| command, however, to make it a signature of the thesis or dissertation
+% |\epigraph| command, however, to make it a signature of the dissertation
 % author. If you leave the |signed=true| option inside the |\dedication|
 % command, your name will appear below the dedication. If, on the other
 % hand, you choose the |signed=false| option, only the dedication will
@@ -1850,7 +1940,7 @@
 % you understand the concept, \autoref{fig:bib-example} shows an example
 % of a book cited in two articles.
 % 
-% \begin{figure}[b]
+% \begin{figure}
 %   \begin{codeblock}
 %     |@book{wilsonMemoirClassConfigurable2025,| \\
 %     |title = {| \\
@@ -1900,6 +1990,7 @@
 % brief description and a concrete example.
 % 
 % \subsection{The Bibliography or Bibliographies}
+% \label{subsec:user-guide-biblio}
 % 
 % The production of your bibliography or bibliographies should proceed
 % without problems if you can answer positively to all of the following
@@ -1967,6 +2058,11 @@
 %		HEC Montréal. Récupéré le 12 mars 2026 de 
 %		\href{https://www.hec.ca/cfla/francais/document/guide-redaction-travail-cycles.pdf}%
 %		{https://www.hec.ca/cfla/francais/document/guide-redaction-travail-cycles.pdf}
+%	\bibitem{etudes2025guide}Études supérieures et postdoctorales (2025).
+%		\emph{Guide des	mémoires et	des thèses},
+%		Université de Montréal. Récupéré le 13 avril 2026 de
+%		\href{https://esp.umontreal.ca/fileadmin/esp/documents/Cheminement/CHE\_GuideMemoiresTheses.pdf}%
+%		{https://esp.umontreal.ca/fileadmin/esp/documents/Cheminement/CHE\_GuideMemoiresTheses.pdf}
 %	\bibitem{kime2025biblatex}Kime, P., Wemheuer, M., \& Lehman, P. (2025). 
 %		\emph{The biblatex Package : Programmable Bibliographies and Citations (3.21)},
 %		Comprehensive TeX Archive Network. Récupéré le 16 mars 2026 de
@@ -1988,6 +2084,11 @@
 %		Overleaf docs. Récupéré le 30 mars 2026 de
 %		\href{https://docs.overleaf.com/getting-started/recompiling-your-project/selecting-a-tex-live-version-and-latex-compiler}%
 %		{https://docs.overleaf.com/getting-started/recompiling-your-project/selecting-a-tex-live-version-and-latex-compiler}
+%	\bibitem{overleaf2026tex}Overleaf (2026).
+%		\emph{TeX Live},
+%		Overleaf docs. Récupéré le 15 avril 2026 de
+%		\href{https://docs.overleaf.com/troubleshooting-and-support/tex-live}%
+%		{https://docs.overleaf.com/troubleshooting-and-support/tex-live}
 %	\bibitem{robertson2025fontspec}Robertson, W. et al. (2025). 
 %		\emph{The fontspec package Font selection for XELATEX and LuaLATEX (v2.9g)},
 %		Comprehensive TeX Archive Network. Récupéré le 9 avril 2026 de
@@ -1996,6 +2097,12 @@
 %		\emph{Using common PostScript fonts with LaTeX},
 %		Comprehensive TeX Archive Network. Récupéré le 9 avril 2026 de
 %		\href{https://ctan.org/pkg/mathptmx}{https://ctan.org/pkg/mathptmx}
+%	\bibitem{secretariat2026reglement}Secrétariat général (2018). 
+%		\emph{Réglement pédagogique de la faculté des études
+%		supérieures et postdoctorales}, 
+%		Université de Montréal. Récupéré le 13 avril 2026 de
+%		\href{https://secretariatgeneral.umontreal.ca/documents-officiels/reglements-et-politiques/reglement-pedagogique-des-etudes-superieures-et-postdoctorales/}%
+%		{https://secretariatgeneral.umontreal.ca/documents-officiels/reglements-et-politiques/reglement-pedagogique-des-etudes-superieures-et-postdoctorales/}
 %	\bibitem{stack2023bibtex}Stack Exchange contributors (2023).
 %		\emph{bibtex vs. biber and biblatex vs. natbib},
 %		\LaTeX\ Stack Exchange. Récupéré le 16 mars 2026 de
@@ -2056,8 +2163,8 @@
 % \else
 % \section{Technical Documentation}
 %
-%	This part of the documentation explains the contents of the class
-%	definition file |hecthese.cls|.
+%	This part of the documentation explains the contents of the 
+%	 |hecthese.cls| class definition file.
 %
 % \subsection{Internal Boolean Values}
 % \label{subsec:booleans}
@@ -2065,7 +2172,7 @@
 %	In order to properly manage the options of the \textsf{hecthese}
 %	class, three boolean variables have been created: |HEC@legacy|,
 %	|HEC@phd|, and |HEC@articlebased|. The
-% 	\pkg{etoolbox} package is required to use the |\newbool|
+% 	\pkg{etoolbox} is required to use the |\newbool|
 %	command, which enables the creation of boolean variables.
 %
 % \fi
@@ -2143,7 +2250,7 @@
 %
 % \else
 %	When boolean variables are created by \pkg{etoolbox}, they are
-%	created with the value |false| by default. This is why the
+%	created with the |false| value by default. This is why the
 %	|legacy| class option switches the |HEC@legacy| boolean to
 %	|true| when it is declared in the options of the |\documentclass|
 %	command, and why there are no other commands to return the
@@ -2204,14 +2311,18 @@
 %
 %	Une fois que toutes les options de classe sont déclarées,
 %	on passe toutes les autres options à la classe \textsf{memoir}
-%	et on la charge afin de profiter de ses fonctionnalités.
+%	et on la charge afin de profiter de ses fonctionnalités. On
+%	vérifie également que la version minimale de \textsf{memoir}
+%	soit la 2025/10/02.
 %
 % \else
 % \subsection{Loading the \textsf{memoir} Class}
 %
 %	Once all class options have been declared, all remaining options
-%	are passed to the \textsf{memoir} class and it is loaded to take
-%	advantage of its features.
+%	are passed to the \textsf{memoir} class. The class is then loaded 
+%	so we can benefit from its features. A \textsf{memoir} version
+%	check is also made to make sure that the installed version of the
+%	class is the 2025/10/02 or later.
 %
 % \fi
 %    \begin{macrocode}
@@ -2220,6 +2331,14 @@
 \ExecuteOptions{10pt} % Default font size
 \ProcessOptions\relax
 \LoadClass{memoir}
+\@ifclasslater{memoir}{2025/10/02}{}{%
+	\ClassError{hecthese}{%
+	Outdated version of class memoir: \memversion
+	}{%
+	Please update the memoir class version to version 2025/10/02 v3.8.4
+	or later.
+	}
+}
 %    \end{macrocode}
 %
 % \ifFrenchDoc
@@ -2248,11 +2367,11 @@
 % \label{subsec:required-pkg}
 %
 %	Since its initial version, the goal of the \textsf{hecthese}
-%	class has been first and foremost to be a sandbox environment
+%	class has been to be a sandbox environment
 %	that anyone can adapt to their own research and writing needs.
 %
 %	This is why very few packages are required by the class. In
-%	fact, the only packages loaded by the class serve solely to
+%	fact, the only packages loaded by the class are only used to
 %	manage its own features.
 %
 %	The first of these is \pkg{xkeyval}. This package allows the
@@ -2351,16 +2470,16 @@
 %
 % \else
 %	Finally, the class loads two packages required for customizing
-%	the list of abbreviations. Everyone appreciates well-ordered,
+%	the acronyms list. Everyone appreciates well-ordered and
 %	aligned lists, and that is precisely what \textsf{calc} and
-%	\textsf{enumitem} allow us to achieve within the |description|
-%	environment of \LaTeX.
+%	\textsf{enumitem} allow us to achieve within \LaTeX's |description|
+%	environment.
 %
 % \fi
 %    \begin{macrocode}
- % Mandatory for the list of abreviations' customization
+ % Mandatory for the acronyms list's customization
 \RequirePackage{calc}
- % Mandatory for the list of abreviations' customization
+ % Mandatory for the acronyms list's customization
 \RequirePackage{enumitem}
 %    \end{macrocode}
 %
@@ -2390,14 +2509,13 @@
 % \subsection{Page Layout}
 % \label{subsec:layout}
 %
-%	The following configuration fully complies with section
-%	\emph{5.1 Présentation graphique et pagination} of the
-%	\emph{Guide de rédaction}\cite{cfla2020guide}.
+%	The following configuration fully complies with the \emph{Writing Guide}'s
+%	section \emph{5.1 Présentation graphique et pagination}\cite{cfla2020guide}.
 %
 % \subsubsection{Margins}
 % \label{subsubsec:margins}
 %
-%	In this section of the \emph{Guide de rédaction}, it is stated
+%	In this section of the \emph{Writing Guide}, it is stated
 %	that ``the top, bottom, and right margins are standard (2 to
 %	3~cm); the left margin is 4 to 5~cm.''\footnote{\emph{Loc. cit.}}
 %
@@ -2485,10 +2603,11 @@
 %	was far too large, due to this text block stretching. In all
 %	but one case, described below, a simple restructuring of the
 %	paragraphs was sufficient to restore the page's typographic
-%	order\footnote{In this regard, reading section \emph{3.~Le
-		%	texte~: de la phrase au paragraphe} of the \emph{Guide de
-		%	rédaction} is highly recommended if you wish to properly
-	%	organize your text blocks.}.
+%	order\footnote{In this regard, reading the \emph{Writing
+%	guide}'s section \emph{3.~Le
+%	texte~: de la phrase au paragraphe} is highly recommended 
+%	if you wish to properly
+%	organize your text blocks.}.
 %
 %	\DescribeMacro{\raggedbottom}
 %	In one case, however, it was impossible to restructure the text
@@ -2505,7 +2624,7 @@
 % \subsubsection{Paragraphs}
 % \label{subsubsec:paragraphs}
 %
-%	Still in the same section of the \emph{Guide de rédaction}, it
+%	Still in the same section of the \emph{Writing Guide}, it
 %	is stated that ``text is generally written with one-and-a-half
 %	line spacing (1.5), with a spacing of at least 6 points between
 %	paragraphs.''\footnote{\emph{Loc. cit.}} The |\OnehalfSpacing|
@@ -2578,8 +2697,8 @@
 %	\textsf{pdflatex}, the base font for the entire document is
 %	the classic \emph{Computer Modern}. For typesetting
 %	mathematical equations, a font equivalent to \emph{Adobe Times
-	%	Roman} is provided by the \pkg{mathptmx}
-%	package\cite{schmidt2020using}.
+%	Roman} is provided by the \pkg{mathptmx}
+%	\cite{schmidt2020using}.
 %
 %	If you use \textsf{lualatex} as the default compiler, fonts
 %	from the \emph{TeX Gyre} family are enabled by default because
@@ -2636,7 +2755,7 @@
 %
 %	\begin{enumerate}
 %		\item elles ont chacune une commande publique dans laquelle
-%		l'étudiant(e) saisit la métadonnées : |\thesissubtitle|, 
+%		l'étudiant(e) saisit la métadonnée : |\thesissubtitle|, 
 %		|\specialization| et |\copyrightyear|;
 %		\item chaque commande publique a une commande interne associée
 %		qui réutilise la métadonnée inscrite par l'étudiant(e) pour
@@ -2658,10 +2777,10 @@
 % \subsubsection{Document Metadata}
 % \label{subsubsec:tech-doc-metadata}
 %
-%	\autoref{subsubsec:user-guide-metadata} introduced the six
-%	basic metadata fields common to all document types provided
-%	with the class. The three commands |\title|, |\author|, and
-%	|\date| from \LaTeX\ remain unchanged in \textsf{hecthese}.
+%	Subsubsection \ref{subsubsec:user-guide-metadata} introduced the six
+%	common basic metadata fields for all document types provided
+%	with the class.  \LaTeX's three |\title|, |\author|, and
+%	|\date| commands remain unchanged in \textsf{hecthese}.
 %	The present class adds to these the subtitle, the study program
 %	specialization, and the copyright year.
 %
@@ -2730,7 +2849,7 @@
 %	Une variable booléenne |HEC@islastjury| ainsi qu'une commande
 %	interne |\HEC@jurygender| ont aussi été créées afin de contenir
 %	les valeurs de ces clés au moment de l'évaluation des commandes
-%	publiques par le compilateur afin que les titres des personnes
+%	publiques par le compilateur, et ce, afin que les titres des personnes
 %	soient bien accordés au moment de l'appel des commandes des
 % 	pages titres
 %	\footnote{Sans ces commandes, tous les membres de jury se
@@ -2742,9 +2861,9 @@
 % \subsubsection{Directors and Other Research Evaluators}
 % \label{subsubsec:jury-members}
 %
-%	\autoref{subsubsec:user-guide-metadata} introduced the commands
+%	Subsubsection \ref{subsubsec:user-guide-metadata} introduced the commands
 %	related to the people who supervise or evaluate student
-%	dissertations and theses, as well as the mechanism for matching
+%	theses and dissertations, as well as the mechanism for matching
 %	the title to the person's gender using the |gender| option.
 %
 %	That same section described how the jury member list aligns on
@@ -2755,7 +2874,7 @@
 %	already mentioned.
 %
 %	To this end, the class defines two keys: one boolean (|last|)
-%	and one with a choice of values (|gender|). Both keys belong to
+%	and one with a value choice (|gender|). Both keys belong to
 %	a key group called |HEC@jury|.
 %
 %	The |last| key defaults to |false|, while the |gender| key
@@ -2808,7 +2927,7 @@
 %	|\msctitlepage|, qu'on verra plus loin.
 %
 % \else
-%	For master's dissertations, the only person supervising the
+%	For master's theses, the only person supervising the
 %	student is the research director. Their information is entered
 %	in the |\mscdirector| command in the template preamble.
 %
@@ -2839,7 +2958,7 @@
 %
 % \ifFrenchDoc
 %	Comme nous l'avons mentionné au paragraphe précédent, les commandes
-%	liées au membres du jury du doctorat sont construites de la même
+%	liées aux membres du jury du doctorat sont construites de la même
 %	manière que la commande |\mscdirector|. La seule différence est 
 %	que les informations ne sont pas retranscrites dans une commande
 %	interne, mais plutôt dans la commande publique |\phdjurylist|, qu'on
@@ -2869,7 +2988,7 @@
 %
 %	Certain commands allow the student to enter an affiliation other
 %	than HEC Montréal. These are the |\phdcodirector|,
-%	|\phdjurymember|, and |\phdexternalexaminator| commands. Within
+%	|\phdjurymember|, and |\phdexternal-| |examinator| commands. Within
 %	each of these, the value of the \marg{affiliation} argument is
 %	evaluated. If it is empty, the default affiliation
 %	``HEC Montréal'' is used; otherwise, the affiliation entered by
@@ -2896,7 +3015,8 @@
 	\setkeys{HEC@jury}{gender=M,last=false,#1}
 	#2 \\ % Name
 	HEC Montréal \\
-	\ifdefstring{\HEC@jurygender}{F}{Présidente-rapportrice}{Président-rapporteur}
+	\ifdefstring{\HEC@jurygender}{F}{Présidente-rapportrice}%
+	{Président-rapporteur}
 	\ifbool{HEC@islastjury}{}{\vfill}
 }
 
@@ -2928,7 +3048,8 @@
 	\setkeys{HEC@jury}{gender=M,last=false,#1}
 	#2 \\
 	HEC Montréal \\
-	Représentant\ifdefstring{\HEC@jurygender}{F}{e}{} du directeur de HEC Montréal
+	Représentant\ifdefstring{\HEC@jurygender}{F}{e}{} du directeur de HEC 
+	Montréal
 	\ifbool{HEC@islastjury}{}{\vfill}
 }
 %    \end{macrocode}
@@ -3085,7 +3206,8 @@
 %
 %	La commande |\msctitlepage| gère la page titre d'un mémoire. Elle
 %	commence par appeler la commande |\frontinnerpage| afin de générer
-%	la page de garde puis génère la page titre avec les six métadonnées
+%	la page de garde, réinitialise le compteur de page à un,
+%	puis génère la page titre avec les six métadonnées
 %	communes vues dans la \autoref{subsubsec:user-guide-metadata} ainsi
 %	que le nom du directeur ou de la directrice de recherche.
 %
@@ -3105,8 +3227,8 @@
 %	must begin on the recto side of a sheet}, that is, on an
 %	odd-numbered page.
 %
-%	In this case, the \textsf{hecthese} class uses the default class
-%	options of the \textsf{memoir} class:
+%	In this case, the \textsf{hecthese} class uses the \textsf{memoir} class'
+%	default class options:
 %
 %	\begin{itemize}
 %		\item |twoside| to print the document double-sided;
@@ -3146,20 +3268,21 @@
 % \label{subsubsec:title-pages}
 %
 %	The \textsf{hecthese} class uses two different title
-%	pages --- one for master's dissertations and one for doctoral
-%	theses --- along with a doctoral jury identification page.
+%	pages --- one for master's theses and one for doctoral
+%	dissertations --- along with a doctoral jury identification page.
 %
 %	Each of these pages uses the |titlingpage*| environment from
 %	the \textsf{memoir} class. The starred version of the
 %	environment is used to prevent the page number from being reset
 %	to 1 after the title page, since, as stated in Appendix~K of
-%	the \emph{Guide de rédaction}, ``[all] pages are counted in
+%	the \emph{Writing Guide}, ``[all] pages are counted in
 %	numerical order, except for the two
 %	flyleaves''\cite{cfla2020guide}.
 %
 %	The |\msctitlepage| command handles the title page for a
-%	master's dissertation. It begins by calling the
-%	|\frontinnerpage| command to generate the flyleaf, then
+%	master's thesis. It begins by calling the
+%	|\frontinnerpage| command to generate the flyleaf, sets
+%	the page counter to one and
 %	produces the title page with the six common metadata fields
 %	seen in \autoref{subsubsec:user-guide-metadata}, along with
 %	the name of the research director.
@@ -3170,6 +3293,7 @@
 
 \newcommand{\msctitlepage}{%
 	\frontinnerpage
+	\setcounter{page}{1}
 	\begin{titlingpage*}
 		\centering
 		\begin{SingleSpace}
@@ -3208,9 +3332,9 @@
 %	d'identification du jury.
 %
 % \else
-%	The doctoral thesis title page is handled by the
+%	The doctoral dissertation title page is handled by the
 %	|\phdtitlepage| command. This page is nearly identical to that
-%	of the master's dissertation, except that it does not contain
+%	of the master's thesis, except that it does not contain
 %	the research director's information. That information appears
 %	instead on the jury identification page.
 %
@@ -3218,6 +3342,7 @@
 %    \begin{macrocode}
 \newcommand{\phdtitlepage}{%
 	\frontinnerpage
+	\setcounter{page}{1}
 	\begin{titlingpage*}
 		\centering
 		\begin{SingleSpace}
@@ -3230,7 +3355,8 @@
 				par \\
 				\theauthor
 				\vfill
-				Thèse présentée en vue de l'obtention du grade de Ph.D. en administration \\
+				Thèse présentée en vue de l'obtention du grade de Ph.D. 
+				en administration \\
 				(Spécialisation \thespecialization)
 				\vfill
 				\thedate
@@ -3319,9 +3445,17 @@
 %	appelées par la seule commande publique du lot : |\titlepageblock|.
 %
 %	Cette commande est la première appelée par les gabarits dans le corps
-%	du document. Elle évalue d'abord la valeur de la variable booléenne
-%	|HEC@phd| et, en fonction de celle-ci, va appeler la ou les commandes
-%	associées au type de document qui doit être généré.
+%	du document. Elle fixe la numérotation des pages en chiffres romains
+%	\footnote{La numérotation des pages titres n'est pas visible sur papier,
+%	mais elle doit tout de même commencer à ce point précis du document.}
+%	et évalue ensuite la valeur de la variable booléenne
+%	|HEC@phd|. En fonction de celle-ci, la commande va appeler la ou les commandes
+%	de page titre associées au type de document qui doit être généré.
+%
+%	Elle initialise ensuite la section des pages liminaires grâce à la
+%	commande |\frontmatter| de la classe \textsf{memoir} et fixe leur
+%	numérotation en chiffres romains sans remettre le compteur de pages
+%	à zéro.
 %
 % \else
 %	\DescribeMacro{\titlepageblock}
@@ -3331,22 +3465,49 @@
 %	|\titlepageblock|.
 %
 %	This command is the first one called by the templates in the
-%	document body. It first evaluates the value of the |HEC@phd|
-%	boolean variable and, depending on its value, calls the command
-%	or commands associated with the type of document to be
+%	document body. It fixes the page numbering to roman numerals and
+%	then evaluates the value of the |HEC@phd|
+%	boolean variable. Depending on its value, the command calls the title page
+%	command
+%	or commands associated with the type of document that needs to be
 %	generated.
+%
+%	It then initializes the \textsf{memoir} class' |\frontmatter| 
+%	document division and sets its page numbering to roman numerals 
+%	without resetting the page counter.
 %
 % \fi
 %    \begin{macrocode}
 \newcommand{\titlepageblock}{%
+	\settitlingpagenumbering{\roman}
 	\ifbool{HEC@phd}{%
 		\phdtitlepage
 		\phdjurypage
 	}{%
 		\msctitlepage
 	}
+	\frontmatter*
+	\pagenumbering*{roman}
+	\pagestyle{plain}
 }
 %    \end{macrocode}
+%
+% \ifFrenchDoc
+%
+% \else
+%
+%	\begin{warningbox}{Why are the title pages displayed in French if my document's default language is English?}
+%		The Université de Montréal’s \emph{Règlement pédagogique de la faculté des études
+%		supérieures et postdoctorales}\cite[art. 88,89,135,136]{secretariat2026reglement}
+%		mentions language and presentation standards that prevail for dissertations and 
+%		theses, and refers to the \emph{Guide de présentation des mémoires et des thèses}
+%		\cite[p. 18]{etudes2025guide} where it is
+%		written that ``title pages must be written in French even when the dissertation
+%		or thesis is written in English''. Since HEC Montréal is one of Université de
+%		Montréal’s affiliate schools, this rule prevails.
+%	\end{warningbox}
+%
+% \fi	
 %
 % \ifFrenchDoc
 % \subsubsection{Résumés}
@@ -3367,8 +3528,9 @@
 % \subsubsection{Abstracts}
 % \label{subsubsec:abstracts}
 %
-%	The \textsf{hecthese} class uses the |abstract| environment
-%	from the \textsf{memoir} class to produce the French and English
+%	The \textsf{hecthese} class uses the \textsf{memoir} class'
+%	|abstract| environment
+%	to produce the French and English
 %	abstracts in the document. However, the formatting of this
 %	environment is identical in every respect to that of the
 %	\textsf{article} class: indented paragraphs, a smaller font
@@ -3417,17 +3579,17 @@
 % \label{subsubsec:toc}
 %
 %	In section \emph{2.2 Organisation en sections et sous-sections
-	%	titrées et numérotées} of the \emph{Guide de rédaction}, it is
-%	stated that ``[one] should not exceed three numbered levels'' in
-%	the table of contents\cite{cfla2020guide}. The
+	%	titrées et numérotées} of the \emph{Writing Guide}, it is
+%	stated that ``the table of contents should not exceed three numbered levels''
+%	\cite{cfla2020guide}. The
 %	|\setsecnumdepth| and |\maxsecnumdepth| commands therefore
 %	restrict numbering to the subsection level, leaving all
 %	lower-level sections unnumbered. The |\settocdepth| command
 %	uses the same mechanism to exclude all levels below subsections
 %	from the table of contents.
 %
-%	Note that the \emph{Guide de rédaction} says ``one
-%	\textbf{should} not'' rather than ``one \textbf{must} not.''
+%	Note that the \emph{Writing Guide} says ``\textbf{should} not'' 
+%	rather than ``\textbf{must} not.''
 %	The numbering depth is therefore a recommendation, not a
 %	requirement. If, for one reason or another, you need an
 %	additional level of heading numbering, copy the three commands
@@ -3501,8 +3663,8 @@
 %	cette ligne en lui assignant une épaisseur de |0pt|.
 %
 % \else
-%	The class then reconfigures the |\epigraph| command of the
-%	\textsf{memoir} class so that the text it contains is fully
+%	The class then reconfigures the \textsf{memoir} class' |\epigraph| 
+%	command so that the text it contains is fully
 %	justified horizontally. A full rule normally separates the text
 %	from its source. \textsf{hecthese} removes this rule by setting
 %	its thickness to |0pt|.
@@ -3534,7 +3696,7 @@
 %	their dedication. The command begins by retrieving the value of
 %	the |signed| optional argument, then places the dedication text
 %	within the |\epigraph| command, which is itself nested inside
-%	the |vplace| environment of the \textsf{memoir} class. In doing
+%	the \textsf{memoir} class' |vplace| environment. By doing
 %	so, the dedication is vertically centered on its page.
 %
 %	Finally, if the student wishes to sign their dedication, the
@@ -3642,7 +3804,7 @@
 %	introduction for the entire document and one introduction per
 %	article. The same applies to conclusions and bibliographies.
 %
-%	The first example of managing multiples appears below, in the
+%	The first example of managing section duplicates appears below, in the
 %	|\introductiontitle| command. Its default value is
 %	\emph{Introduction}.
 %
@@ -3748,9 +3910,9 @@
 %	\textsf{hecthese} class. From this point on, the class and the
 %	templates are yours! Make them your own and adapt them to your
 %	needs! Your only constraint will always be to comply with the
-%	presentation rules of the \emph{Guide de rédaction}.
+%	presentation rules of the \emph{Writing Guide}.
 %
-%	Happy writing!
+%	Good luck in writing your dissertation or thesis!
 %
 % \fi
 %
@@ -3870,9 +4032,6 @@
 	
 	\titlepageblock
 	
-	\frontmatter
-	\pagestyle{plain}
-	
 	%<francais>\include{resume-francais}
 	%<english>\include{french-abstract}
 	\clearpage
@@ -3891,7 +4050,7 @@
 	\cleardoublepage
 	
 	%<francais>\include{liste-abreviations}
-	%<english>\include{acronym-list}
+	%<english>\include{acronyms-list}
 	\cleardoublepage
 
 %<*phd>	
@@ -3969,24 +4128,25 @@
 \printindex
 
 %<francais>%% --- Page de garde arrière ----------------------
-%<english>%% --- Back cover page ------------------------
+%<english>%% --- Back flyleaf ------------------------
 \mbox{}
 \thispagestyle{empty}
 \end{document}
 %</template>
 %<*frenchabstract>
+\thispagestyle{empty}
 \renewcommand{\abstractname}{Résumé}
 \abstractintoc
 \chapterheadstart
 \begin{abstract}
 	
 	%<francais>%% Rédigez votre résumé français ici.
-	%<english>%% Write your french abstract here.
+	%<english>%% Write your French abstract here.
 	
 	\section*{Mots-clés}
 	
 	%<francais>%% Rédigez vos mots-clés français ici.
-	%<english>%% Write your french keywords here.
+	%<english>%% Write your French keywords here.
 	
 \end{abstract}
 %</frenchabstract>
@@ -3996,12 +4156,12 @@
 \begin{abstract}
 	
 	%<francais>%% Rédigez votre résumé anglais ici.
-	%<english>%% Write your english abstract here.
+	%<english>%% Write your English abstract here.
 	
 	\section*{Keywords}
 	
 	%<francais>%% Rédigez vos mots-clés anglais ici.
-	%<english>%% Write your english keywords here.
+	%<english>%% Write your English keywords here.
 	
 \end{abstract}
 %</englishabstract>

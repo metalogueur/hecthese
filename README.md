@@ -38,8 +38,8 @@ a Graduate Level*.
 - **hecthese-en.ins**: the installation file for the English version of the
   class;
 - **hecthese.dtx**: the bilingual documented source code of the class;
-- **hecthese.pdf**: the French version of the class' documentation;
-- **hecthese-en.pdf**: the English version of the class' documentation;
+- **hecthese-fr.pdf**: the French version of the class' documentation;
+- **hecthese.pdf**: the English version of the class' documentation;
 - **README.md**: this file.
 
 ### Class installation
@@ -62,7 +62,7 @@ The command will generate multiple files:
 3. one file for each section of your work:
 	- abstract-french.tex
 	- abstract-english.tex
-	- acronym-list.tex
+	- acronyms-list.tex
 	- dedication.tex
 	- acknowledgements.tex
 	- preface.tex
@@ -101,8 +101,8 @@ la rédaction d'un travail universitaire de 1er, 2e et 3e cycles*.
 - **hecthese-en.ins** : le fichier d'installation de la version
   anglaise de la classe;
 - **hecthese.dtx** : le code source documenté bilingue de la classe;
-- **hecthese.pdf** : la version française de la documentation de la classe;
-- **hecthese-en.pdf** : la version anglaise de la documentation de la classe;
+- **hecthese-fr.pdf** : la version française de la documentation de la classe;
+- **hecthese.pdf** : la version anglaise de la documentation de la classe;
 - **README.md** : le présent fichier.
 
 ### Installation de la classe
